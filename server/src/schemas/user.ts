@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { env } from 'process';
-import { generateRandomSalt, generatePasswordHash } from '../../helpers/PasswordHelpers';
+import { generateRandomSalt, generatePasswordHash } from '../helpers';
+
 
 export interface IUser {
     username: String;
