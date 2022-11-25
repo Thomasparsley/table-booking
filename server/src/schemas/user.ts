@@ -37,7 +37,7 @@ export enum UserPermissions {
     MANAGE_TABLES = 1 << 2,
     SET_TABLE_FEATURES = 1 << 3,
     MANAGE_TABLE_FEATURES = 1 << 4,
-    ALL = ~(0 << 4)
+    ALL = ~(~1 << 4)
 };
 
 export const UserModel = model<IUser>("User", userSchema);
