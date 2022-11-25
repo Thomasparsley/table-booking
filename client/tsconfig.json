@@ -1,12 +1,4 @@
 {
     // https://nuxt.com/docs/guide/concepts/typescript
-    "extends": "./.nuxt/tsconfig.json",
-    "paths": {
-        "@libs/common": [
-            "../libs/common/src"
-        ],
-        "@libs/common/*": [
-            "../libs/common/src/*"
-        ],
-    }
+    "extends": "./.nuxt/tsconfig.json"
 }
