@@ -3,14 +3,16 @@ export default {
     data() {
         return {
             users: [{
-                name: 'Franta',
+                firstName: 'Franta',
                 lastName: 'Zdepa',
-                password: ''
+                email: 'emaiiil',
+                password: 'sss'
             },
             {
-                name: 'Franta2',
+                firstName: 'Franta2',
                 lastName: 'Zdepa2',
-                password: ''
+                email: 'emaiiil',
+                password: 'sss'
             }],
             tables: [{
                 name: 'Haha',
@@ -30,13 +32,19 @@ export default {
 
 
 // <h2>Users</h2>
-// <EditsEditUser :user="users[0]" />
+// <EditsEditUser :user="users" />
 //
 </script>
 
 
 <template>
     <h2>Tables</h2>
-    <EditsEditTable :table="tables[0]" />
+    <EditsEditTable :tables="tables" />
+    <span>{{ tables }}</span>
+
+    <h2>Users</h2>
+    <EditsEditUser :users="users" />
+    <span>{{ users }}</span>
+
 
 </template>

@@ -10,9 +10,7 @@ export interface IUser {
     salt: string;
     permissions?: number;
     tokens: string[];
-};
-
-type InternalUserModel = Model<IUser>;
+}
 
 const userSchema = new Schema<IUser>({
     //username: { type: String, required: true, unique: true },
@@ -33,4 +31,4 @@ export enum UserPermissions {
     SET_TABLE_FEATURES = 1 << 2,
     MANAGE_TABLE_FEATURES = 1 << 3,
     ALL = ~(~1 << 3)
-};
+}
