@@ -13,6 +13,18 @@ export default {
                 lastName: 'Zdepa2',
                 email: 'emaiiil',
                 password: 'sss'
+            },
+            {
+                firstName: 'Pepa',
+                lastName: 'Lepa2',
+                email: 'emaiii@seznam.cz',
+                password: 'sss'
+            },
+            {
+                firstName: 'Galileo',
+                lastName: 'Cubaru2',
+                email: 'emaiiil@gmail.com',
+                password: 'sss'
             }],
             filter: {
                 firstName: "",
@@ -41,8 +53,5 @@ export default {
 </script>
 
 <template>
-    <h2>Users</h2>
-    <EditsEditUsers :users="users" />
-    <span>{{ users }}</span>
-    <span>{{ realUsers }}</span>
+    <UsersTable :users="users" />
 </template>

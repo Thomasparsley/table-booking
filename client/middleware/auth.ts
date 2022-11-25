@@ -1,5 +1,10 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-    const isValidated = await useValidateUser();
+    const token = useCookie("token")
+    if (!token.value) {
+        return navigateTo("/login");
+    }
+
+    const isValidated = await useValidateUser(token.value);
     if (!isValidated) {
         return navigateTo("/login");
     }
@@ -7,4 +12,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (to.path === "/login") {
         return navigateTo("/");
     }
+
+    return true;
 });

@@ -100,8 +100,6 @@ export class AuthController extends Controller {
 
     private async validate(req: Request, res: Response) {
         // get token from cookie
-        console.log(req.headers);
-        console.log(req.cookies[TokenCookieName]);
         const token = req.cookies[TokenCookieName];
         const payload = await decodeToken(token);
         if (!payload) {
@@ -117,7 +115,7 @@ export class AuthController extends Controller {
             return;
         }
 
-        res.status(200);
+        res.status(200).end();
     }
 
     private async logout(req: Request, res: Response) {
