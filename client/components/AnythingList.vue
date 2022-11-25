@@ -1,10 +1,7 @@
 <script>
-
 export default {
-    name: 'AnythingList',
-    props: [items]
+    props: ["items"]
 }
-
 </script>
 
 <template>

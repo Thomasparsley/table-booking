@@ -7,11 +7,9 @@ app.get("/ping", function (_, res) {
 });
 
 let port: Number;
-
 if (process.env.IS_PRODUCTION) {
     port = 3000;
-}
-else {
+} else {
     port = 4000;
 }
 
