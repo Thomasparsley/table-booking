@@ -1,6 +1,5 @@
 <template>
     <header aria-label="Site Header" class="shadow-sm">
-
         <div class="mx-auto flex items-center justify-between h-16 max-w-screen-xl px-4">
             <!-- Logo -->
             <NavLogo />
@@ -8,21 +7,16 @@
             <!-- Nav web -->
             <nav aria-label="Site Nav"
                 class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
-                <a class="text-gray-900" href="">About</a>
-                <a class="text-gray-900" href="">Blog</a>
-                <a class="text-gray-900" href="">Projects</a>
-                <a class="text-gray-900" href="">Contact</a>
+                <NuxtLink class="text-gray-900" to="/search">Search</NuxtLink>
+                <NuxtLink class="text-gray-900" to="/users">Users</NuxtLink>
+                <NuxtLink class="text-gray-900" to="/">Domuuu</NuxtLink>
             </nav>
 
             <!-- Login web -->
             <div class="hidden items-center gap-4 lg:flex">
-                <a href="#" class="rounded-lg bg-gray-100 px-5 py-2 text-sm font-medium text-gray-600">
-                    Log in
-                </a>
-
-                <a href="#" class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white">
-                    Sign up
-                </a>
+                <NuxtLink to="/login" class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white">
+                    Log In
+                </NuxtLink>
             </div>
 
             <!-- Profile mobile -->
@@ -36,16 +30,6 @@
                     </svg>
                 </button>
             </div>
-        </div>
-
-        <!-- Nav mobile -->
-        <div class="absolute bottom-0 w-screen border-t border-gray-100 lg:hidden">
-            <nav class="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
-                <a class="flex-shrink-0 pl-4 text-gray-900" href="">About</a>
-                <a class="flex-shrink-0 pl-4 text-gray-900" href="">Blog</a>
-                <a class="flex-shrink-0 pl-4 text-gray-900" href="">Projects</a>
-                <a class="flex-shrink-0 pl-4 text-gray-900" href="">Contact</a>
-            </nav>
         </div>
     </header>
 </template>

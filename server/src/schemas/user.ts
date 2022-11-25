@@ -9,7 +9,12 @@ export interface IUser {
     passwordHash: String;
     salt: String;
     permissions?: Number;
+    tokens: String[];
 };
+
+interface IUserMethods {
+
+}
 
 const userSchema = new Schema<IUser>({
     username: { type: String, required: true },
@@ -33,11 +38,11 @@ userSchema.methods.verifyPassword = async function (plainPassword: string): Prom
 };
 
 export enum UserPermissions {
-    MANAGE_ROOMS = 1 << 1,
-    MANAGE_TABLES = 1 << 2,
-    SET_TABLE_FEATURES = 1 << 3,
-    MANAGE_TABLE_FEATURES = 1 << 4,
-    ALL = ~(~1 << 4)
+    MANAGE_ROOMS = 1 << 0,
+    MANAGE_TABLES = 1 << 1,
+    SET_TABLE_FEATURES = 1 << 2,
+    MANAGE_TABLE_FEATURES = 1 << 3,
+    ALL = ~(~1 << 3)
 };
 
 export const UserModel = model<IUser>("User", userSchema);

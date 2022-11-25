@@ -1,8 +1,8 @@
 <template>
     <div class="flex">
-        <a href="#">
+        <NuxtLink to="/">
             <div class="h-16 w-16 logo-background"></div>
-        </a>
+        </NuxtLink>
     </div>
 </template>
 

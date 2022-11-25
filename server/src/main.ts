@@ -1,4 +1,10 @@
 import express, { Express } from "express";
+import { initializePassport } from "./helpers";
+
+
+
+//Initialize after database
+initializePassport();
 
 const app: Express = express();
 
