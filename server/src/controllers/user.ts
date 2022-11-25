@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import { IUserService } from "../services";
 
-export class UserRouter {
+export class UserController {
 
     constructor(
         private readonly userService: IUserService,
