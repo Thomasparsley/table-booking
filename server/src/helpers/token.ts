@@ -33,12 +33,11 @@ export async function verifyToken(token: string, secretKey: string): Promise<boo
 }
 
 
-export function decodeToken(token: string): Promise<ITokenPayload | null> {
-    return new Promise(function (resolve, reject) {
-        const decoded = jwt.decode(token, { complete: true });
-        if (decoded) {
-            resolve(decoded.payload as ITokenPayload);
-        }
-        reject("The token could not be decoded");
-    });
+export function decodeToken(token: string): ITokenPayload | null {
+    const decoded = jwt.decode(token, { complete: true });
+    if (decoded) {
+        return decoded.payload as ITokenPayload;
+    }
+
+    return null;
 }

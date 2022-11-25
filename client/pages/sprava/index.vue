@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const allRooms: any[] = await fetchRooms();
-console.log(allRooms);
+
+const self: any = await fetchSelf();
+
+console.log(self);
 </script>
 
 <template>

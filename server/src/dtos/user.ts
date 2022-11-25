@@ -8,5 +8,5 @@ export interface DtoNewUser {
 export interface DtoUpdateUser extends DtoNewUser {
     phone: string;
     avatar: string;
-    following: Types.ObjectId;
+    following: Types.ObjectId[];
 }

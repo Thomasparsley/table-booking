@@ -5,7 +5,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     const isValidated = await useValidateUser(token.value);
-    console.log(isValidated);
     if (isValidated) {
         return navigateTo("/");
     }

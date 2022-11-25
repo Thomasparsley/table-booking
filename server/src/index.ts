@@ -48,12 +48,6 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(cookieParser());
 // app.use(helmet());
-app.use(function (req, res, next) {
-    /*console.log(req.params);
-    console.log(req.body);
-    console.log(req.headers);*/
-    next();
-});
 
 const superSecretKey = "sdadsa";
 

@@ -15,13 +15,23 @@ export default {
         this.users = await fetchUsers();
         console.log(this.users);
 
-        // this.loggedUser = await fetchSelf();
-        console.log(this.loggedUser);
+        console.log("Fetch self: ")
+        this.loggedUser = await fetchSelf();
+        console.log(JSON.stringify(this.loggedUser));
     },
 
     methods: {
         followed(user) {
-            return this.loggedUser.following.contains(user._id)
+            return true
+            //return this.loggedUser.following.includes(user._id)
+        },
+        onAddFollow(user) {
+
+            // this.loggedUser = fetchSelf()
+        },
+        onDeleteFollow(user) {
+
+            // this.loggedUser = fetchSelf()
         }
     },
 

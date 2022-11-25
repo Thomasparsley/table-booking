@@ -33,16 +33,10 @@ export class UserController extends Controller {
 
     private async all(req: Request, res: Response) {
         const users = await this.userService.getAll()
-        console.log(users);
         res.status(200).json(users);
     }
 
     private async one(req: Request, res: Response) {
-        /*if (!req.params.id) {
-            res.status(400);
-            return;
-        }
-        console.log(req.params.id);*/
         const id = new Types.ObjectId(req.params.id);
         const user = await this.userService.getById(id);
 

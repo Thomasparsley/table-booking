@@ -64,14 +64,14 @@ export class AuthController extends Controller {
         await this.userService.addToken(user._id, token);
 
         // set token in cookie
-        const response = res.cookie("token", token, { expires: expireFromNow() });
+        res.cookie("token", token, { expires: expireFromNow() });
         return res.status(200).end();
     }
 
     private async renew(req: Request, res: Response) {
         // get token from cookie
         const token = req.cookies[TokenCookieName];
-        const payload = await decodeToken(token);
+        const payload = decodeToken(token);
         if (!payload) {
             res.status(401).json({ message: "Invalid token" });
             return;
@@ -101,7 +101,7 @@ export class AuthController extends Controller {
     private async validate(req: Request, res: Response) {
         // get token from cookie
         const token = req.cookies[TokenCookieName];
-        const payload = await decodeToken(token);
+        const payload = decodeToken(token);
         if (!payload) {
             res.status(401).json({ message: "Invalid token" });
             return;
@@ -121,7 +121,7 @@ export class AuthController extends Controller {
     private async logout(req: Request, res: Response) {
         // get token from cookie
         const token = req.cookies[TokenCookieName];
-        const payload = await decodeToken(token);
+        const payload = decodeToken(token);
         if (!payload) {
             res.status(401).json({ message: "Invalid token" });
             return;

@@ -1,5 +1,7 @@
 import useApiFetch from "./useApiFetch";
 
+const tokenName = "token";
+
 //#region Rooms
 export async function fetchRooms() {
     const { data } = await useApiFetch("/rooms");
@@ -63,8 +65,16 @@ export async function fetchUserById(id: string) {
 }
 
 export async function fetchSelf() {
-    const { data } = await useApiFetch("/users/me");
+    const token = useParseCookies(document.cookie);
+    const { data } = await useApiFetch("/users/me", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            cookie: `${tokenName}=${token}`,
+        }
+    });
     if (data && data.value) {
+        console.log()
         //@ts-ignore
         return data.value[0];
     }

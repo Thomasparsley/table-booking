@@ -26,7 +26,7 @@ export class RoomController extends Controller {
         super.installRoutes(app, prefix, router);
     }
 
-    private async all(req: Request, res: Response) {
+    private async all(_: Request, res: Response) {
         const rooms = await this.roomService.getAll()
         return res.status(200).json(rooms);
     }
