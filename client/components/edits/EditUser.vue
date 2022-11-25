@@ -1,22 +1,21 @@
 <script>
 export default {
-    props: ['table'],
+    props: ['user'],
     methods: {
         async submitEvent() {
-            console.log(table);
+            console.log(user);
         }
     }
 }
 </script>
 
 <template>
-    <h2>{{ table.name }}</h2>
+    <h2>Edit User</h2>
     <form action="edit" class="column">
-        <input type="text" v-model="table.name">
-        <input type="text" v-model="table.descript">
-        <input type="text" v-model="table.chairs">
-        <input type="text" v-model="table.room">
+        <input type="text" v-model="user.name">
+        <input type="text" v-model="user.lastName">
+        <input type="password" v-model="user.lastName">
         <button @click.prevent="submitEvent">Submit</button>
     </form>
-    <span>{{ table }}</span>
+    <span>{{ user }}</span>
 </template>

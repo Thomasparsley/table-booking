@@ -1,16 +1,19 @@
 import passport from "passport"
 import { Strategy as LocalStrategy } from "passport-local";
-import { UserModel, IUser } from "../schemas";
+import { IUserService } from "../services";
+import { verifyPassword } from "./";
 
-export function initializePassport(): void {
+export function initializePassport(
+    userService: IUserService
+): void {
     passport.use(new LocalStrategy({
-        usernameField: "user[username]",
+        usernameField: "user[email]",
         passwordField: "user[password]"
-    }, function (username, password, done) {
-        const user = UserModel.findOne((user: IUser) => user.username == username);
-        if (user == null || user.verifyPassword()) {
-            return done("Invalid username or password", null, {
-                message: "The specified username or password is not valid"
+    }, async (email, password, done) => {
+        const user = await userService.getByEmail(email);
+        if (user == null || !(await verifyPassword(password, user))) {
+            return done("Invalid email or password", null, {
+                message: "The specified email or password is not valid"
             });
         }
         return done(null, user);

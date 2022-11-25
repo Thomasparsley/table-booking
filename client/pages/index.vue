@@ -27,5 +27,4 @@ export default {
         <span>Hele, sem muzem neco dat kdyztak</span>
     </div>
     <AnythingList :items="tables" />
-    <editsEditTable :table="tables[0]" />
 </template>

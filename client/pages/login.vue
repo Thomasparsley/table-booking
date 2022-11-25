@@ -1,58 +1,56 @@
+<script>
+definePageMeta({
+    layout: "custom",
+});
+</script>
+
 <template>
-    <section class="bg-white">
-        <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-            <aside class="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
-                <img alt="Pattern"
-                    src="https://images.unsplash.com/photo-1605106702734-205df224ecce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                    class="absolute inset-0 h-full w-full object-cover" />
-            </aside>
-
-            <main aria-label="Main"
-                class="flex items-center justify-center py-8 sm:px-12 lg:col-span-7 lg:py-12 xl:col-span-6">
-                <div class="max-w-xl lg:max-w-3xl">
-                    <h1 class="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                        Přihlášení
-                    </h1>
-
-                    <form action="#" class="mt-8 grid grid-cols-6 gap-6">
-                        <div class="col-span-6">
-                            <label for="Email" class="block text-sm font-medium text-gray-700">
-                                Email
-                            </label>
-
-                            <input type="email" id="Email" name="email"
-                                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
-                        </div>
-
-                        <div class="col-span-6">
-                            <label for="Password" class="block text-sm font-medium text-gray-700">
-                                Heslo
-                            </label>
-
-                            <input type="password" id="Password" name="password"
-                                class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
-                        </div>
-
-                        <div class="col-span-6">
-                            <label for="MarketingAccept" class="flex gap-4">
-                                <input type="checkbox" id="MarketingAccept" name="marketing_accept"
-                                    class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm" />
-
-                                <span class="text-sm text-gray-700">
-                                    Zůstat přihlášen
-                                </span>
-                            </label>
-                        </div>
-
-                        <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                            <button
-                                class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                                Přihlásit se
-                            </button>
-                        </div>
-                    </form>
+    <div class="flex h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md space-y-8">
+            <div>
+                <img class="mx-auto h-12 w-auto" src="/img/forvia.png" alt="Forvia Hella" />
+                <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Přihlášení
+                </h2>
+            </div>
+            <form class="mt-8 space-y-6" action="#" method="POST">
+                <input type="hidden" name="remember" value="true" />
+                <div class="-space-y-px rounded-md shadow-sm">
+                    <div>
+                        <label for="email-address" class="sr-only">Email</label>
+                        <input id="email-address" name="email" type="email" autocomplete="email" required
+                            class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Email" />
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">Heslo</label>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required
+                            class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Heslo" />
+                    </div>
                 </div>
-            </main>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox"
+                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">Zapamatovat</label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Zapomenuté heslo?</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <!-- <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" /> -->
+                        </span>
+                        Log in
+                    </button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
 </template>

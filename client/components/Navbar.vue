@@ -7,9 +7,15 @@
             <!-- Nav web -->
             <nav aria-label="Site Nav"
                 class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
-                <NuxtLink class="text-gray-900" to="/search">Search</NuxtLink>
-                <NuxtLink class="text-gray-900" to="/users">Users</NuxtLink>
-                <NuxtLink class="text-gray-900" to="/">Domuuu</NuxtLink>
+                <NuxtLink class="text-gray-900" to="/search">
+                    Search
+                </NuxtLink>
+                <NuxtLink class="text-gray-900" to="/users">
+                    Users
+                </NuxtLink>
+                <NuxtLink class="text-gray-900" to="/edits">
+                    Edits
+                </NuxtLink>
             </nav>
 
             <!-- Login web -->
