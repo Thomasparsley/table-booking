@@ -13,16 +13,15 @@ export default {
         console.log(this.users);
     },
 
-    methods: {
+    computed: {
         filteredUsers() {
-            return this.users.filter(user => user.name.includes(this.filter))
+            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
         }
     }
 }
 </script>
 
 <template>
-    <span>{{ filteredUsers }}</span>
     <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
@@ -53,7 +52,7 @@ export default {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="user in users" :key="user.id">
+                            <tr v-for="user in filteredUsers" :key="user.id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full"
