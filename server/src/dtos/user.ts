@@ -5,6 +5,4 @@ export interface DtoNewUser {
     lastName: string;
 }
 
-export interface DtoUpdateUser extends DtoNewUser {
-    id: string;
-}
+export interface DtoUpdateUser extends DtoNewUser { }
