@@ -7,7 +7,7 @@ services:
     expose:
       - 27017
     ports:
-      - 27017:27017
+      - 27016:27017
     volumes:
       - ./db/mongo:/data/db
     environment:
