@@ -2,24 +2,29 @@ import express, { Express } from "express";
 import { initializePassport } from "./helpers";
 import { expressjwt, ExpressJwtRequest } from "express-jwt";
 
+import {
+    AuthController,
+    RoomController,
+    TableController,
+    UserController,
+} from "./controllers";
+
 
 //Initialize after database
 initializePassport();
 
 const app: Express = express();
 
-app.get("/auth",
-    expressjwt({
-        secret: "", //TODO: add secret
-        algorithms: ["HS256"]
-    }),
-    function (req, res) {
-        if (!req.isAuthenticated()) {
-            res.writeHead(403)
-            res.end("Forbidden");
-        }
-    }
-)
+
+const authController = new AuthController();
+const roomController = new RoomController();
+const tableController = new TableController();
+const userController = new UserController();
+
+
+
+app.use()
+
 
 app.get("/ping", function (_, res) {
     res.status(200).write("Pong!");
