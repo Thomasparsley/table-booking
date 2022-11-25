@@ -1,20 +1,15 @@
 <script>
 export default {
+    setup() {
+        definePageMeta({
+            middleware: ["auth"]
+        })
+    },
+
     data() {
         return {
-            filter: {
-                firstName: "",
-                lastName: "",
-                email: "",
-            }
         }
     },
-    methods: {
-
-    },
-    computed: {
-
-    }
 }
 </script>
 

@@ -1,5 +1,11 @@
 <script>
 export default {
+    setup() {
+        definePageMeta({
+            middleware: ["auth"]
+        })
+    },
+
     data() {
         return {
             user: {
@@ -35,31 +41,6 @@ export default {
                     <ReservationCard />
                 </div>
             </div>
-
-            <!-- <div>
-                <form action="#" class="mt-8 flex flex-col gap-4">
-                    <div>
-                        <label for="Password" class="block text-sm font-medium text-gray-700">
-                            Heslo
-                        </label>
-
-                        <input type="password" id="Password" name="password"
-                            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
-                    </div>
-                    <div>
-                        <label for="Password" class="block text-sm font-medium text-gray-700">
-                            Potvrzení hesla:
-                        </label>
-
-                        <input type="password" id="Password" name="password"
-                            class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
-                    </div>
-                    <button
-                        class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
-                        Změnit
-                    </button>
-                </form>
-            </div> -->
         </div>
     </div>
 </template>

@@ -2,6 +2,8 @@
 definePageMeta({
     // @ts-ignore
     layout: "navless",
+    // @ts-ignore
+    middleware: ["is-auth"],
 });
 
 const loginForm = ref({
@@ -17,8 +19,9 @@ async function sendLogin() {
         credentials: "include",
     });
 
-    if (!response.error)
+    if (!response.error.value) {
         await navigateTo("/");
+    }
 }
 </script>
 

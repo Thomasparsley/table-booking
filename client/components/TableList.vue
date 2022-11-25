@@ -3,19 +3,40 @@ export default {
     data() {
         return {
             filter: "",
-            users: [],
+            tables: [
+                {
+                    name: '1',
+                    seatCount: 4
+                },
+                {
+                    name: '2',
+                    seatCount: 5
+                },
+            ],
         }
     },
 
     async created() {
         console.log("created")
-        this.users = await fetchUsers();
-        console.log(this.users);
+        //this.tables = await fetchTables();
+        console.log(this.tables);
     },
 
     computed: {
-        filteredUsers() {
-            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
+        filteredTables() {
+            return this.tables
+        }
+    },
+
+    methods: {
+        onEdit(table) {
+            console.log("Editing " + JSON.stringify(table))
+        },
+        onDelete(table) {
+            console.log("Deleting " + JSON.stringify(table))
+        },
+        onAdd() {
+            console.log("Creating new table")
         }
     }
 }
@@ -24,13 +45,17 @@ export default {
 <template>
     <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
-            <header class="px-5 py-4 border-b border-gray-100">
-                <h2 class="font-semibold text-gray-800">Uživatele</h2>
+            <header class="px-5 py-4 border-b border-gray-100 flex">
+                <h2 class="font-semibold text-gray-800">Stoly</h2>
+                <button @click="onAdd"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    +
+                </button>
             </header>
-            <label for="UserEmail"
+            <label for="tableEmail"
                 class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
 
-                <input v-model="filter" type="email" id="UserEmail" placeholder="Email"
+                <input v-model="filter" type="email" id="tableEmail" placeholder="Email"
                     class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
 
                 <span
@@ -44,26 +69,30 @@ export default {
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Name</div>
+                                    <div class="font-semibold text-left">Název</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Email</div>
+                                    <div class="font-semibold text-left">Židlí</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Akce</div>
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="user in filteredUsers" :key="user.id">
+                            <tr v-for="table in filteredTables" :key="table.id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full"
-                                                src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg"
-                                                width="40" height="40" alt="Alex Shatov"></div>
-                                        <div class="font-medium text-gray-800">{{ user.firstName }} {{ user.lastName }}
+                                        <div class="font-medium text-gray-800">{{ table.name }}
                                         </div>
                                     </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">{{ user.email }}</div>
+                                    <div class="text-left">{{ table.seatCount }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap flex gap-2">
+                                    <button @click="onEdit(table)" class="text-right">Edit</button>
+                                    <button @click="onDelete(table)" class="text-right">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

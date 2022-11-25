@@ -7,7 +7,6 @@
                         stroke-linejoin="round" stroke-width="2"></path>
                 </svg>
             </MenuButton>
-
         </div>
 
         <transition enter-active-class="transition ease-out duration-100"
