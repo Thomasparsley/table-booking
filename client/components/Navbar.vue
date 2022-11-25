@@ -7,8 +7,8 @@
             <!-- Nav web -->
             <nav aria-label="Site Nav"
                 class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
-                <NuxtLink class="text-gray-900" to="/search">
-                    Search
+                <NuxtLink class="text-gray-900" to="/tables">
+                    Tables
                 </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/users">
                     Users
@@ -26,7 +26,7 @@
             </div>
 
             <!-- Profile mobile -->
-            <div class="flex lg:hidden">
+            <!-- <div class="flex lg:hidden">
                 <button class="rounded-full bg-gray-100 p-2 text-gray-600" type="button">
                     <span class="sr-only">Account</span>
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"
@@ -35,7 +35,10 @@
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
                     </svg>
                 </button>
-            </div>
+            </div> -->
+
+            <NavDropdown />
+
         </div>
     </header>
 </template>
