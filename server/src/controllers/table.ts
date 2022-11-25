@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { IUserService } from "../services";
+import { Types } from "mongoose";
 
 export class TableController {
 
@@ -19,7 +20,8 @@ export class TableController {
     }
 
     private async one(req: Request, res: Response) {
-        const user = await this.userService.getById(req.params.id);
+        const id = new Types.ObjectId(req.params.id);
+        const user = await this.userService.getById(id);
 
         if (!user) {
             res.status(404).json({ message: "User not found" });
