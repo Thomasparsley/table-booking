@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { generateRandomSalt, generatePasswordHash } from '../helpers';
 
-
 export interface IUser {
     username: String;
     email: String;
