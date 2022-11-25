@@ -1,4 +1,5 @@
-import { ITable, TableModel } from "../schemas";
+import { ITable } from "../interfaces";
+import { TableModel } from "../models";
 import { DtoNewTable, DtoUpdateTable } from "../dtos";
 
 

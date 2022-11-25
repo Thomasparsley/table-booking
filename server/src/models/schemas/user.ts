@@ -1,18 +1,7 @@
-import { Schema, model, Model } from 'mongoose';
-import { generateRandomSalt, generatePasswordHash } from '../helpers';
+import { Schema } from 'mongoose';
+import { IUser } from '../../interfaces';
 
-export interface IUser {
-    //username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    passwordHash: string;
-    salt: string;
-    permissions?: number;
-    tokens: string[];
-}
-
-const userSchema = new Schema<IUser>({
+export const UserSchema = new Schema<IUser>({
     //username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     firstName: { type: String, required: true },
@@ -20,10 +9,9 @@ const userSchema = new Schema<IUser>({
     passwordHash: { type: String, required: true },
     salt: { type: String, required: true },
     permissions: { type: Number, required: false },
-    tokens: { type: [String], required: true }
+    tokens: { type: [String], required: true },
+    following: { type: [Schema.Types.ObjectId], required: true }
 });
-
-export const UserModel = model<IUser>("User", userSchema);
 
 export enum UserPermissions {
     MANAGE_ROOMS = 1 << 0,

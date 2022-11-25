@@ -1,5 +1,5 @@
 import { pbkdf2Sync, randomBytes } from "crypto";
-import { IUser } from "../schemas";
+import { IUser } from "../models/schemas";
 
 export function generatePasswordHash(plainPassword: string, salt: string): Promise<string> {
     return new Promise((resolve, reject) => {

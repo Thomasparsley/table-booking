@@ -1,4 +1,5 @@
-import { IRoom, RoomModel } from "../schemas";
+import { IRoom } from "../interfaces";
+import { RoomModel } from "../models";
 import { DtoNewRoom, DtoUpdateRoom } from "../dtos";
 
 

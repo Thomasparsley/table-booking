@@ -1,4 +1,4 @@
-import { IRoom } from "../schemas"
+import { IRoom } from "../interfaces";
 import { DtoNewRoom, DtoUpdateRoom } from "../dtos";
 
 export interface IRoomService {

@@ -1,4 +1,4 @@
-import { IUser } from "../schemas"
+import { IUser } from "../interfaces";
 import { DtoNewUser, DtoUpdateUser } from "../dtos";
 
 export interface IUserService {

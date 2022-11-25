@@ -1,4 +1,5 @@
-import { IUser, UserModel } from "../schemas";
+import { IUser } from "../interfaces";
+import { UserModel } from "../models";
 import { DtoNewUser, DtoUpdateUser } from "../dtos";
 
 

@@ -1,4 +1,4 @@
-import { ITable } from "../schemas"
+import { ITable } from "../interfaces";
 import { DtoNewTable, DtoUpdateTable } from "../dtos";
 
 export interface ITableService {
