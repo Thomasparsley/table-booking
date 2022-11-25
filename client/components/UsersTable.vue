@@ -1,28 +1,37 @@
 <script>
 export default {
-    props: ['users'],
-    methods: {
-        async submitEvent() {
-            console.log(users);
+    data() {
+        return {
+            filter: "",
+            users: [],
         }
     },
-    computed: {
-        realUsers() {
-            return this.users.filter(user => user.name.includes())
+
+    async created() {
+        console.log("created")
+        this.users = await fetchUsers();
+        console.log(this.users);
+    },
+
+    methods: {
+        filteredUsers() {
+            return this.users.filter(user => user.name.includes(this.filter))
         }
     }
 }
 </script>
 
 <template>
-    <section class>
+    <span>{{ filteredUsers }}</span>
+    <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
                 <h2 class="font-semibold text-gray-800">Uživatele</h2>
             </header>
             <label for="UserEmail"
                 class="relative block overflow-hidden px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                <input type="email" id="UserEmail" placeholder="Email"
+
+                <input v-model="filter" type="email" id="UserEmail" placeholder="Email"
                     class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
 
                 <span

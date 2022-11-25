@@ -1,0 +1,22 @@
+<template>
+    <header aria-label="Site Header" class="shadow-sm">
+        <div class="mx-auto flex items-center justify-between h-16 max-w-screen-xl px-4">
+            <NavLogo />
+
+            <nav aria-label="Site Nav"
+                class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
+                <NuxtLink class="text-gray-900" to="/tables">
+                    Tables
+                </NuxtLink>
+                <NuxtLink class="text-gray-900" to="/users">
+                    Users
+                </NuxtLink>
+                <NuxtLink class="text-gray-900" to="/edits">
+                    Edits
+                </NuxtLink>
+            </nav>
+
+            <NavDropdown />
+        </div>
+    </header>
+</template>

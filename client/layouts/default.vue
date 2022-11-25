@@ -1,6 +1,6 @@
 <template>
     <div class="relative min-h-screen">
-        <Navbar />
+        <NavNavbar />
         <slot />
         <NavMobile />
     </div>

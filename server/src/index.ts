@@ -65,9 +65,9 @@ const tableController = new TableController(tableRepository);
 const userController = new UserController(userRepository);
 
 authController.installRoutes(app, "/api/auth");
-roomController.installRoutes(app, "/api/room");
-tableController.installRoutes(app, "/api/table");
-userController.installRoutes(app, "/api/user");
+roomController.installRoutes(app, "/api/rooms");
+tableController.installRoutes(app, "/api/tables");
+userController.installRoutes(app, "/api/users");
 
 app.get("/ping", function (_, res) {
     res.status(200).write("Pong!");

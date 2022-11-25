@@ -28,6 +28,7 @@ export class UserController extends Controller {
 
     private async all(req: Request, res: Response) {
         const users = await this.userService.getAll()
+        console.log(users);
         res.status(200).json(users);
     }
 

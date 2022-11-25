@@ -2,7 +2,7 @@ import { IEvent } from "../interfaces";
 import { DtoNewRoom, DtoUpdateRoom } from "../dtos";
 import { Types } from "mongoose";
 
-export interface IRoomService {
+export interface IEventService {
     getById(id: Types.ObjectId): Promise<IEvent | null>;
     getAll(): Promise<IEvent[]>;
     create(room: DtoNewRoom): Promise<IEvent>;
