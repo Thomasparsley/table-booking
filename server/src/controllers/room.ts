@@ -27,48 +27,48 @@ export class RoomController extends Controller {
     }
 
     private async all(req: Request, res: Response) {
-        const users = await this.roomService.getAll()
-        res.status(200).json(users);
+        const rooms = await this.roomService.getAll()
+        res.status(200).json(rooms);
     }
 
     private async one(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.roomService.getById(id);
+        const room = await this.roomService.getById(id);
 
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (!room) {
+            res.status(404).json({ message: "Room not found" });
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).json(room);
     }
 
     private async create(req: Request, res: Response) {
-        const user = await this.roomService.create(req.body);
-        res.status(200).json(user);
+        const room = await this.roomService.create(req.body);
+        res.status(200).json(room);
     }
 
     private async update(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.roomService.update(id, req.body);
+        const room = await this.roomService.update(id, req.body);
 
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (!room) {
+            res.status(404).json({ message: "Room not found" });
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).json(room);
     }
 
     private async delete(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.roomService.delete(id);
+        const room = await this.roomService.delete(id);
 
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (!room) {
+            res.status(404).json({ message: "Room not found" });
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).json(room);
     }
 }

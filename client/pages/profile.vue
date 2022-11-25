@@ -21,7 +21,7 @@ export default {
 
 <template>
     <div class="flex flex-col relative">
-        <div class="h-32 lg:h-48 w-screen image-background md:bg-cover"></div>
+        <div class="h-32 lg:h-48 w-full image-background md:bg-cover"></div>
 
         <img alt="uživatel"
             src="https://images.unsplash.com/photo-1614644147724-2d4785d69962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
@@ -30,7 +30,8 @@ export default {
         <div class="px-6 lg:px-36 mt-14 lg:mt-20">
             <div>
                 <h3 class="text-3xl font-medium">Claire Mac</h3>
-                <div class="text-xs font-medium text-gray-500"> example@hella.cz </div>
+                <div class="text-base font-medium text-gray-500"> example@hella.cz </div>
+                <div class="text-base font-medium text-gray-500">Sledujících 13</div>
             </div>
 
             <div class="my-8">

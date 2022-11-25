@@ -7,6 +7,8 @@ import { Types } from "mongoose";
 import { generatePasswordHash } from "./helpers";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import { CronJob } from "cron";
+import { verifyToken } from "./helpers";
 
 import {
     RoomModel,
@@ -72,6 +74,24 @@ userController.installRoutes(app, "/api/users");
 app.get("/ping", function (_, res) {
     res.status(200).write("Pong!");
 });
+
+
+// Remove all expired tokens every 5 minutes
+const TokenRemoverJob = new CronJob("0 */5 * * * *", async function () {
+    const users = await userRepository.getAll();
+
+    users.forEach(async (user) => {
+        const tokens = user.tokens
+
+        tokens.filter(async (token) => {
+            const valid = await verifyToken(token, superSecretKey);
+            return valid;
+        })
+
+        await userRepository.updateTokens(user._id, tokens);
+    });
+});
+TokenRemoverJob.start();
 
 let port: Number;
 if (process.env.IS_PRODUCTION) {

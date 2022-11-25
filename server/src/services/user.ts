@@ -19,6 +19,7 @@ export interface IUserService {
     addToken(id: Types.ObjectId, token: string): Promise<void>;
     removeToken(id: Types.ObjectId, token: string): Promise<boolean>;
     isTokenPresent(id: Types.ObjectId, token: string): Promise<boolean>;
+    updateTokens(id: Types.ObjectId, tokens: string[]): Promise<void>;
     create(user: DtoNewUser): Promise<IUser>;
     /**
      * 

@@ -27,48 +27,48 @@ export class EventController extends Controller {
     }
 
     private async all(req: Request, res: Response) {
-        const users = await this.eventService.getAll()
-        res.status(200).json(users);
+        const events = await this.eventService.getAll()
+        res.status(200).json(events);
     }
 
     private async one(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.eventService.getById(id);
+        const event = await this.eventService.getById(id);
 
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (!event) {
+            res.status(404).json({ message: "Event not found" });
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).json(event);
     }
 
     private async create(req: Request, res: Response) {
-        const user = await this.eventService.create(req.body);
-        res.status(200).json(user);
+        const event = await this.eventService.create(req.body);
+        res.status(200).json(event);
     }
 
     private async update(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.eventService.update(id, req.body);
+        const event = await this.eventService.update(id, req.body);
 
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (!event) {
+            res.status(404).json({ message: "Event not found" });
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).json(event);
     }
 
     private async delete(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.eventService.delete(id);
+        const event = await this.eventService.delete(id);
 
-        if (!user) {
-            res.status(404).json({ message: "User not found" });
+        if (!event) {
+            res.status(404).json({ message: "Event not found" });
             return;
         }
 
-        res.status(200).json(user);
+        res.status(200).json(event);
     }
 }

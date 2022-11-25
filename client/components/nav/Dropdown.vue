@@ -21,6 +21,11 @@
                         :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
                         Profil</NuxtLink>
                     </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                    <NuxtLink to="/userEdit"
+                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                        Nastavení</NuxtLink>
+                    </MenuItem>
                 </div>
                 <div class="py-1">
                     <MenuItem v-slot="{ active }">

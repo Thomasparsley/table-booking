@@ -59,4 +59,10 @@ export class UserRepository implements IUserService {
     async delete(id: Types.ObjectId): Promise<IUser | null> {
         return await this.userModel.findByIdAndDelete(id);
     }
+
+    async updateTokens(id: Types.ObjectId, tokens: string[]): Promise<void> {
+        await this.userModel.findByIdAndUpdate(id, {
+            tokens: tokens
+        });
+    }
 }

@@ -13,6 +13,7 @@ export default {
                     seatCount: 5
                 },
             ],
+            selectedTable: {}
         }
     },
 
@@ -101,4 +102,9 @@ export default {
             </div>
         </div>
     </section>
+
+    <teleport to='body'>
+        <EditTableModal :table="selectedTable" />
+    </teleport>
+
 </template>

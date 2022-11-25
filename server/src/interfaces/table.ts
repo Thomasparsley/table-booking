@@ -5,5 +5,5 @@ export interface ITable {
     name?: string,
     seatCount: number,
     roomId: number,
-    props: any[]
+    features: Types.ObjectId[]
 }

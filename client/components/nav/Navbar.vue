@@ -5,14 +5,17 @@
 
             <nav aria-label="Site Nav"
                 class="hidden items-center justify-center gap-8 text-sm font-medium lg:flex lg:w-0 lg:flex-1">
+                <NuxtLink class="text-gray-900" to="/">
+                    Domů
+                </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/tables">
-                    Tables
+                    Stoly
                 </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/users">
-                    Users
+                    Uživatelé
                 </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/edits">
-                    Edits
+                    Úpravy
                 </NuxtLink>
             </nav>
 
