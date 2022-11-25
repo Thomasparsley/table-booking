@@ -28,7 +28,7 @@ export class RoomController extends Controller {
 
     private async all(req: Request, res: Response) {
         const rooms = await this.roomService.getAll()
-        res.status(200).json(rooms);
+        return res.status(200).json(rooms);
     }
 
     private async one(req: Request, res: Response) {

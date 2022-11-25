@@ -1,8 +1,12 @@
+import { Types } from "mongoose";
+
 export interface DtoNewUser {
     email: string;
     password: string;
-    firstName: string;
-    lastName: string;
 }
 
-export interface DtoUpdateUser extends DtoNewUser { }
+export interface DtoUpdateUser extends DtoNewUser {
+    phone: string;
+    avatar: string;
+    following: Types.ObjectId;
+}

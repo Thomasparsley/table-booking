@@ -29,9 +29,9 @@ export default {
 
         <div class="px-6 lg:px-36 mt-14 lg:mt-20">
             <div>
-                <h3 class="text-3xl font-medium">Claire Mac</h3>
-                <div class="text-base font-medium text-gray-500"> example@hella.cz </div>
-                <div class="text-base font-medium text-gray-500">Sledujících 13</div>
+                <h3 class="text-4xl font-medium">Claire Mac</h3>
+                <div class="text-base font-medium text-gray-600"> example@hella.cz </div>
+                <div class="text-base font-medium text-blue-600">13 sledujících</div>
             </div>
 
             <div class="my-8">

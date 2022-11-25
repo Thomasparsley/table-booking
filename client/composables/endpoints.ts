@@ -3,7 +3,7 @@ import useApiFetch from "./useApiFetch";
 //#region Rooms
 export async function fetchRooms() {
     const { data } = await useApiFetch("/rooms");
-    return data.value;
+    return data.value as any[];
 }
 
 export async function fetchRoomById(id: string) {
@@ -12,15 +12,18 @@ export async function fetchRoomById(id: string) {
 }
 
 interface newRoom {
-
+    name: string;
 }
 
 interface updateRoom extends newRoom {
-
 }
 
 export async function createRoom(newRoom: newRoom) {
-
+    const { data } = await useApiFetch("/rooms", {
+        method: "POST",
+        body: JSON.stringify(newRoom)
+    });
+    return data.value;
 }
 
 export async function updateRoom(newRoom: newRoom) {
@@ -57,5 +60,14 @@ export async function fetchUsers() {
 export async function fetchUserById(id: string) {
     const { data } = await useApiFetch(`/users/${id}`);
     return data.value;
+}
+
+export async function fetchSelf() {
+    const { data } = await useApiFetch("/users/me");
+    if (data && data.value) {
+        //@ts-ignore
+        return data.value[0];
+    }
+    return null;
 }
 //#endregion

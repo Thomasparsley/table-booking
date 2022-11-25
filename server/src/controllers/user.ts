@@ -2,6 +2,10 @@ import { Express, Router, Request, Response } from "express";
 import { IUserService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
+import { decodeToken } from "../helpers";
+
+//TODO: Extract
+const TokenCookieName = "token";
 
 export class UserController extends Controller {
 
@@ -17,6 +21,7 @@ export class UserController extends Controller {
         router: Router = Router(),
     ) {
         router.get("/", (req, res) => this.all(req, res));
+        router.get("/me", (req, res) => this.me(req, res));
         router.get("/:id", (req, res) => this.one(req, res));
 
         router.post("/", (req, res) => this.create(req, res));
@@ -33,6 +38,11 @@ export class UserController extends Controller {
     }
 
     private async one(req: Request, res: Response) {
+        /*if (!req.params.id) {
+            res.status(400);
+            return;
+        }
+        console.log(req.params.id);*/
         const id = new Types.ObjectId(req.params.id);
         const user = await this.userService.getById(id);
 
@@ -70,6 +80,18 @@ export class UserController extends Controller {
             return;
         }
 
+        res.status(200).json(user);
+    }
+
+    private async me(req: Request, res: Response) {
+        const token = req.cookies[TokenCookieName];
+        const payload = await decodeToken(token);
+        if (!payload) {
+            res.status(401).json({ message: "Invalid token" });
+            return;
+        }
+
+        const user = await this.userService.getById(payload._id);
         res.status(200).json(user);
     }
 }

@@ -13,7 +13,8 @@ export default {
                     seatCount: 5
                 },
             ],
-            selectedTable: {}
+            selectedTable: {},
+            editing: false,
         }
     },
 
@@ -31,7 +32,8 @@ export default {
 
     methods: {
         onEdit(table) {
-            console.log("Editing " + JSON.stringify(table))
+            this.editing = true
+            this.selectedTable = table
         },
         onDelete(table) {
             console.log("Deleting " + JSON.stringify(table))
@@ -103,8 +105,6 @@ export default {
         </div>
     </section>
 
-    <teleport to='body'>
-        <EditTableModal :table="selectedTable" />
-    </teleport>
+
 
 </template>

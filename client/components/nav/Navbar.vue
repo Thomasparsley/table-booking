@@ -8,8 +8,8 @@
                 <NuxtLink class="text-gray-900" to="/">
                     Domů
                 </NuxtLink>
-                <NuxtLink class="text-gray-900" to="/tables">
-                    Stoly
+                <NuxtLink class="text-gray-900" to="/sprava">
+                    Správa
                 </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/users">
                     Uživatelé

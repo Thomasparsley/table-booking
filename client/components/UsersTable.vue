@@ -4,6 +4,9 @@ export default {
         return {
             filter: "",
             users: [],
+            selectedTable: {},
+            editing: false,
+            loggedUser: {}
         }
     },
 
@@ -11,6 +14,15 @@ export default {
         console.log("created")
         this.users = await fetchUsers();
         console.log(this.users);
+
+        // this.loggedUser = await fetchSelf();
+        console.log(this.loggedUser);
+    },
+
+    methods: {
+        followed(user) {
+            return this.loggedUser.following.contains(user._id)
+        }
     },
 
     computed: {
@@ -64,6 +76,11 @@ export default {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="text-left">{{ user.email }}</div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <button v-if="followed(user)" @click="onAddFollow(user)"
+                                        class="text-left">Follow</button>
+                                    <button v-else @click="onDeleteFollow(user)" class="text-left">Unfollow</button>
                                 </td>
                             </tr>
                         </tbody>
