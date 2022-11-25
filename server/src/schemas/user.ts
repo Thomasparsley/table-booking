@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { randomBytes, pbkdf2Sync } from 'crypto';
 import { env } from 'process';
+import { generateRandomSalt, generatePasswordHash } from '../../helpers/PasswordHelpers';
 
 export interface IUser {
     username: String;
@@ -22,31 +22,23 @@ const userSchema = new Schema<IUser>({
     permissions: { type: Number, required: false }
 });
 
-userSchema.methods.generatePasswordHash = function (plainPassword: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        this.salt = randomBytes(+((process.env.SALT_LENGTH) ?? 64)).toString("hex");
-        try {
-            const key = pbkdf2Sync(plainPassword, this.salt, 100000, 512, 'sha512');
-            this.passwordHash = key;
-            resolve();
-        }
-        catch (err) {
-            reject(err);
-        }
-    });
+userSchema.methods.generatePasswordHash = async function (plainPassword: string): Promise<void> {
+    this.salt = await generateRandomSalt();
+    this.passwordHash = await generatePasswordHash(plainPassword, this.salt);
 };
 
 userSchema.methods.verifyPassword = async function (plainPassword: string): Promise<boolean> {
-
-}
-
-
+    const savedPasswordHash: string = this.passwordHash;
+    const providedPasswordHash = await generatePasswordHash(plainPassword, this.salt);
+    return savedPasswordHash === providedPasswordHash;
+};
 
 export enum UserPermissions {
     MANAGE_ROOMS = 1 << 1,
     MANAGE_TABLES = 1 << 2,
     SET_TABLE_FEATURES = 1 << 3,
-    MANAGE_TABLE_FEATURES = 1 << 4
+    MANAGE_TABLE_FEATURES = 1 << 4,
+    ALL = ~(0 << 4)
 };
 
 export const UserModel = model<IUser>("User", userSchema);
