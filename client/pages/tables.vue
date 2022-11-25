@@ -13,7 +13,15 @@ export default {
                 descript: 'nejvetsi',
                 chairs: 5,
                 room: 10
-            }]
+            }],
+            filter: {
+                name: ""
+            }
+        }
+    },
+    computed: {
+        realTables() {
+            return this.tables.filter(table => table.name.includes(filter.name))
         }
     }
 }
@@ -22,8 +30,12 @@ export default {
 
 <template>
 
+    <label for="nameInput"></label>
+    <input id="nameInput" type="text" v-model="filter.name">
+
     <h2>Tables</h2>
-    <EditsEditTables :tables="tables" />
+    <EditsEditTables :tables="realTables" />
     <span>{{ tables }}</span>
+    <span>{{ realTables }}</span>
 
 </template>

@@ -14,6 +14,27 @@ export default {
                 email: 'emaiiil',
                 password: 'sss'
             }],
+            filter: {
+                firstName: "",
+                lastName: "",
+                email: "",
+            }
+        }
+    },
+    methods: {
+        similarUser(user, filter) {
+            for (key in filter.keys) {
+                var attribute = user[key]
+                if ((typeof attribute === 'string' || myVar instanceof String) && attribute != "" && !attribute.includes(filter[key])) {
+                    return false
+                }
+            }
+            return true
+        }
+    },
+    computed: {
+        realUsers() {
+            return this.users.filter((user) => this.similarUser(user, this.filter))
         }
     }
 }
@@ -23,4 +44,5 @@ export default {
     <h2>Users</h2>
     <EditsEditUsers :users="users" />
     <span>{{ users }}</span>
+    <span>{{ realUsers }}</span>
 </template>

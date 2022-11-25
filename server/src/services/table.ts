@@ -6,6 +6,6 @@ export interface ITableService {
     getById(id: Types.ObjectId): Promise<ITable | null>;
     getAll(): Promise<ITable[]>;
     create(table: DtoNewTable): Promise<ITable>;
-    update(id: string, table: DtoUpdateTable): Promise<ITable | null>;
-    delete(id: string): Promise<boolean>;
+    update(id: Types.ObjectId, table: DtoUpdateTable): Promise<ITable | null>;
+    delete(id: Types.ObjectId): Promise<ITable | null>;
 }

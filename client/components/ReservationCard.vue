@@ -1,6 +1,6 @@
 <template>
-    <div class="block rounded-lg p-4 shadow-sm shadow-indigo-100">
-        <div class="flex flex-col">
+    <div class="w-80 block rounded-lg p-2 shadow-sm shadow-indigo-100">
+        <div class="flex flex-col space-y-1 p-2 border-l-4 border-green-500">
             <h3 class="text-xl font-bold text-gray-900">
                 Název rezervace
             </h3>
@@ -17,8 +17,8 @@
             </div>
         </div>
 
-        <div class="mt-2">
-            <dl class="flex justify-around">
+        <div class="mt-2 p-4">
+            <dl class="flex justify-between">
                 <div>
                     <dt class="">Od:</dt>
                     <dd class="text-sm flex flex-col">

@@ -1,15 +1,17 @@
 import { ITable } from "../interfaces";
 import { TableModel } from "../models";
+import { ITableService } from "../services";
 import { DtoNewTable, DtoUpdateTable } from "../dtos";
+import { Types } from "mongoose";
 
 
-export class TableRepository {
+export class TableRepository implements ITableService {
     constructor(
         private readonly tableModel: typeof TableModel,
     ) { }
 
-    async getById(id: string): Promise<ITable | null> {
-        return await this.tableModel.findOne({ _id: id });
+    async getById(id: Types.ObjectId): Promise<ITable | null> {
+        return await this.tableModel.findById(id);
     }
 
     async getAll(): Promise<ITable[]> {
@@ -21,11 +23,11 @@ export class TableRepository {
         return await newUser.save();
     }
 
-    async update(id: string, user: DtoUpdateTable): Promise<ITable | null> {
-        return await this.tableModel.findOneAndUpdate({ _id: id }, user, { new: false });
+    async update(id: Types.ObjectId, user: DtoUpdateTable): Promise<ITable | null> {
+        return await this.tableModel.findByIdAndUpdate(id, user, { new: false });
     }
 
-    async delete(id: string): Promise<ITable | null> {
-        return await this.tableModel.findOneAndDelete({ _id: id });
+    async delete(id: Types.ObjectId): Promise<ITable | null> {
+        return await this.tableModel.findByIdAndDelete(id);
     }
 }

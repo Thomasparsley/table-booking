@@ -1,20 +1,29 @@
-import { Router, Request, Response } from "express";
+import { Express, Router, Request, Response } from "express";
 import { IUserService } from "../services";
 import { Types } from "mongoose";
+import { Controller } from "./controller";
 
-export class UserController {
+export class UserController extends Controller {
 
     constructor(
         private readonly userService: IUserService,
-    ) { }
+    ) {
+        super();
+    }
 
-    installRoutes(router: Router) {
-        router.get("/", this.all);
-        router.get("/:id", this.one);
+    installRoutes(
+        app: Express,
+        prefix: string | null = null,
+        router: Router = Router(),
+    ) {
+        router.get("/", (req, res) => this.all(req, res));
+        router.get("/:id", (req, res) => this.one(req, res));
 
-        router.post("/", this.create);
-        router.put("/:id", this.update);
-        router.delete("/:id", this.delete);
+        router.post("/", (req, res) => this.create(req, res));
+        router.put("/:id", (req, res) => this.update(req, res));
+        router.delete("/:id", (req, res) => this.delete(req, res));
+
+        super.installRoutes(app, prefix, router);
     }
 
     private async all(req: Request, res: Response) {
@@ -40,7 +49,8 @@ export class UserController {
     }
 
     private async update(req: Request, res: Response) {
-        const user = await this.userService.update(req.params.id, req.body);
+        const id = new Types.ObjectId(req.params.id);
+        const user = await this.userService.update(id, req.body);
 
         if (!user) {
             res.status(404).json({ message: "User not found" });
@@ -51,7 +61,8 @@ export class UserController {
     }
 
     private async delete(req: Request, res: Response) {
-        const user = await this.userService.delete(req.params.id);
+        const id = new Types.ObjectId(req.params.id);
+        const user = await this.userService.delete(id);
 
         if (!user) {
             res.status(404).json({ message: "User not found" });

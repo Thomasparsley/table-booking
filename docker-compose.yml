@@ -10,9 +10,6 @@ services:
       - 27016:27017
     volumes:
       - ./db/mongo:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
     deploy:
       replicas: 1
       placement:

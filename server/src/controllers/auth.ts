@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Express, Router, Request, Response } from "express";
 import { IUserService } from "../services";
 import { DtoLogin } from "../dtos/auth";
 import {
@@ -6,6 +6,7 @@ import {
     generateToken,
     decodeToken,
 } from "../helpers";
+import { Controller } from "./controller";
 
 const TokenCookieName = "token";
 
@@ -15,22 +16,30 @@ function expireFromNow(): Date {
     return now;
 }
 
-export class AuthController {
+export class AuthController extends Controller {
 
     constructor(
         private readonly userService: IUserService,
         private readonly secretKey: string,
-    ) { }
+    ) {
+        super();
+    }
 
-    installRoutes(router: Router) {
-        router.post("/login", this.login);
-        router.post("/renew", this.renew);
-        router.post("/validate", this.validate);
-        router.post("/logout", this.logout);
+    installRoutes(
+        app: Express,
+        prefix: string | null = null,
+        router: Router = Router(),
+    ) {
+        router.post("/login", (req, res) => this.login(req, res));
+        router.post("/renew", (req, res) => this.renew(req, res));
+        router.post("/validate", (req, res) => this.validate(req, res));
+        router.post("/logout", (req, res) => this.logout(req, res));
+
+        super.installRoutes(app, prefix, router);
     }
 
     private async login(req: Request, res: Response) {
-        const loginInput: DtoLogin = JSON.parse(req.body);
+        const loginInput: DtoLogin = req.body;
 
         const user = await this.userService.getByEmail(loginInput.email);
         if (!user) {
@@ -55,8 +64,8 @@ export class AuthController {
         await this.userService.addToken(user._id, token);
 
         // set token in cookie
-        res.cookie("token", token, { expires: expireFromNow() });
-        res.status(200);
+        const response = res.cookie("token", token, { expires: expireFromNow() });
+        return res.status(200).end();
     }
 
     private async renew(req: Request, res: Response) {
@@ -91,6 +100,8 @@ export class AuthController {
 
     private async validate(req: Request, res: Response) {
         // get token from cookie
+        console.log(req.headers);
+        console.log(req.cookies[TokenCookieName]);
         const token = req.cookies[TokenCookieName];
         const payload = await decodeToken(token);
         if (!payload) {

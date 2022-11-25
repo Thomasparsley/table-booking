@@ -7,7 +7,7 @@ import { Types } from "mongoose";
  */
 export interface IUserService {
     /**
-     * Gets a user by Id. Returns null if the given user cannot be found.
+     * Gets a user by id. Returns null if the given user cannot be found.
      * @param id The id of the user.
      */
     getById(id: Types.ObjectId): Promise<IUser | null>;
@@ -20,6 +20,13 @@ export interface IUserService {
     removeToken(id: Types.ObjectId, token: string): Promise<boolean>;
     isTokenPresent(id: Types.ObjectId, token: string): Promise<boolean>;
     create(user: DtoNewUser): Promise<IUser>;
-    update(id: string, user: DtoUpdateUser): Promise<IUser | null>;
-    delete(id: string): Promise<boolean>;
+    /**
+     * 
+     */
+    update(id: Types.ObjectId, user: DtoUpdateUser): Promise<IUser | null>;
+    /**
+     * Deletes a user given their id. Returns the user deleted if successful or null if the user cannot be found.
+     * @param id The id of the user.
+     */
+    delete(id: Types.ObjectId): Promise<IUser | null>;
 }

@@ -71,7 +71,7 @@ export default {
             <tbody class="divide-y divide-gray-200">
                 <tr v-for="table in tables" :key="table.id">
                     <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                        <input type="text" v-model="table.name">
+                        <input type="text" class="disable" v-model="table.name">
                     </td>
                     <td class="whitespace-nowrap px-4 py-2 text-gray-700">
                         <input type="text" v-model="table.descript">
@@ -92,3 +92,9 @@ export default {
         </table>
     </div>
 </template>
+
+<style scoped>
+.disable-inputs input {
+    pointer-events: none;
+}
+</style>

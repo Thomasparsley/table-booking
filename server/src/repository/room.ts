@@ -1,15 +1,16 @@
 import { IRoom } from "../interfaces";
 import { RoomModel } from "../models";
+import { IRoomService } from "../services";
 import { DtoNewRoom, DtoUpdateRoom } from "../dtos";
+import { Types } from "mongoose";
 
-
-export class RoomRepository {
+export class RoomRepository implements IRoomService {
     constructor(
         private readonly roomModel: typeof RoomModel,
     ) { }
 
-    async getById(id: string): Promise<IRoom | null> {
-        return await this.roomModel.findOne({ _id: id });
+    async getById(id: Types.ObjectId): Promise<IRoom | null> {
+        return await this.roomModel.findById(id);
     }
 
     async getAll(): Promise<IRoom[]> {
@@ -21,11 +22,11 @@ export class RoomRepository {
         return await newUser.save();
     }
 
-    async update(id: string, user: DtoUpdateRoom): Promise<IRoom | null> {
-        return await this.roomModel.findOneAndUpdate({ _id: id }, user, { new: false });
+    async update(id: Types.ObjectId, user: DtoUpdateRoom): Promise<IRoom | null> {
+        return await this.roomModel.findByIdAndUpdate(id, user, { new: false });
     }
 
-    async delete(id: string): Promise<IRoom | null> {
-        return await this.roomModel.findOneAndDelete({ _id: id });
+    async delete(id: Types.ObjectId): Promise<IRoom | null> {
+        return await this.roomModel.findByIdAndDelete(id);
     }
 }
