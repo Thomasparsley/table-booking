@@ -1,3 +1,16 @@
+<script setup lang="ts">
+const { reservation } = defineProps(["reservation"])
+
+const fromDate = new Date(reservation.from)
+const toDate = new Date(reservation.to)
+
+const isReservationMoreThanOneDay = () => {
+    return fromDate.getDate() !== toDate.getDate()
+}
+
+// const users = await fetchUsersFromReservation(reservation._id)
+</script>
+
 <template>
     <div class="rounded-lg p-4 bg-white shadow shadow-indigo-100">
         <div class="flex flex-col space-y-1 p-2 border-l-4 border-green-500">
@@ -9,7 +22,7 @@
                     <IconPerson class="w-4 h-4" />
                     8
                 </UtilsBadge>
-                <UtilsBadge>Více denní</UtilsBadge>
+                <UtilsBadge v-if="isReservationMoreThanOneDay()">Více denní</UtilsBadge>
                 <UtilsBadge>Akce</UtilsBadge>
             </div>
         </div>
@@ -19,10 +32,10 @@
                 <div>
                     <dd class="text-medium flex flex-col font-bold">
                         <span>
-                            11. Čer 2022,
+                            {{ fromDate.getDay() }}. {{ fromDate.getMonth() }} {{ fromDate.getFullYear() }},
                         </span>
                         <span>
-                            11:30
+                            {{ fromDate.getHours() }}:{{ fromDate.getMinutes() }}
                         </span>
                     </dd>
                 </div>
@@ -30,10 +43,10 @@
                 <div>
                     <dd class="text-medium flex flex-col font-bold">
                         <span>
-                            11. Čer 2022,
+                            {{ toDate.getDay() }}. {{ toDate.getMonth() }} {{ toDate.getFullYear() }},
                         </span>
                         <span>
-                            15:45
+                            {{ toDate.getHours() }}:{{ toDate.getMinutes() }}
                         </span>
                     </dd>
                 </div>

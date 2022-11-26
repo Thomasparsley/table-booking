@@ -100,6 +100,9 @@ const filteredTables = computed(() => {
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Místnost</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Název Stolu</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
@@ -112,6 +115,12 @@ const filteredTables = computed(() => {
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
                             <tr v-for="table in filteredTables" :key="table._id">
+                                <td class="p-2 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="font-medium text-gray-800">{{ table.room.name }}
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="font-medium text-gray-800">{{ table.name }}

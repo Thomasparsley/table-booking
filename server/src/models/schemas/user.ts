@@ -10,7 +10,8 @@ export const UserSchema = new Schema<IUser>({
     permissions: { type: Number, required: true },
     tokens: { type: [String], required: true },
     following: { type: [Types.ObjectId], required: true },
-    notifications: { type: [String], require: true }
+    notifications: { type: [String], require: true },
+    upcomingMeetings: { type: [Schema.Types.ObjectId] }
 });
 
 

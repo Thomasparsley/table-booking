@@ -13,4 +13,5 @@ export interface IUser {
     avatar: string;
     following: Types.ObjectId[];
     notifications: string[];
+    upcomingMeetings: Types.ObjectId[];
 }
