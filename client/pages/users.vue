@@ -23,6 +23,7 @@ export default {
                     email: "nazdar@" + i,
                     following: ["99"]
                 })
+                i++;
             }
             return users;
         }

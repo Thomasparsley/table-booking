@@ -1,7 +1,7 @@
 import { Express, Router, Request, Response } from "express";
 import { Types } from "mongoose";
 import { DtoNewTable } from "../dtos";
-import { ITableService, IFeatureService, IRoomService } from "../services";
+import { ITableService, IRoomService } from "../services";
 import { Controller } from "./controller";
 import { authorizedMaker } from "../middleware/auth";
 
@@ -24,8 +24,6 @@ export class TableController extends Controller {
     ) {
 
         router.get("/", authorized, (req, res) => this.all(req, res));
-        router.get("/schedules", authorized, (req, res) => this.getSchedule(req, res));
-        router.post("/schedules/:id", authorized, (req, res) => this.addSchedule(req, res));
         router.get("/:id", authorized, (req, res) => this.one(req, res));
         router.post("/", authorized, (req, res) => this.create(req, res));
         router.put("/:id", authorized, (req, res) => this.update(req, res));
@@ -34,7 +32,7 @@ export class TableController extends Controller {
         super.installRoutes(app, prefix, router);
     }
 
-    private async getSchedule(req: Request, res: Response) {
+    /* private async getSchedule(req: Request, res: Response) {
         const from = new Date(req.query.from as string) || new Date();
         const to = new Date(req.query.to as string) || new Date();
         if (!to) {
@@ -43,7 +41,7 @@ export class TableController extends Controller {
         }
 
         this.tableService.getAllForSchedule(from, to);
-    }
+    } */
 
     private async addSchedule(req: Request, res: Response) {
 

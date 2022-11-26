@@ -1,10 +1,6 @@
 import express, { Express } from "express";
 import mongoose from "mongoose";
-import helmet from "helmet";
 import cors from "cors";
-import logger from "express-requests-logger";
-import { Types } from "mongoose";
-import { generatePasswordHash } from "./helpers";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { CronJob } from "cron";
@@ -16,14 +12,15 @@ import {
     UserModel,
     FeatureModel,
     SchedulerStoreModel,
-
+    EventModel,
 } from "./models"
 import {
     AuthController,
     RoomController,
     TableController,
     UserController,
-    FeatureController
+    FeatureController,
+    EventController,
 } from "./controllers";
 import {
     RoomRepository,
@@ -31,7 +28,8 @@ import {
     UserRepository,
     FeatureRepository,
     SchedulerService,
-    SchedulerStoreRepository
+    SchedulerStoreRepository,
+    EventRepository,
 } from "./repository";
 
 mongoose.connect("mongodb://127.0.0.1:27016/tablebooking");
@@ -66,19 +64,27 @@ const roomRepository = new RoomRepository(RoomModel);
 const tableRepository = new TableRepository(TableModel);
 const userRepository = new UserRepository(UserModel);
 const featureRepository = new FeatureRepository(FeatureModel);
-const scheduler = new SchedulerService(schedulerRepository, roomRepository, tableRepository);
+const eventRepository = new EventRepository(EventModel);
+
+const schedulerServices = new SchedulerService(
+    schedulerRepository,
+    roomRepository,
+    tableRepository,
+);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, roomRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
+const eventController = new EventController(eventRepository);
 
 authController.installRoutes(app, "/api/auth");
 roomController.installRoutes(app, "/api/rooms");
 tableController.installRoutes(app, "/api/tables");
 userController.installRoutes(app, "/api/users");
 featureController.installRoutes(app, "/api/features");
+eventController.installRoutes(app, "/api/events");
 
 app.get("/ping", function (_, res) {
     res.status(200).write("Pong!");

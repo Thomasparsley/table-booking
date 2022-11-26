@@ -1,11 +1,11 @@
 import { IEvent } from "../interfaces";
-import { DtoNewRoom, DtoUpdateRoom } from "../dtos";
+import { DtoNewEvent, DtoUpdateEvent } from "../dtos";
 import { Types } from "mongoose";
 
 export interface IEventService {
     getById(id: Types.ObjectId): Promise<IEvent | null>;
     getAll(): Promise<IEvent[]>;
-    create(room: DtoNewRoom): Promise<IEvent>;
-    update(id: Types.ObjectId, room: DtoUpdateRoom): Promise<IEvent | null>;
+    create(event: DtoNewEvent): Promise<IEvent>;
+    update(id: Types.ObjectId, event: DtoUpdateEvent): Promise<IEvent | null>;
     delete(id: Types.ObjectId): Promise<IEvent | null>;
 }

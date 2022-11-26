@@ -10,5 +10,4 @@ export interface ITableService {
     createIfNotExists(table: DtoNewTable): Promise<ITable>;
     update(id: Types.ObjectId, table: DtoUpdateTable): Promise<ITable | null>;
     delete(id: Types.ObjectId): Promise<ITable | null>;
-    getAllForSchedule(from: Date, to: Date): Promise<ITable[]>;
 }

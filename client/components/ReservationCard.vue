@@ -15,7 +15,7 @@
         </div>
 
         <div class="mt-2 p-4">
-            <dl class="flex flex-row justify-between items-center">
+            <dl class="flex flex-row flex-wrap gap-1 justify-between items-center">
                 <div>
                     <dt class="text-medium text-gray-500 text-base">Datum od</dt>
                     <dd class="text-medium flex flex-row font-bold">

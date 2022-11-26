@@ -5,33 +5,37 @@ export default {
         return {
             filter: "",
             users: [],
-            loggedUser: {},
-            loaded: false
+            loggedUser: {
+                fallowing: ["50"]
+            },
+            loaded: false,
+            includeFallowing: true,
         }
     },
 
     async mounted() {
-        console.log(JSON.stringify(sampleUsers))
         console.log("Fetch self: ")
         //this.loggedUser = await fetchSelf();
         //console.log(JSON.stringify(this.loggedUser));
 
-        console.log("created")
         //this.users = await fetchUsers();
         //console.log(this.users);
     },
 
     methods: {
         async onAddFollow(user) {
+            return true
             await addFollow(user._id)
             this.loggedUser = await fetchSelf()
         },
         async onDeleteFollow(user) {
+            return true
             await deleteFollow(user._id)
             this.loggedUser.following = this.loggedUser.following.filter(id => id != user._id)
             this.loggedUser = await fetchSelf()
         },
         followed(user) {
+            return true
             console.log("following:" + JSON.stringify(this.loggedUser.following))
             return this.loggedUser.following.includes(user._id)
         },
@@ -39,8 +43,12 @@ export default {
 
     computed: {
         filteredUsers() {
-            return this.sampleUsers.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
-        },
+            const result = this.sampleUsers.filter(user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter)))
+            if (this.includeFallowing) {
+                return result.filter(user => this.loggedUser.fallowing.includes(user._id));
+            }
+            return result;
+        }
     }
 }
 </script>
@@ -62,6 +70,14 @@ export default {
                     Hledej
                 </span>
             </label>
+            <div class="form-check ml-5 mt-5">
+                <input v-model="includeFallowing"
+                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                    type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
+                    Jen sledované
+                </label>
+            </div>
             <div class="p-3">
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full">
