@@ -5,9 +5,9 @@
                 Název rezervace
             </h3>
             <div class="flex gap-1">
-                <UtilsBadge />
-                <UtilsBadge />
-                <UtilsBadge />
+                <UtilsBadge>8 lidí</UtilsBadge>
+                <UtilsBadge>Více denní</UtilsBadge>
+                <UtilsBadge>Akce</UtilsBadge>
             </div>
         </div>
 

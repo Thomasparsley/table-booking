@@ -47,8 +47,8 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         });
     }
 
-    async getAllAvailable(from: Date, to: Date): Promise<IRoom[] | ITable[]> {
-        return await this.schedulerStoreModel.find({
+    async getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]> {
+        this.schedulerStoreModel.find({
             $and: [
                 {
                     from: {
@@ -66,5 +66,12 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
                 }
             ]
         });
+        return [];
+    }
+    async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
+        return [];
+    }
+    async getAllAvailable(from: Date, to: Date): Promise<ITable[]> {
+        return [];
     }
 }

@@ -37,8 +37,7 @@ export default {
 
     computed: {
         filteredUsers() {
-            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) ||
-                user.email.includes(this.filter))
+            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
         },
     }
 }

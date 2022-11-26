@@ -9,10 +9,12 @@ export class SchedulerService implements ISchedulerService {
         if (pending && pending.length > 0) {
             return false;
         }
+
         const ongoing = await this.schedulerStoreService.getAllOngoingSchedules(id, from, to);
         if (ongoing && ongoing.length > 0) {
             return false;
         }
+
         return true;
     }
 
