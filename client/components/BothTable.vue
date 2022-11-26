@@ -4,13 +4,26 @@ export default {
     data() {
         return {
             filter: "",
+            includeRooms: true,
+            includeTables: true
         }
     },
 
     computed: {
         filteredItems() {
+            console.log("rooms: " + this.includeRooms)
+            console.log("tables: " + this.includeTables)
 
-            return this.rooms.concat(this.tables).filter(item => item.name.includes(this.filter))
+            if (this.includeRooms && this.includeTables) {
+                return this.rooms.concat(this.tables).filter(item => item.name.includes(this.filter))
+            }
+            if (this.includeRooms) {
+                return this.rooms.filter(item => item.name.includes(this.filter))
+            }
+            if (this.includeTables) {
+                return this.tables.filter(item => item.name.includes(this.filter))
+            }
+            return []
             // .concat(this.tables).filter(item => item.name.includes(this.filter))
         }
     },
@@ -44,6 +57,7 @@ export default {
                     +
                 </button>
             </header>
+
             <label for="filter"
                 class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input v-model="filter" type="text" id="filter" placeholder="Filtr"
@@ -53,6 +67,24 @@ export default {
                     Hledej
                 </span>
             </label>
+            <div class="flex gap-5 ml-5 mt-5">
+                <div class="form-check">
+                    <input v-model="includeTables"
+                        class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                        type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label inline-block text-gray-800" for="flexCheckDefault">
+                        Stoly
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input v-model="includeRooms"
+                        class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                        type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">
+                        Místnosti
+                    </label>
+                </div>
+            </div>
             <div class="p-3">
                 <div class="overflow-x-auto">
                     <table class="item-auto w-full">
@@ -62,7 +94,7 @@ export default {
                                     <div class="font-semibold text-left">Název</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Pozice</div>
+                                    <div class="font-semibold text-left">Typ</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Akce</div>

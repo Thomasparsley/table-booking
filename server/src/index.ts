@@ -57,18 +57,21 @@ app.use(cookieParser());
 
 const superSecretKey = "sdadsa";
 
+
+
+const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
+const scheduler = new SchedulerService(schedulerRepository);
+
 const roomRepository = new RoomRepository(RoomModel);
-const tableRepository = new TableRepository(TableModel);
+const tableRepository = new TableRepository(TableModel, scheduler);
 const userRepository = new UserRepository(UserModel);
 const featureRepository = new FeatureRepository(FeatureModel);
-const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, roomRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
-const scheduler = new SchedulerService(schedulerRepository);
 
 authController.installRoutes(app, "/api/auth");
 roomController.installRoutes(app, "/api/rooms");

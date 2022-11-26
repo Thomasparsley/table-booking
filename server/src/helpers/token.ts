@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { IUser, ITokenPayload } from "../interfaces";
 
-export function generateToken(user: IUser | ITokenPayload, expire: number, secretKey: string): Promise<string> {
+export async function generateToken(user: IUser | ITokenPayload, expire: number, secretKey: string): Promise<string> {
     const payload: ITokenPayload = {
         _id: user._id,
         permissions: user.permissions,
@@ -23,8 +23,8 @@ export function generateToken(user: IUser | ITokenPayload, expire: number, secre
     });
 }
 
-export async function verifyToken(token: string, secretKey: string): Promise<boolean> {
-    const decoded = await decodeToken(token);
+export function verifyToken(token: string, secretKey: string): boolean {
+    const decoded = decodeToken(token);
     if (decoded) {
         return true;
     }

@@ -1,6 +1,6 @@
 import { ITable } from "../interfaces";
 import { TableModel } from "../models";
-import { ITableService } from "../services";
+import { ITableService, ISchedulerService } from "../services";
 import { DtoNewTable, DtoUpdateTable } from "../dtos";
 import { Types } from "mongoose";
 
@@ -8,6 +8,7 @@ import { Types } from "mongoose";
 export class TableRepository implements ITableService {
     constructor(
         private readonly tableModel: typeof TableModel,
+        private readonly scheduler: ISchedulerService
     ) { }
 
     async getById(id: Types.ObjectId): Promise<ITable | null> {
@@ -47,5 +48,9 @@ export class TableRepository implements ITableService {
 
     async delete(id: Types.ObjectId): Promise<ITable | null> {
         return await this.tableModel.findByIdAndDelete(id);
+    }
+
+    async getAllForSchedule(from: Date, to: Date): Promise<ITable[]> {
+        return [];
     }
 }

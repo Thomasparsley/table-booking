@@ -1,5 +1,6 @@
 import { ISchedulerService, ISchedulerStoreService } from "../services"
 import { Types } from "mongoose";
+import { ITable, IRoom } from "../interfaces";
 
 export class SchedulerService implements ISchedulerService {
     constructor(private schedulerStoreService: ISchedulerStoreService) { }
@@ -15,6 +16,14 @@ export class SchedulerService implements ISchedulerService {
         return true;
     }
 
+    async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
+        return [];
+    }
+
+    async getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]> {
+        return [];
+    }
+
     async schedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean> {
         if (!this.canSchedule(id, from, to)) {
             return false;
@@ -28,6 +37,16 @@ export class SchedulerService implements ISchedulerService {
         console.log(schedule);
 
         return true;
+    }
+
+    async getAllAvailableTableReservations(from: Date, to: Date, isTable: boolean): Promise<ITable[]> {
+        /*const tables = await this.schedulerStoreService.getAllAvailableTables(from, to) as ITable[];
+        const rooms = await this.schedulerStoreService.getAllAvailableRooms(from, to);
+        tables.filter(table => {
+
+        });*/
+
+        return [];
     }
 
     async getSchedules(id: Types.ObjectId): Promise<{ from: Date, to: Date }[]> {

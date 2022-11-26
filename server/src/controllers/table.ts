@@ -20,12 +20,29 @@ export class TableController extends Controller {
     ) {
 
         router.get("/", (req, res) => this.all(req, res));
+        router.get("/schedules", (req, res) => this.getSchedule(req, res));
+        router.post("/schedules/:id", (req, res) => this.addSchedule(req, res));
         router.get("/:id", (req, res) => this.one(req, res));
         router.post("/", (req, res) => this.create(req, res));
         router.put("/:id", (req, res) => this.update(req, res));
         router.delete("/:id", (req, res) => this.delete(req, res));
 
         super.installRoutes(app, prefix, router);
+    }
+
+    private async getSchedule(req: Request, res: Response) {
+        const from = new Date(req.query.from as string) || new Date();
+        const to = new Date(req.query.to as string) || new Date();
+        if (!to) {
+            res.status(400).json({ message: "Missing required query parameter 'to'" });
+            return;
+        }
+
+        this.tableService.getAllForSchedule(from, to);
+    }
+
+    private async addSchedule(req: Request, res: Response) {
+
     }
 
     private async all(req: Request, res: Response) {
