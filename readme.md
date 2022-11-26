@@ -29,14 +29,14 @@ Tyto funkce by aplikace měla implementovat, takže se na jejich dodržení zam�
 *Specifikace místností / stolů*
 - [x] Správa stolů / místností
 - [x] Možnost nastavit vybavení pro jednotlivé stoly (typ dokovací stanice, speciální monitory, a další)
-- [ ] Možnost zablokovat určité stoly pro rezervace v určité dny / období
+- [x] Možnost zablokovat určité stoly pro rezervace v určité dny / období
 
 *Rezervace stolů*
-- [ ] Vyhledávání / filtrování dostupných stolů podle data
-- [ ] Možnost vytvořit rezervaci stolu  
+- [x] Vyhledávání / filtrování dostupných stolů podle data
+- [x] Možnost vytvořit rezervaci stolu  
 - [ ] Možnost zrušit rezervaci stolu
 - [ ] Možnost požádat uživatele o setkání v konkrétní datum (+ notifikace)
-- [ ] Možnost vytvořit rezervaci více stolů / místnosti za účelem workshopu (nutno schválit administrátorem)
+- [x] Možnost vytvořit rezervaci více stolů / místnosti za účelem workshopu (nutno schválit administrátorem)
 
 *Uživatelé*
 - [x] Přihlašování uživatele na základě přihlašovacího jména, hesla (případně emailu)

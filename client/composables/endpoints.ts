@@ -73,6 +73,13 @@ export async function fetchAvailableTablesInDataRage(from: string, to: string) {
     return data.value;
 }
 
+export async function fetchAvailableRoomsInDataRage(from: string, to: string) {
+    const { data } = await useApiFetch(`/scheduler/rooms?from=${from}&to=${to}`, {
+        credentials: "include",
+    });
+    return data.value;
+}
+
 
 export async function pushReservation(payload: any) {
     const { data } = await useApiFetch("/scheduler", {

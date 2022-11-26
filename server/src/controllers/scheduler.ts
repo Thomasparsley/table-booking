@@ -1,10 +1,11 @@
 import { Express, Router, Request, Response } from "express";
 import { ISchedulerStore } from "../interfaces";
-import { ISchedulerService, IRoomService, IUserService } from "../services";
+import { ISchedulerService, ITableService, IRoomService, IUserService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
 import { authorizedMaker } from "../middleware/auth";
 import { decodeToken } from "../helpers";
+import { SchedulerStoreModel } from "../models";
 
 
 const authorized = authorizedMaker();
@@ -13,9 +14,11 @@ const authorized = authorizedMaker();
 export class SchedulerController extends Controller {
 
     constructor(
+        private readonly tableService: ITableService,
         private readonly schedulerService: ISchedulerService,
         private readonly roomService: IRoomService,
-        private readonly userService: IUserService
+        private readonly userService: IUserService,
+        private readonly schedulerStoreModel: typeof SchedulerStoreModel,
     ) {
         super();
     }
@@ -28,14 +31,14 @@ export class SchedulerController extends Controller {
         router.get("/tables", authorized, (req, res) => this.allTableSchedules(req, res));
         router.get("/tables/:id", authorized, (req, res) => this.tableSchedules(req, res));
         router.post("/", authorized, (req, res) => this.createSchedules(req, res));
-        router.put("/tables/:id", authorized, (req, res) => this.updateTableSchedule(req, res));
-        router.delete("/tables/:id", authorized, (req, res) => this.deleteTableSchedule(req, res));
+        router.put("/tables/:id", authorized, (req, res) => this.updateSchedule(req, res, false));
+        router.delete("/tables/:id", authorized, (req, res) => this.deleteSchedule(req, res));
 
         /*router.get("/rooms", authorized, (req, res) => this.allRoomsSchedules(req, res));
         router.get("/rooms/:id", authorized, (req, res) => this.roomSchedules(req, res));
         router.post("/rooms/:id", authorized, (req, res) => this.createRoomSchedule(req, res));*/
-        //router.put("/rooms/:id", authorized, (req, res) => this.updateRoomSchedule(req, res));
-        //router.delete("/rooms/:id", authorized, (req, res) => this.deleteRoomSchedule(req, res));
+        router.put("/rooms/:id", authorized, (req, res) => this.updateSchedule(req, res, true));
+        router.delete("/rooms/:id", authorized, (req, res) => this.deleteSchedule(req, res));
 
         super.installRoutes(app, prefix, router);
     }
@@ -43,9 +46,21 @@ export class SchedulerController extends Controller {
     private async allTableSchedules(req: Request, res: Response) {
         const from = new Date(req.query.from as string) || new Date();
         const to = new Date(req.query.to as string);
-        const storedTables = await this.schedulerService.getAllAvailableTables(from, to);
-        let tables: any[] = [];
-        for (var table of storedTables) {
+
+        // free tables
+        const allFreeTables = await this.tableService.getAll();
+        const allReservedTables = await this.schedulerStoreModel.find();
+
+        const allReservedTablesIds = allReservedTables.map((table) => table.storedId.toString());
+
+        // from allFreeTables remove allReservedTables
+        const freeTables = allFreeTables.filter((table) => {
+            return !allReservedTablesIds.includes(table._id.toString());
+        });
+
+        // add room to free tablesß
+        const tables = [];
+        for (const table of freeTables) {
             const roomId = table.roomId;
             const room = await this.roomService.getById(roomId);
             tables.push({
@@ -57,6 +72,8 @@ export class SchedulerController extends Controller {
                 room: room
             });
         };
+
+
         return res.status(200).json(tables);
     }
 
@@ -68,10 +85,12 @@ export class SchedulerController extends Controller {
     }
 
     private async createSchedules(req: Request, res: Response) {
-        const data = JSON.parse(req.body as string);
+        const data = req.body;
         const { rooms, tables, fromDate, toDate } = data;
         const from = new Date(fromDate);
         const to = new Date(toDate);
+
+        console.log(data);
 
         const token = req.cookies["token"];
         const payload = decodeToken(token);
@@ -98,8 +117,10 @@ export class SchedulerController extends Controller {
             return;
         }
         valid = true
-        for (const table of tables) {
-            if (!(await this.schedulerService.canSchedule(table._id, from, to))) {
+        for (const tableId of tables) {
+            const canSchedule = await this.schedulerService.canSchedule(tableId, from, to);
+            console.log(canSchedule);
+            if (!canSchedule) {
                 valid = false;
                 break;
             }
@@ -112,14 +133,14 @@ export class SchedulerController extends Controller {
         let roomsStore: ISchedulerStore[] = [];
         let tablesStore: ISchedulerStore[] = [];
 
-        for (const room of rooms) {
-            const result = await this.schedulerService.schedule(room._id, true, from, to, user._id);
+        for (const roomId of rooms) {
+            const result = await this.schedulerService.schedule(roomId, true, from, to, user._id);
             if (result != null)
                 roomsStore.push(result);
         }
 
         for (const table of tables) {
-            const result = await this.schedulerService.schedule(table._id, false, from, to, user._id);
+            const result = await this.schedulerService.schedule(table, false, from, to, user._id);
             if (result != null)
                 tablesStore.push(result);
         }
@@ -128,6 +149,7 @@ export class SchedulerController extends Controller {
             rooms: roomsStore,
             tables: tablesStore
         });
+        return;
 
         /*const schedule = await this.schedulerService.schedule(id, false, from, to);
         if (schedule != null) {
@@ -138,7 +160,7 @@ export class SchedulerController extends Controller {
         }*/
     }
 
-    private async updateTableSchedule(req: Request, res: Response) {
+    private async updateSchedule(req: Request, res: Response, isRoom: boolean) {
         const token = req.cookies["token"];
         const payload = decodeToken(token);
         if (!payload) {
@@ -166,12 +188,15 @@ export class SchedulerController extends Controller {
         res.status(schedule != null ? 200 : 400);
     }
 
-    private async deleteTableSchedule(req: Request, res: Response) {
+    private async deleteSchedule(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
 
         const schedule = await this.schedulerService.deleteSchedule(id);
         if (schedule) {
             res.status(200).json(schedule);
+            const user = await this.userService.getById(schedule.user);
+            if (user != null)
+                this.userService.sendScheduleDeletionById(user, schedule);
         }
         else {
             res.status(400);
@@ -223,6 +248,5 @@ export class SchedulerController extends Controller {
     }
 
     private async deleteRoomSchedule(req: Request, res: Response) {
-
     }*/
 }

@@ -59,6 +59,13 @@ const superSecretKey = "sdadsa";
 
 
 
+async function asda() {
+    const a = await SchedulerStoreModel.find();
+    console.log(a);
+}
+
+asda()
+
 const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
 
 const roomRepository = new RoomRepository(RoomModel);
@@ -73,7 +80,7 @@ const schedulerServices = new SchedulerService(
     tableRepository,
 );
 
-const schedulerController = new SchedulerController(schedulerServices, roomRepository, userRepository);
+const schedulerController = new SchedulerController(tableRepository, schedulerServices, roomRepository, userRepository, SchedulerStoreModel);
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, roomRepository);

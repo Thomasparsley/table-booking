@@ -6,5 +6,6 @@ export interface ISchedulerStore {
     isRoom: boolean;
     from: Date;
     to: Date;
+    invitee?: Types.ObjectId;
     user: Types.ObjectId;
 }

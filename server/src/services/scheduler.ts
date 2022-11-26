@@ -11,4 +11,6 @@ export interface ISchedulerService {
     getSchedules(id: Types.ObjectId): Promise<{ from: Date, to: Date }[]>;
     getAllAvailableTables(from: Date, to: Date): Promise<ITable[]>;
     getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]>;
+    /* getAllUnavailableRooms(from: Date, to: Date): Promise<IRoom[]>;
+    getAllUnavailableTables(from: Date, to: Date): Promise<ITable[]>; */
 }

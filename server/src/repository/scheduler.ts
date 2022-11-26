@@ -50,16 +50,18 @@ export class SchedulerService implements ISchedulerService {
     }
 
     async getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]> {
-        const unavailableRooms = await this.schedulerStoreService.getAllUnavailableRooms(from, to);
-        const rooms = await this.roomService.getAll();
-        const result = rooms.filter(room => !unavailableRooms.includes(room));
-        return result;
+        return await this.schedulerStoreService.getAllUnavailableRooms(from, to);
     }
 
     async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
-        const unavailableTables = await this.schedulerStoreService.getAllUnavailableTables(from, to);
-        const tables = await this.tableService.getAll();
-        const result = tables.filter(table => !unavailableTables.includes(table));
-        return result;
+        return await this.schedulerStoreService.getAllTableInRange(from, to);
+    }
+
+    async getAllUnavailableRooms(from: Date, to: Date): Promise<IRoom[]> {
+        return await this.schedulerStoreService.getAllUnavailableRooms(from, to);
+    }
+
+    async getAllUnavailableTables(from: Date, to: Date): Promise<ITable[]> {
+        return await this.schedulerStoreService.getAllUnavailableTables(from, to);
     }
 }

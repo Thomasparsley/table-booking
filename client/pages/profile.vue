@@ -21,9 +21,6 @@ export default {
                 <h3 class="text-4xl font-medium">Claire Mac</h3>
                 <div class="text-base font-medium text-gray-600">example@hella.cz</div>
                 <div class="text-base font-medium text-gray-600">+420 738 283 282</div>
-                <NuxtLink to="/users?onlyFollow=true" class="text-base font-medium text-blue-600">
-                    13 sledujících
-                </NuxtLink>
 
                 <UtilsHorizontalLine />
 

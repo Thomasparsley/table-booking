@@ -21,12 +21,15 @@ const getRandomAvatar = () => {
 
 
 <template>
-    <div class="border-gray-700 rounded-lg p-4 bg-white shadow-sm shadow-indigo-100">
+    <div class="border-gray-700 bg-gray-50 rounded-lg p-4 shadow-sm shadow-indigo-100">
         <div class="flex items-center">
             <img alt="Developer" :src="getRandomAvatar()" class="h-16 w-16 rounded-full object-cover" />
 
-            <div class="ml-3">
+            <div class="ml-3 flex">
                 <h3 class="text-lg font-medium" v-if="friend">{{ friend.firstName }}</h3>
+                <div>
+                    <IconUserDelete class="w-8 h-8" />
+                </div>
             </div>
         </div>
     </div>

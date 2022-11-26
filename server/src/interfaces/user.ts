@@ -12,4 +12,5 @@ export interface IUser {
     phone: string;
     avatar: string;
     following: Types.ObjectId[];
+    notifications: string[];
 }

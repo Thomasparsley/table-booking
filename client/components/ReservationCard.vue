@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded-lg p-4 bg-white shadow-sm shadow-indigo-100">
+    <div class="rounded-lg p-4 bg-white shadow shadow-indigo-100">
         <div class="flex flex-col space-y-1 p-2 border-l-4 border-green-500">
             <h3 class="text-xl font-bold text-gray-900">
                 Název rezervace

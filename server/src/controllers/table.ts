@@ -25,7 +25,7 @@ export class TableController extends Controller {
 
         router.get("/", authorized, (req, res) => this.all(req, res));
         router.get("/:id", authorized, (req, res) => this.one(req, res));
-        router.post("/", authorized, (req, res) => this.create(req, res));
+        router.post("/", (req, res) => this.create(req, res));
         router.put("/:id", authorized, (req, res) => this.update(req, res));
         router.delete("/:id", authorized, (req, res) => this.delete(req, res));
 

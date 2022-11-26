@@ -19,10 +19,9 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                     <h1 class="text-2xl font-bold">
                         {{ room.name }}
                     </h1>
-
-                    <p class="mt-0.5 text-sm">
-                        <IconPlace /> {{ room.place }}
-                    </p>
+                    <div class="mt-0.5 text-sm flex">
+                        <IconPlace class="place" /> <span>{{ room.place }}</span>
+                    </div>
                 </div>
 
                 <details class="group relative mt-4">
@@ -63,3 +62,9 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
     </section>
 
 </template>
+
+<style scoped>
+.place {
+    margin-left: -0.4em;
+}
+</style>

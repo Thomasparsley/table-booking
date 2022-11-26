@@ -33,10 +33,10 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         return await this.schedulerStoreModel.find({
             storedId: id,
             from: {
-                $lte: from
+                $lt: from
             },
             to: {
-                $gte: from
+                $gt: from
             }
         });
     }
@@ -45,10 +45,14 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         return await this.schedulerStoreModel.find({
             storedId: id,
             from: {
-                $gte: from,
-                $lte: to
+                $gt: from,
+                $lt: to
             }
         });
+    }
+
+    async getAllTableInRange(from: Date, to: Date): Promise<ITable[]> {
+        return this.schedulerStoreModel.find();
     }
 
     async getAllUnavailableRooms(from: Date, to: Date): Promise<IRoom[]> {
@@ -56,16 +60,16 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
             $and: [
                 {
                     from: {
-                        $gte: from,
-                        $lte: to
+                        $gt: from,
+                        $lt: to
                     }
                 },
                 {
                     from: {
-                        $lte: from
+                        $lt: from
                     },
                     to: {
-                        $gte: from
+                        $gt: from
                     }
                 },
                 {
@@ -79,16 +83,16 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
             $and: [
                 {
                     from: {
-                        $gte: from,
-                        $lte: to
+                        $gt: from,
+                        $lt: to
                     }
                 },
                 {
                     from: {
-                        $lte: from
+                        $lt: from
                     },
                     to: {
-                        $gte: from
+                        $gt: from
                     }
                 },
                 {

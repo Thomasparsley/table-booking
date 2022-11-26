@@ -30,7 +30,7 @@ const filteredTables = computed(() => {
             </header>
 
             <label for="filter"
-                class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                class="bg-gray-50 relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
 
                 <input v-model="filterRooms" type="text" id="filter" placeholder="Filtr"
                     class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
@@ -84,7 +84,7 @@ const filteredTables = computed(() => {
             </header>
 
             <label for="filter"
-                class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                class="bg-gray-50 relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
 
                 <input v-model="filterTables" type="text" id="filter" placeholder="Filtr"
                     class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
@@ -127,7 +127,9 @@ const filteredTables = computed(() => {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <NuxtLink :to="`/sprava/mistnosti/${table.room._id}/stoly/${table._id}/upravit`"
-                                            class="font-medium text-gray-800">Upravit</NuxtLink>
+                                            class="font-medium text-gray-800">
+                                            <IconPencil class="w-4" />
+                                        </NuxtLink>
                                     </div>
                                 </td>
                             </tr>
@@ -149,13 +151,13 @@ const filteredTables = computed(() => {
             </header>
 
             <label for="filter"
-                class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                class="bg-gray-50 relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
 
-                <input v-model="filterRooms" type="text" id="filter" placeholder="Filtr"
+                <input type="text" id="filter" placeholder="Filtr"
                     class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
                 <span
                     class="absolute left-5 top-2 -translate-y-1/4 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                    Hledej
+                    <IconViewer />
                 </span>
             </label>
 
@@ -184,7 +186,8 @@ const filteredTables = computed(() => {
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <NuxtLink :to="`/sprava/mistnosti/${room._id}/prehled`"
-                                            class="font-medium text-gray-800">Zobrazit
+                                            class="font-medium text-gray-800">
+                                            Detail
                                         </NuxtLink>
                                     </div>
                                 </td>

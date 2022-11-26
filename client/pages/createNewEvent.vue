@@ -28,12 +28,18 @@ const allStages = [{
 }];
 
 let availableTables: Ref<any[]> = ref([]);
+let availableRooms: Ref<any[]> = ref([]);
 
 const stage = ref(allStages[0]);
 
 const selectedTables: Ref<any[]> = ref([]);
 const selectedFullTables = computed(() => {
     return availableTables.value.filter((table: any) => selectedTables.value.includes(table._id));
+});
+
+const selectedRooms: Ref<any[]> = ref([]);
+const selectedFullRooms = computed(() => {
+    return availableRooms.value.filter((room: any) => selectedRooms.value.includes(room._id));
 });
 
 async function performStage() {
@@ -46,6 +52,11 @@ async function performStage() {
     }
     if (stage.value.id === 2) {
         availableTables.value = await fetchAvailableTablesInDataRage(
+            reservationForm.value.fromDate,
+            reservationForm.value.toDate
+        ) as any[];
+
+        availableRooms.value = await fetchAvailableRoomsInDataRage(
             reservationForm.value.fromDate,
             reservationForm.value.toDate
         ) as any[];
@@ -62,6 +73,18 @@ async function completedReservation() {
 
     await pushReservation(payload);
 }
+
+function switchSelectedTable(tableId: string) {
+    if (selectedTables.value.includes(tableId)) {
+        selectedTables.value = selectedTables.value.filter((id) => id !== tableId);
+    } else {
+        selectedTables.value.push(tableId);
+    }
+}
+
+function isTableSelected(tableId: string) {
+    return selectedTables.value.includes(tableId);
+}
 </script>
 
 <template>
@@ -74,7 +97,9 @@ async function completedReservation() {
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col gap-4">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900">Vyhledej dostupné místnosti</h1>
+                        <h1 class="text-3xl font-bold text-gray-900">
+                            Vyber si termín rezervace
+                        </h1>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4 max-w-full">
@@ -118,16 +143,25 @@ async function completedReservation() {
         </section>
 
         <section v-else-if="stage.id == 2">
-            <select id="feature-doc" name="feature-doc"
-                class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                multiple v-model="selectedTables">
-                <!-- <option v-for="table in availableTables" :key="table._id" :value="table._id">
-                    {{ table.room.name }} - {{ table.name }}, počet míst k sezení {{ table.chairs }}, {{ table.features
-                    }}
-                </option> -->
-            </select>
 
             <div>
+                <h1 class="text-3xl font-bold text-gray-900">Vyhledej dostupné stoly</h1>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <TableCard :name="table.name" :place="table.room.name" :chairs="table.seatCount"
+                    :features="table.features" :active="isTableSelected(table._id)" v-for="table in availableTables"
+                    :keys="table._id" @click="switchSelectedTable(table._id)" />
+            </div>
+
+            <div class="mt-14">
+                <h1 class="text-3xl font-bold text-gray-900">Vyhledej dostupné místnosti</h1>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <TableCard :name="table.name" :place="table.room.name" :chairs="table.seatCount"
+                    :features="table.features" :active="isTableSelected(table._id)" v-for="table in availableTables"
+                    :keys="table._id" @click="switchSelectedTable(table._id)" />
             </div>
 
             <UtilsHorizontalLine />

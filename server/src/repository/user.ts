@@ -1,4 +1,4 @@
-import { IUser } from "../interfaces";
+import { IUser, ISchedulerStore } from "../interfaces";
 import { UserModel } from "../models";
 import { DtoNewUser, DtoUpdateUser } from "../dtos";
 import { IUserService } from "../services";
@@ -64,5 +64,13 @@ export class UserRepository implements IUserService {
         await this.userModel.findByIdAndUpdate(id, {
             tokens: tokens
         });
+    }
+
+    async getUserFollowing(id: Types.ObjectId): Promise<IUser[]> {
+        return await this.userModel.find({ following: id });
+    }
+
+    async sendScheduleDeletionById(user: IUser, schedule: ISchedulerStore): Promise<void> {
+        user.notifications.push(`An administrator has deleted your meeting from ${schedule.from} to ${schedule.to}`);
     }
 }

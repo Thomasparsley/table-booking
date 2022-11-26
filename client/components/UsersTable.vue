@@ -51,7 +51,7 @@ export default {
 </script>
 
 <template>
-    <section class="md:mt-8">
+    <section class="min-w-full md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
                 <h2 class="font-semibold text-gray-800">Uživatelé</h2>

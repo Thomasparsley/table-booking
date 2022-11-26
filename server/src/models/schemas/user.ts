@@ -9,7 +9,8 @@ export const UserSchema = new Schema<IUser>({
     password: { type: String, required: true },
     permissions: { type: Number, required: true },
     tokens: { type: [String], required: true },
-    following: { type: [Types.ObjectId], required: true }
+    following: { type: [Types.ObjectId], required: true },
+    notifications: { type: [String], require: true }
 });
 
 

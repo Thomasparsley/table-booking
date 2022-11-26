@@ -6,5 +6,6 @@ export const SchedulerStoreSchema = new Schema<ISchedulerStore>({
     to: { type: Date, required: true },
     storedId: { type: Schema.Types.ObjectId, required: true },
     isRoom: { type: Boolean, required: true },
+    invitee: { type: Types.ObjectId, required: false },
     user: { type: Schema.Types.ObjectId, required: true }
 });
