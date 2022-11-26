@@ -1,4 +1,4 @@
 <template>
-    <ProfileEditStep />
+    <!-- <ProfileEditStep /> -->
     <ProfileEditMain />
 </template>

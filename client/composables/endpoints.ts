@@ -59,7 +59,12 @@ interface newTable {
 }
 
 export async function createNewTable(table: newTable) {
-    // TOOD
+    const { data } = await useApiFetch("/tables", {
+        method: "POST",
+        credential: "include",
+        body: JSON.stringify(table),
+    });
+    return data.value;
 }
 //#endregion
 

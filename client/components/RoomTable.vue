@@ -9,25 +9,22 @@ export default {
     },
 
     computed: {
-        filteredItems() {
+        filteredrooms() {
             // pak vyfiltrovat
-            return this.items
+
+            return this.room
         }
     },
 
-    created() {
-
-    }
-
     methods: {
-        onEdit(item) {
-            console.log("Editing " + JSON.stringify(item))
+        onEdit(room) {
+            console.log("Editing " + JSON.stringify(room))
         },
-        onDelete(item) {
-            console.log("Deleting " + JSON.stringify(item))
+        onDelete(room) {
+            console.log("Deleting " + JSON.stringify(room))
         },
         onAdd() {
-            console.log("Creating new item")
+            console.log("Creating new room")
         }
     }
 }
@@ -37,7 +34,7 @@ export default {
     <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-                <h2 class="font-semibold text-gray-800">Stoly</h2>
+                <h2 class="font-semibold text-gray-800">Místnosti a Stoly</h2>
                 <button @click="onAdd"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                     +
@@ -55,7 +52,7 @@ export default {
             </label>
             <div class="p-3">
                 <div class="overflow-x-auto">
-                    <item class="item-auto w-full">
+                    <table class="room-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
@@ -70,23 +67,23 @@ export default {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="item in filteredItems" :key="item.id">
+                            <tr v-for="room in filteredrooms" :key="room.id">
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="font-medium text-gray-800">{{ item.name }}
+                                    <div class="flex rooms-center">
+                                        <div class="font-medium text-gray-800">{{ room.name }}
                                         </div>
                                     </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">{{ item.type }}</div>
+                                    <div class="text-left">{{ room.place }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap flex gap-2">
-                                    <button @click="onEdit(item)" class="text-right">Edit</button>
-                                    <button @click="onDelete(item)" class="text-right">Delete</button>
+                                    <button @click="onEdit(room)" class="text-right">Edit</button>
+                                    <button @click="onDelete(room)" class="text-right">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
-                    </item>
+                    </table>
                 </div>
             </div>
         </div>

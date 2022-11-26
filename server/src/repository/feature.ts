@@ -27,6 +27,19 @@ export class FeatureRepository implements IFeatureService {
         return await newFeature.save();
     }
 
+    async createIfNotExists(feature: DtoNewFeature, isRoomFeature: boolean): Promise<IFeature> {
+        const existing = await this.featureModel.findOne({
+            name: feature.name,
+            isRoomFeature: isRoomFeature,
+        });
+
+        if (existing) {
+            return existing;
+        }
+
+        return await this.create(feature, isRoomFeature);
+    }
+
     async update(id: Types.ObjectId, feature: DtoUpdateFeature, isRoomFeature: boolean): Promise<IFeature | null> {
         return await this.featureModel.findOneAndUpdate({ _id: id, isRoomFeature: isRoomFeature }, feature, { new: false });
     }

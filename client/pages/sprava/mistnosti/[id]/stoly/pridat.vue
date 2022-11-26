@@ -5,16 +5,20 @@ const id = route.params.id as string;
 const room: any = await fetchRoomById(id);
 
 const newTableForm = ref({
+    roomId: id,
     name: "",
+    seatCount: 0,
     docks: [],
     monitors: [],
 })
 
-function sendNewTable() {
+async function sendNewTable() {
     const payload = {
         name: newTableForm.value.name,
         features: [...newTableForm.value.docks, ...newTableForm.value.monitors]
     }
+
+    console.log(payload);
 
     await createNewTable(payload);
 }
@@ -32,6 +36,12 @@ function sendNewTable() {
                             <label class="sr-only" for="name">Název stolu</label>
                             <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Name" type="text"
                                 id="name" v-model="newTableForm.name" />
+                        </div>
+
+                        <div>
+                            <label class="sr-only" for="chairs">Počet židlí</label>
+                            <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Počet židl"
+                                type="number" id="chairs" v-model="newTableForm.name" />
                         </div>
 
                         <div>

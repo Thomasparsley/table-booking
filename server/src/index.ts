@@ -61,7 +61,7 @@ const featureRepository = new FeatureRepository(FeatureModel);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
-const tableController = new TableController(tableRepository);
+const tableController = new TableController(tableRepository, featureRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
 

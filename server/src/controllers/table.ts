@@ -1,12 +1,14 @@
 import { Express, Router, Request, Response } from "express";
 import { Types } from "mongoose";
-import { ITableService } from "../services";
+import { DtoNewTable } from "../dtos";
+import { ITableService, IFeatureService } from "../services";
 import { Controller } from "./controller";
 
 export class TableController extends Controller {
 
     constructor(
         private readonly tableService: ITableService,
+        private readonly featureService: IFeatureService,
     ) {
         super();
     }
@@ -45,8 +47,19 @@ export class TableController extends Controller {
     }
 
     private async create(req: Request, res: Response) {
-        const table = await this.tableService.create(req.body);
-        res.status(200).json(table);
+        const payload: DtoNewTable = req.body;
+
+        const { features, ...tablePayload } = payload;
+        const featuresIds: Types.ObjectId[] = [];
+
+        features.forEach(async (feature) => {
+            const { _id } = await this.featureService.createIfNotExists({ name: feature }, true)
+            featuresIds.push(_id);
+        });
+
+        const table = await this.tableService.create(tablePayload, featuresIds);
+
+        return res.status(200).json(table);
     }
 
     private async update(req: Request, res: Response) {

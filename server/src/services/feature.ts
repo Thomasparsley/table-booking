@@ -5,7 +5,8 @@ import { Types } from "mongoose";
 export interface IFeatureService {
     getById(id: Types.ObjectId, isRoomFeature: boolean): Promise<IFeature | null>;
     getAll(isRoomFeature: boolean): Promise<IFeature[]>;
-    create(room: DtoNewFeature, isRoomFeature: boolean): Promise<IFeature>;
+    create(feature: DtoNewFeature, isRoomFeature: boolean): Promise<IFeature>;
+    createIfNotExists(feature: DtoNewFeature, isRoomFeature: boolean): Promise<IFeature>;
     update(id: Types.ObjectId, room: DtoUpdateFeature, isRoomFeature: boolean): Promise<IFeature | null>;
     delete(id: Types.ObjectId, isRoomFeature: boolean): Promise<IFeature | null>;
 }

@@ -5,3 +5,4 @@ export * from "./user";
 export * from "./event";
 export * from "./userPermissions";
 export * from "./feature";
+export * from "./schedulerStore";

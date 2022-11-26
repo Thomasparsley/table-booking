@@ -18,10 +18,25 @@ export class TableRepository implements ITableService {
         return await this.tableModel.find();
     }
 
-    async create(user: DtoNewTable): Promise<ITable> {
-        const newUser = new this.tableModel(user);
-        return await newUser.save();
+    async create(table: DtoNewTable, featuers: Types.ObjectId[] = []): Promise<ITable> {
+        const newTable = new this.tableModel(table);
+        newTable.features = featuers;
+        return await newTable.save();
     }
+
+    async createIfNotExists(table: DtoNewTable): Promise<ITable> {
+        const existing = await this.tableModel.findOne({
+            name: table.name,
+            roomId: table.roomId,
+        });
+
+        if (existing) {
+            return existing;
+        }
+
+        return await this.create(table);
+    }
+
 
     async getAllForRoom(roomId: Types.ObjectId): Promise<ITable[]> {
         return await this.tableModel.find({ roomId: roomId });

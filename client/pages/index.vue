@@ -34,4 +34,7 @@ export default {
     </div>
     <ReservationCard />
     <AnythingList :items="tables" />
+
+    <RoomTable :tables="tables" :rooms="tables" />
+
 </template>
