@@ -5,5 +5,5 @@ export interface IRoom {
     name: string;
     place: string;
     description: string;
-    features: Types.ObjectId[];
+    features: string[];
 }

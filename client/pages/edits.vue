@@ -30,6 +30,6 @@ export default {
 
 <template>
 
-    <BothTable :tables="tables" :rooms="rooms" />
+    <BothTable :tables="tables" :rooms="tables" />
 
 </template>

@@ -66,6 +66,14 @@ export async function createNewTable(table: newTable) {
     });
     return data.value;
 }
+
+export async function updateTable(id: string, table: newTable) {
+    const { data } = await useApiFetch(`/tables/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(table)
+    });
+    return data.value;
+}
 //#endregion
 
 //#region Features

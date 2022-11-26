@@ -22,8 +22,8 @@ export class TableController extends Controller {
         router.get("/", (req, res) => this.all(req, res));
         router.get("/:id", (req, res) => this.one(req, res));
         router.post("/", (req, res) => this.create(req, res));
-        router.put("/", (req, res) => this.update(req, res));
-        router.put("/:id", (req, res) => this.delete(req, res));
+        router.put("/:id", (req, res) => this.update(req, res));
+        router.delete("/:id", (req, res) => this.delete(req, res));
 
         super.installRoutes(app, prefix, router);
     }
@@ -50,15 +50,16 @@ export class TableController extends Controller {
         const payload: DtoNewTable = req.body;
         console.log(payload);
 
-        const { features, ...tablePayload } = payload;
-        const featuresIds: Types.ObjectId[] = [];
+        const tablePayload = payload;
+        //const { features, ...tablePayload } = payload;
+        /*const featuresIds: Types.ObjectId[] = [];
 
         features.forEach(async (feature) => {
             const { _id } = await this.featureService.createIfNotExists({ name: feature }, true)
             featuresIds.push(_id);
-        });
+        });*/
 
-        const table = await this.tableService.create(tablePayload, featuresIds);
+        const table = await this.tableService.create(tablePayload);
 
         return res.status(200).json(table);
     }

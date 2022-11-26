@@ -1,4 +1,7 @@
 <script setup lang="ts">
+const defaultDocks = ["TX534", "AB 32 USB+", "ThunderFlame", "Electric S4"];
+const defaultMonitors = ["LG 27", "LG 32", "LG 42", "LG 55", "UltraWide BG35 8k", "SD wide 35 Logic", "MetalMonitor G43", "IIMAYA T21/9"];
+
 const route = useRoute();
 const id = route.params.id as string;
 
@@ -12,6 +15,8 @@ const newTableForm = ref({
     monitors: [],
 })
 
+const tablesPath = `/sprava/mistnosti/${id}/stoly`;
+
 async function sendNewTable() {
     const payload = {
         name: newTableForm.value.name,
@@ -20,9 +25,8 @@ async function sendNewTable() {
         features: [...newTableForm.value.docks, ...newTableForm.value.monitors]
     }
 
-    console.log(payload);
-
     await createNewTable(payload);
+    navigateTo(tablesPath);
 }
 </script>
 
@@ -53,10 +57,9 @@ async function sendNewTable() {
                             <select id="feature-doc" name="feature-doc"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 multiple v-model="newTableForm.docks">
-                                <option>TX534</option>
-                                <option>AB 32 USB+</option>
-                                <option>ThunderFlame</option>
-                                <option>Electric S4</option>
+                                <option v-for="dock in defaultDocks" :key="dock">
+                                    {{ dock }}
+                                </option>
                             </select>
                         </div>
 
@@ -66,10 +69,9 @@ async function sendNewTable() {
                             <select id="feature-monitor" name="feature-monitor"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 multiple v-model="newTableForm.monitors">
-                                <option>UltraWide BG35 8k</option>
-                                <option>SD wide 35 Logic</option>
-                                <option>MetalMonitor G43</option>
-                                <option>IIMAYA T21/9</option>
+                                <option v-for="monitor in defaultMonitors" :key="monitor">
+                                    {{ monitor }}
+                                </option>
                             </select>
                         </div>
 

@@ -11,14 +11,15 @@ export default {
     computed: {
         filteredItems() {
             // pak vyfiltrovat
-            console.log(JSON.stringify(this.rooms))
-            console.log(JSON.stringify(this.tables))
-            return this.rooms
+            console.log("rooms: " + JSON.stringify(this.rooms))
+            console.log("tables: " + JSON.stringify(this.tables))
+
+            return this.tables
             // .concat(this.tables).filter(item => item.name.includes(this.filter))
         }
     },
 
-    mounted() {
+    created() {
         //this.rooms = this.rooms.map(room => room.type = "místnost")
         //this.tables = this.tables.map(table => table.type = "stůl")
 
@@ -49,6 +50,10 @@ export default {
                     +
                 </button>
             </header>
+            <div class="flex gap-x-5">
+                <UtilsCheckBox>Stoly</UtilsCheckBox>
+                <UtilsCheckBox>Místnosti</UtilsCheckBox>
+            </div>
             <label for="filter"
                 class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input v-model="filter" type="text" id="filter" placeholder="Filtr"

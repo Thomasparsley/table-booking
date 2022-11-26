@@ -14,7 +14,8 @@ import {
     RoomModel,
     TableModel,
     UserModel,
-    FeatureModel
+    FeatureModel,
+    SchedulerStoreModel
 } from "./models"
 import {
     AuthController,
@@ -27,7 +28,9 @@ import {
     RoomRepository,
     TableRepository,
     UserRepository,
-    FeatureRepository
+    FeatureRepository,
+    SchedulerService,
+    SchedulerStoreRepository
 } from "./repository";
 
 mongoose.connect("mongodb://127.0.0.1:27016/tablebooking");
@@ -58,12 +61,14 @@ const roomRepository = new RoomRepository(RoomModel);
 const tableRepository = new TableRepository(TableModel);
 const userRepository = new UserRepository(UserModel);
 const featureRepository = new FeatureRepository(FeatureModel);
+const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, featureRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
+const scheduler = new SchedulerService(schedulerRepository);
 
 authController.installRoutes(app, "/api/auth");
 roomController.installRoutes(app, "/api/rooms");
@@ -147,3 +152,20 @@ app.listen(port, () => console.log("Listening"));
 
 featureFill();*/
 /*main()*/
+
+async function testScheduler() {
+    const id = new Types.ObjectId("abcdefghijkl");
+    const today = new Date();
+    const targetDate = new Date(today);
+    targetDate.setDate(targetDate.getDate() + 6);
+    console.log(await scheduler.canSchedule(id, today, targetDate));
+    scheduler.schedule(id,)
+
+    const nextDate = new Date(today);
+    nextDate.setDate(nextDate.getDate() + 1);
+    const prevDate = new Date(targetDate);
+    prevDate.setDate(prevDate.getDate() - 1);
+    console.log(await scheduler.canSchedule(id, nextDate, prevDate));
+}
+
+testScheduler();

@@ -18,9 +18,8 @@ export class TableRepository implements ITableService {
         return await this.tableModel.find();
     }
 
-    async create(table: DtoNewTable, featuers: Types.ObjectId[] = []): Promise<ITable> {
+    async create(table: DtoNewTable): Promise<ITable> {
         const newTable = new this.tableModel(table);
-        newTable.features = featuers;
         return await newTable.save();
     }
 

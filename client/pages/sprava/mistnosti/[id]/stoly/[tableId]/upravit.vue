@@ -1,27 +1,30 @@
 <script setup lang="ts">
+const defaultDocks = ["TX534", "AB 32 USB+", "ThunderFlame", "Electric S4"];
+const defaultMonitors = ["LG 27", "LG 32", "LG 42", "LG 55", "UltraWide BG35 8k", "SD wide 35 Logic", "MetalMonitor G43", "IIMAYA T21/9"];
+
 const route = useRoute();
 const id = route.params.id as string;
 const tableId = route.params.tableId as string;
 const tables = await fetchTablesInRoom(id) as any[];
 
 const room: any = await fetchRoomById(id);
-const table = tables.find((table) => table.id === tableId);
+const table = tables.find((table) => table._id === tableId);
+const tableFeatures: string[] = table.features;
 
-console.log(room);
-console.log(tables);
-console.log(table);
+const selectedDocks = ref(tableFeatures.filter((feature: string) => defaultDocks.includes(feature)));
+const selectedMonitors = ref(tableFeatures.filter((feature: string) => defaultMonitors.includes(feature)));
 
 async function sendUpdateTable() {
-    /* const payload = {
-        name: newTableForm.value.name,
-        seatCount: newTableForm.value.seatCount,
-        roomId: newTableForm.value.roomId,
-        features: [...newTableForm.value.docks, ...newTableForm.value.monitors]
+    const payload = {
+        name: table.name,
+        seatCount: table.seatCount,
+        roomId: id,
+        features: [...selectedDocks.value, ...selectedMonitors.value]
     }
 
     console.log(payload);
 
-    await createNewTable(payload); */
+    await updateTable(tableId, payload);
 }
 </script>
 
@@ -51,11 +54,10 @@ async function sendUpdateTable() {
                             </label>
                             <select id="feature-doc" name="feature-doc"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                multiple>
-                                <option>TX534</option>
-                                <option>AB 32 USB+</option>
-                                <option>ThunderFlame</option>
-                                <option>Electric S4</option>
+                                multiple v-model="selectedDocks">
+                                <option v-for="dock in defaultDocks" :key="dock">
+                                    {{ dock }}
+                                </option>
                             </select>
                         </div>
 
@@ -64,11 +66,10 @@ async function sendUpdateTable() {
                                 monitory</label>
                             <select id="feature-monitor" name="feature-monitor"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                multiple>
-                                <option>UltraWide BG35 8k</option>
-                                <option>SD wide 35 Logic</option>
-                                <option>MetalMonitor G43</option>
-                                <option>IIMAYA T21/9</option>
+                                multiple v-model="selectedMonitors">
+                                <option v-for="monitor in defaultMonitors" :key="monitor">
+                                    {{ monitor }}
+                                </option>
                             </select>
                         </div>
 

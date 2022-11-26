@@ -27,8 +27,8 @@ Co ovšem **určitě budeme chtít, jsou zdrojové kódy aplikace**. Ať už ná
 Tyto funkce by aplikace měla implementovat, takže se na jejich dodržení zaměř.
 
 *Specifikace místností / stolů*
-- [ ] Správa stolů / místností
-- [ ] Možnost nastavit vybavení pro jednotlivé stoly (typ dokovací stanice, speciální monitory, a další)
+- [x] Správa stolů / místností
+- [x] Možnost nastavit vybavení pro jednotlivé stoly (typ dokovací stanice, speciální monitory, a další)
 - [ ] Možnost zablokovat určité stoly pro rezervace v určité dny / období
 
 *Rezervace stolů*

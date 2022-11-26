@@ -5,11 +5,11 @@ export class SchedulerService implements ISchedulerService {
     constructor(private schedulerStoreService: ISchedulerStoreService) { }
     async canSchedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean> {
         const pending = await this.schedulerStoreService.getAllPendingSchedules(id, from);
-        if (pending) {
+        if (pending && pending.length > 0) {
             return false;
         }
         const ongoing = await this.schedulerStoreService.getAllOngoingSchedules(id, from, to);
-        if (ongoing) {
+        if (ongoing && ongoing.length > 0) {
             return false;
         }
         return true;
@@ -19,11 +19,13 @@ export class SchedulerService implements ISchedulerService {
         if (!this.canSchedule(id, from, to)) {
             return false;
         }
-        await this.schedulerStoreService.create({
+        const schedule = await this.schedulerStoreService.create({
             from: from,
             to: to,
             storedId: id
         });
+
+        console.log(schedule);
 
         return true;
     }

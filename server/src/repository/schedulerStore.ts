@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 import { ISchedulerStore } from "../interfaces";
 import { SchedulerStoreModel } from "../models";
 
-export class SchedulerRepository implements ISchedulerStoreService {
+export class SchedulerStoreRepository implements ISchedulerStoreService {
     constructor(
         private readonly schedulerStoreModel: typeof SchedulerStoreModel,
     ) { }
@@ -17,7 +17,8 @@ export class SchedulerRepository implements ISchedulerStoreService {
     }
 
     async create(store: PartialSchedulerStore): Promise<ISchedulerStore> {
-        return await this.schedulerStoreModel.create(store);
+        const newStore = new this.schedulerStoreModel(store);
+        return await newStore.save();
     }
 
     async delete(id: Types.ObjectId): Promise<ISchedulerStore | null> {
@@ -28,10 +29,10 @@ export class SchedulerRepository implements ISchedulerStoreService {
         return await this.schedulerStoreModel.find({
             storedId: id,
             from: {
-                $lte: from
+                $lt: from
             },
             to: {
-                $gte: from
+                $gt: from
             }
         });
     }
@@ -39,7 +40,10 @@ export class SchedulerRepository implements ISchedulerStoreService {
     async getAllOngoingSchedules(id: Types.ObjectId, from: Date, to: Date): Promise<ISchedulerStore[] | null> {
         return await this.schedulerStoreModel.find({
             storedId: id,
-
-        })
+            from: {
+                $gt: from,
+                $lt: to
+            }
+        });
     }
 }
