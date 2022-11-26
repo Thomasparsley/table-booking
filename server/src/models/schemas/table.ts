@@ -2,7 +2,8 @@ import { Schema, Types } from 'mongoose';
 import { ITable } from '../../interfaces';
 
 export const TableSchema = new Schema<ITable>({
-    name: { type: String },
+    name: { type: String, required: true },
     seatCount: { type: Number, required: true },
+    roomId: { type: Schema.Types.ObjectId, required: true },
     features: { type: [Types.ObjectId], required: true }
 });

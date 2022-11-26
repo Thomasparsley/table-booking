@@ -14,13 +14,13 @@ const room: any = await fetchRoomById(id);
                         Název stolu
                     </h1>
 
-                    <p class="mt-0.5 text-sm">Odkaz an místnost</p>
+                    <p class="mt-0.5 text-sm">Odkaz na místnost</p>
                 </div>
 
                 <details class="group relative mt-4">
                     <summary class="block">
                         <div>
-                            <div class="prose max-w-none group-open:hidden">
+                            <div class="max-w-none">
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
                                     veniam dicta beatae eos ex error culpa delectus rem tenetur,
@@ -32,12 +32,14 @@ const room: any = await fetchRoomById(id);
                     </summary>
                 </details>
 
-                <legend class="mb-1 text-sm font-medium">Vlastnosti stolu</legend>
-                <div class="flow-root">
-                    <div class="-m-0.5 flex flex-wrap">
-                        <UtilsBadge />
-                        <UtilsBadge />
-                        <UtilsBadge />
+                <div class="my-4">
+                    <legend class="mb-2 text-base font-medium">Vlastnosti stolu</legend>
+                    <div class="flow-root">
+                        <div class="-m-0.5 flex gap-1 flex-wrap">
+                            <UtilsBadge />
+                            <UtilsBadge />
+                            <UtilsBadge />
+                        </div>
                     </div>
                 </div>
             </div>

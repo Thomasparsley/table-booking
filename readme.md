@@ -41,7 +41,7 @@ Tyto funkce by aplikace měla implementovat, takže se na jejich dodržení zam�
 *Uživatelé*
 - [x] Přihlašování uživatele na základě přihlašovacího jména, hesla (případně emailu)
 - [ ] Možnost spravovat základní informace o vlastním účtu (změna emailu, telefonu, avatara, atd.)
-- [ ] Nastavení sledování konkrétních uživatelů (nutno potvrdit daným uživatelem) - u sledovaného uživatele dostanete notifikaci při provedené rezervaci na konkrétní den daným uživatelem.
+- [x] Nastavení sledování konkrétních uživatelů (nutno potvrdit daným uživatelem) - u sledovaného uživatele dostanete notifikaci při provedené rezervaci na konkrétní den daným uživatelem.
 - [ ] Nastavení pro preferované stoly na základě určitého druhu vybavení (zohledněno při filtrování stolů)
   
 *Uživatelské role*

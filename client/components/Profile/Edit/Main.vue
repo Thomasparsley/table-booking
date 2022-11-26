@@ -100,7 +100,31 @@
             <form action="#" class="mt-8 flex flex-col gap-4">
                 <div class="overflow-hidden shadow sm:rounded-md">
                     <div class="bg-white px-4 py-5 sm:p-6">
-                        <ProfileEditRadio />
+                        <div>
+                            <label for="feature-doc" class="block text-sm font-medium text-gray-700">Typ dokovací
+                                stanice</label>
+                            <select id="feature-doc" name="feature-doc"
+                                class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                multiple>
+                                <option>TX534</option>
+                                <option>AB 32 USB+</option>
+                                <option>ThunderFlame</option>
+                                <option>Electric S4</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="feature-monitor" class="block text-sm font-medium text-gray-700">Speciální
+                                monitory</label>
+                            <select id="feature-monitor" name="feature-monitor"
+                                class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                multiple>
+                                <option>UltraWide BG35 8k</option>
+                                <option>SD wide 35 Logic</option>
+                                <option>MetalMonitor G43</option>
+                                <option>IIMAYA T21/9</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
                         <button type="submit"

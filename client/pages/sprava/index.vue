@@ -31,5 +31,4 @@ const allRooms: any[] = await fetchRooms();
         </ul>
     </section>
 
-
 </template>

@@ -4,6 +4,7 @@ const id = route.params.id as string;
 
 const room: any = await fetchRoomById(id);
 const editPath = `/sprava/mistnosti/${id}/upravit`;
+const tablesPath = `/sprava/mistnosti/${id}/stoly`;
 </script>
 
 <template>
@@ -15,13 +16,13 @@ const editPath = `/sprava/mistnosti/${id}/upravit`;
                         {{ room.name }}
                     </h1>
 
-                    <p class="mt-0.5 text-sm">Ikona a umístění místnosti</p>
+                    <p class="mt-0.5 text-sm">Ikona {{ room.place }}</p>
                 </div>
 
                 <details class="group relative mt-4">
                     <summary class="block">
                         <div>
-                            <div class="prose max-w-none group-open:hidden">
+                            <div class="max-w-none">
                                 <p>
                                     {{ room.description }}
                                 </p>
@@ -30,12 +31,14 @@ const editPath = `/sprava/mistnosti/${id}/upravit`;
                     </summary>
                 </details>
 
-                <legend class="mb-1 text-sm font-medium">Color</legend>
-                <div class="flow-root">
-                    <div class="-m-0.5 flex gap-1 flex-wrap">
-                        <UtilsBadge />
-                        <UtilsBadge />
-                        <UtilsBadge />
+                <div class="my-4">
+                    <legend class="mb-2 text-base font-medium">Color</legend>
+                    <div class="flow-root">
+                        <div class="-m-0.5 flex gap-1 flex-wrap">
+                            <UtilsBadge />
+                            <UtilsBadge />
+                            <UtilsBadge />
+                        </div>
                     </div>
                 </div>
 
@@ -44,7 +47,7 @@ const editPath = `/sprava/mistnosti/${id}/upravit`;
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
                         Upravit místnost
                     </NuxtLink>
-                    <NuxtLink :to="editPath"
+                    <NuxtLink :to="tablesPath"
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
                         Správa stolů
                     </NuxtLink>

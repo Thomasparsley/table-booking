@@ -1,25 +1,33 @@
 <script>
 export default {
-    props: ["tables", "pathToNew"],
+    props: ['rooms', 'tables'],
     data() {
         return {
             filter: "",
+            loaded: false,
         }
     },
 
     computed: {
-        filteredTables() {
+        filteredItems() {
             // pak vyfiltrovat
-            return this.tables
+            return this.items
         }
     },
 
+    created() {
+
+    }
+
     methods: {
-        onEdit(table) {
-            console.log("Editing " + JSON.stringify(table))
+        onEdit(item) {
+            console.log("Editing " + JSON.stringify(item))
         },
-        onDelete(table) {
-            console.log("Deleting " + JSON.stringify(table))
+        onDelete(item) {
+            console.log("Deleting " + JSON.stringify(item))
+        },
+        onAdd() {
+            console.log("Creating new item")
         }
     }
 }
@@ -30,10 +38,10 @@ export default {
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
                 <h2 class="font-semibold text-gray-800">Stoly</h2>
-                <NuxtLink :to="pathToNew"
+                <button @click="onAdd"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                     +
-                </NuxtLink>
+                </button>
             </header>
             <label for="filter"
                 class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -47,14 +55,14 @@ export default {
             </label>
             <div class="p-3">
                 <div class="overflow-x-auto">
-                    <table class="table-auto w-full">
+                    <item class="item-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Název</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Židlí</div>
+                                    <div class="font-semibold text-left">Pozice</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Akce</div>
@@ -62,23 +70,23 @@ export default {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="table in filteredTables" :key="table.id">
+                            <tr v-for="item in filteredItems" :key="item.id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="font-medium text-gray-800">{{ table.name }}
+                                        <div class="font-medium text-gray-800">{{ item.name }}
                                         </div>
                                     </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left">{{ table.seatCount }}</div>
+                                    <div class="text-left">{{ item.type }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap flex gap-2">
-                                    <button @click="onEdit(table)" class="text-right">Edit</button>
-                                    <button @click="onDelete(table)" class="text-right">Delete</button>
+                                    <button @click="onEdit(item)" class="text-right">Edit</button>
+                                    <button @click="onDelete(item)" class="text-right">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </item>
                 </div>
             </div>
         </div>

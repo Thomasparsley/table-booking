@@ -60,7 +60,7 @@ const userRepository = new UserRepository(UserModel);
 const featureRepository = new FeatureRepository(FeatureModel);
 
 const authController = new AuthController(userRepository, superSecretKey);
-const roomController = new RoomController(roomRepository);
+const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
@@ -127,10 +127,23 @@ app.listen(port, () => console.log("Listening"));
     });
     user2.save();
 }*/
-async function featureFill() {
+/*async function featureFill() {
     const feature = new FeatureModel({
         isRoomFeature: false,
-        name: "Do"
-    })
+        name: "Dokovaci stanice"
+    });
+    feature.save();
+    const feature2 = new FeatureModel({
+        isRoomFeature: false,
+        name: "Zasuvka"
+    });
+    feature2.save();
+    const feature3 = new FeatureModel({
+        isRoomFeature: true,
+        name: "Projektor"
+    });
+    feature3.save();
 }
+
+featureFill();*/
 /*main()*/

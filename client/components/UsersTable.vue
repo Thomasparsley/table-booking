@@ -17,8 +17,6 @@ export default {
         console.log("created")
         this.users = await fetchUsers();
         console.log(this.users);
-
-        this.loaded = true
     },
 
     methods: {
@@ -46,7 +44,7 @@ export default {
 </script>
 
 <template>
-    <section v-if="loaded" class="md:mt-8">
+    <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
                 <h2 class="font-semibold text-gray-800">Uživatelé</h2>
@@ -72,6 +70,9 @@ export default {
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Email</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Akce</div>
                                 </th>
                             </tr>
                         </thead>
@@ -102,7 +103,3 @@ export default {
         </div>
     </section>
 </template>
-
-<style scoped>
-
-</style>

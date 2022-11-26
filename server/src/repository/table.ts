@@ -23,6 +23,10 @@ export class TableRepository implements ITableService {
         return await newUser.save();
     }
 
+    async getAllForRoom(roomId: Types.ObjectId): Promise<ITable[]> {
+        return await this.tableModel.find({ roomId: roomId });
+    }
+
     async update(id: Types.ObjectId, user: DtoUpdateTable): Promise<ITable | null> {
         return await this.tableModel.findByIdAndUpdate(id, user, { new: false });
     }

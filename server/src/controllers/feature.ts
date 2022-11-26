@@ -4,7 +4,6 @@ import { Types } from "mongoose";
 import { Controller } from "./controller";
 
 export class FeatureController extends Controller {
-
     constructor(
         private readonly featureService: IFeatureService,
     ) {

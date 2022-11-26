@@ -37,6 +37,10 @@ export async function updateRoom(id: string, room: newRoom) {
     return data.value;
 }
 
+export async function fetchTablesInRoom(id: string) {
+    const { data } = await useApiFetch(`/rooms/tables/${id}`);
+    return data.value;
+}
 //#endregion
 
 //#region Tables
@@ -49,6 +53,24 @@ export async function fetchTableById(id: string) {
     const { data } = await useApiFetch(`/tables/${id}`);
     return data.value;
 }
+
+
+interface newTable {
+}
+
+export async function createNewTable(table: newTable) {
+    // TOOD
+}
+//#endregion
+
+//#region Features
+
+export async function createTableFeature(name: string) {
+    const { data } = await useApiFetch("/features/tables", {
+        method: "POST"
+    });
+}
+
 
 //#endregion
 

@@ -1,5 +1,5 @@
 import { Express, Router, Request, Response } from "express";
-import { IRoomService } from "../services";
+import { IRoomService, ITableService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
 
@@ -7,6 +7,7 @@ export class RoomController extends Controller {
 
     constructor(
         private readonly roomService: IRoomService,
+        private readonly tableService: ITableService
     ) {
         super();
     }
@@ -17,6 +18,7 @@ export class RoomController extends Controller {
         router: Router = Router(),
     ) {
         router.get("/", (req, res) => this.all(req, res));
+        router.get("/tables/:id", (req, res) => this.allTables(req, res));
         router.get("/:id", (req, res) => this.one(req, res));
 
         router.post("/", (req, res) => this.create(req, res));
@@ -29,6 +31,13 @@ export class RoomController extends Controller {
     private async all(_: Request, res: Response) {
         const rooms = await this.roomService.getAll()
         return res.status(200).json(rooms);
+    }
+
+    private async allTables(req: Request, res: Response) {
+        const id = new Types.ObjectId(req.params.id);
+        const tables = await this.tableService.getAllForRoom(id);
+
+        res.status(200).json(tables);
     }
 
     private async one(req: Request, res: Response) {
