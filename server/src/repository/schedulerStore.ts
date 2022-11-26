@@ -1,6 +1,6 @@
 import { ISchedulerStoreService, PartialSchedulerStore } from "../services";
 import { Types } from "mongoose";
-import { ISchedulerStore } from "../interfaces";
+import { ISchedulerStore, IRoom, ITable } from "../interfaces";
 import { SchedulerStoreModel } from "../models";
 
 export class SchedulerStoreRepository implements ISchedulerStoreService {
@@ -29,10 +29,10 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         return await this.schedulerStoreModel.find({
             storedId: id,
             from: {
-                $lt: from
+                $lte: from
             },
             to: {
-                $gt: from
+                $gte: from
             }
         });
     }
@@ -44,6 +44,27 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
                 $gte: from,
                 $lte: to
             }
+        });
+    }
+
+    async getAllAvailable(from: Date, to: Date): Promise<IRoom[] | ITable[]> {
+        return await this.schedulerStoreModel.find({
+            $and: [
+                {
+                    from: {
+                        $gte: from,
+                        $lte: to
+                    }
+                },
+                {
+                    from: {
+                        $lte: from
+                    },
+                    to: {
+                        $gte: from
+                    }
+                }
+            ]
         });
     }
 }

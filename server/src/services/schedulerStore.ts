@@ -1,4 +1,4 @@
-import { IRoom } from "../interfaces";
+import { IRoom, ITable } from "../interfaces";
 import { Types } from "mongoose";
 import { ISchedulerStore } from "../interfaces";
 
@@ -15,4 +15,5 @@ export interface ISchedulerStoreService {
     delete(id: Types.ObjectId): Promise<ISchedulerStore | null>;
     getAllPendingSchedules(id: Types.ObjectId, from: Date): Promise<ISchedulerStore[] | null>;
     getAllOngoingSchedules(id: Types.ObjectId, from: Date, to: Date): Promise<ISchedulerStore[] | null>;
+    getAllAvailable(from: Date, to: Date): Promise<ITable[]>;
 }

@@ -37,7 +37,8 @@ export default {
 
     computed: {
         filteredUsers() {
-            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
+            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) ||
+                user.email.includes(this.filter))
         },
     }
 }
@@ -92,8 +93,8 @@ export default {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <button v-if="!followed(user)" @click="onAddFollow(user)"
-                                        class="text-left">Follow</button>
-                                    <button v-else @click="onDeleteFollow(user)" class="text-left">Unfollow</button>
+                                        class="text-left">Sledovat</button>
+                                    <button v-else @click="onDeleteFollow(user)" class="text-left">Nesledovat</button>
                                 </td>
                             </tr>
                         </tbody>

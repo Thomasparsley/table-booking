@@ -18,6 +18,11 @@ export class SchedulerService implements ISchedulerService {
 
     async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
         return [];
+        /*const tables = await this.schedulerStoreService.getAllAvailableTables(from, to) as ITable[];
+        const rooms = await this.schedulerStoreService.getAllAvailableRooms(from, to);
+        tables.filter(table => {
+            rooms.includes(table.roomId);
+        });*/
     }
 
     async getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]> {
@@ -40,11 +45,6 @@ export class SchedulerService implements ISchedulerService {
     }
 
     async getAllAvailableTableReservations(from: Date, to: Date, isTable: boolean): Promise<ITable[]> {
-        /*const tables = await this.schedulerStoreService.getAllAvailableTables(from, to) as ITable[];
-        const rooms = await this.schedulerStoreService.getAllAvailableRooms(from, to);
-        tables.filter(table => {
-
-        });*/
 
         return [];
     }

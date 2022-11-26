@@ -4,7 +4,7 @@ import { decodeToken } from "../helpers";
 const TokenCookieName = "token";
 
 
-export function authorizedMaker(secretKey: string) {
+export function authorizedMaker() {
     return function (
         req: Request,
         res: Response,
@@ -17,6 +17,9 @@ export function authorizedMaker(secretKey: string) {
             req.context = {
                 userId: tokenPayload._id,
             };
+        } else {
+            res.status(401).json({ message: "Unauthorized" });
+            return;
         }
 
         next();

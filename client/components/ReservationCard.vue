@@ -12,10 +12,10 @@
         </div>
 
         <div class="mt-2 p-4">
-            <dl class="flex flex-col justify-between items-center">
-                <div class="flex flex-row">
-                    <dt class="text-medium">Od:</dt>
-                    <dd class="text-medium flex flex-row">
+            <dl class="flex flex-row justify-between items-center">
+                <div>
+                    <dt class="text-medium text-gray-500 text-base">Datum od</dt>
+                    <dd class="text-medium flex flex-row font-bold">
                         <span>
                             11. Čer 2022,
                         </span>
@@ -26,12 +26,8 @@
                 </div>
 
                 <div>
-                    >
-                </div>
-
-                <div>
-                    <dt class="text-medium">Do:</dt>
-                    <dd class="text-medium flex flex-row">
+                    <dt class="text-medium text-gray-500 text-base">Datum do</dt>
+                    <dd class="text-medium flex flex-row font-bold">
                         <span>
                             11. Čer 2022,
                         </span>

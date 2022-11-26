@@ -3,9 +3,14 @@ import { IUserService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
 import { decodeToken } from "../helpers";
+import { authorizedMaker } from "../middleware/auth";
+
 
 //TODO: Extract
 const TokenCookieName = "token";
+
+const authorized = authorizedMaker();
+
 
 export class UserController extends Controller {
 
@@ -20,15 +25,15 @@ export class UserController extends Controller {
         prefix: string | null = null,
         router: Router = Router(),
     ) {
-        router.get("/", (req, res) => this.all(req, res));
-        router.post("/follow/:id", (req, res) => this.addFollow(req, res));
-        router.delete("/follow/:id", (req, res) => this.deleteFollow(req, res));
-        router.get("/me", (req, res) => this.me(req, res));
-        router.get("/:id", (req, res) => this.one(req, res));
+        router.get("/", authorized, (req, res) => this.all(req, res));
+        router.post("/follow/:id", authorized, (req, res) => this.addFollow(req, res));
+        router.delete("/follow/:id", authorized, (req, res) => this.deleteFollow(req, res));
+        router.get("/me", authorized, (req, res) => this.me(req, res));
+        router.get("/:id", authorized, (req, res) => this.one(req, res));
 
-        router.post("/", (req, res) => this.create(req, res));
-        router.put("/:id", (req, res) => this.update(req, res));
-        router.delete("/:id", (req, res) => this.delete(req, res));
+        router.post("/", authorized, (req, res) => this.create(req, res));
+        router.put("/:id", authorized, (req, res) => this.update(req, res));
+        router.delete("/:id", authorized, (req, res) => this.delete(req, res));
 
         super.installRoutes(app, prefix, router);
     }

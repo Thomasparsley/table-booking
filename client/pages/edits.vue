@@ -1,6 +1,4 @@
 <script>
-
-
 export default {
     setup() {
         definePageMeta({
@@ -37,11 +35,8 @@ export default {
         }
     },
 }
-
 </script>
 
 <template>
-
     <BothTable :tables="tables" :rooms="rooms" />
-
 </template>

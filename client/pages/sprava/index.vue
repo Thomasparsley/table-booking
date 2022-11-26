@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    middleware: ["auth"]
+})
+
 const allRooms: any[] = await fetchRooms();
 const filterRooms = ref("");
 

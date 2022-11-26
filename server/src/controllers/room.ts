@@ -2,6 +2,11 @@ import { Express, Router, Request, Response } from "express";
 import { IRoomService, ITableService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
+import { authorizedMaker } from "../middleware/auth";
+
+
+const authorized = authorizedMaker();
+
 
 export class RoomController extends Controller {
 
@@ -17,13 +22,13 @@ export class RoomController extends Controller {
         prefix: string | null = null,
         router: Router = Router(),
     ) {
-        router.get("/", (req, res) => this.all(req, res));
-        router.get("/tables/:id", (req, res) => this.allTables(req, res));
-        router.get("/:id", (req, res) => this.one(req, res));
+        router.get("/", authorized, (req, res) => this.all(req, res));
+        router.get("/tables/:id", authorized, (req, res) => this.allTables(req, res));
+        router.get("/:id", authorized, (req, res) => this.one(req, res));
 
-        router.post("/", (req, res) => this.create(req, res));
-        router.put("/:id", (req, res) => this.update(req, res));
-        router.delete("/:id", (req, res) => this.delete(req, res));
+        router.post("/", authorized, (req, res) => this.create(req, res));
+        router.put("/:id", authorized, (req, res) => this.update(req, res));
+        router.delete("/:id", authorized, (req, res) => this.delete(req, res));
 
         super.installRoutes(app, prefix, router);
     }

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    middleware: ["auth"]
+})
+
 const defaultDocks = ["TX534", "AB 32 USB+", "ThunderFlame", "Electric S4"];
 const defaultMonitors = ["LG 27", "LG 32", "LG 42", "LG 55", "UltraWide BG35 8k", "SD wide 35 Logic", "MetalMonitor G43", "IIMAYA T21/9"];
 
