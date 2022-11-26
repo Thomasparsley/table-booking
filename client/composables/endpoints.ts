@@ -74,6 +74,16 @@ export async function fetchAvailableTablesInDataRage(from: string, to: string) {
 }
 
 
+export async function pushReservation(payload: any) {
+    const { data } = await useApiFetch("/scheduler", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        credentials: "include",
+    });
+    return data.value;
+}
+
+
 interface newTable {
 }
 

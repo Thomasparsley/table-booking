@@ -7,7 +7,7 @@ definePageMeta({
 <template>
     <section>
         <h2 class="ml-4 my-2 text-3xl font-medium">Notifikace</h2>
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-3">
             <NotificationsNotification />
             <NotificationsNotification />
             <NotificationsNotification />

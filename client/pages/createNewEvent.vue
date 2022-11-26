@@ -31,6 +31,11 @@ let availableTables: Ref<any[]> = ref([]);
 
 const stage = ref(allStages[0]);
 
+const selectedTables: Ref<any[]> = ref([]);
+const selectedFullTables = computed(() => {
+    return availableTables.value.filter((table: any) => selectedTables.value.includes(table._id));
+});
+
 async function performStage() {
     if (stage.value.id < allStages.length) {
         stage.value = allStages[stage.value.id];
@@ -45,6 +50,17 @@ async function performStage() {
             reservationForm.value.toDate
         ) as any[];
     }
+}
+
+async function completedReservation() {
+    const payload = {
+        rooms: [],
+        tables: selectedTables.value,
+        fromDate: reservationForm.value.fromDate,
+        toDate: reservationForm.value.toDate
+    };
+
+    await pushReservation(payload);
 }
 </script>
 
@@ -86,14 +102,14 @@ async function performStage() {
                         <button type="submit"
                             class="inline-flex w-full items-center justify-center rounded-lg px-5 py-3c sm:w-auto border-2">
                             <span class="font-medium">
-                                Zrušit
+                                Zrušit rezervování
                             </span>
                         </button>
                         <button type="submit"
                             class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
                             @click.prevent="performStage">
                             <span class="font-medium">
-                                Hledat
+                                Vybrat stole
                             </span>
                         </button>
                     </div>
@@ -101,8 +117,74 @@ async function performStage() {
             </div>
         </section>
 
-        <section v-if="stage.id == 2">
+        <section v-else-if="stage.id == 2">
+            <select id="feature-doc" name="feature-doc"
+                class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                multiple v-model="selectedTables">
+                <!-- <option v-for="table in availableTables" :key="table._id" :value="table._id">
+                    {{ table.room.name }} - {{ table.name }}, počet míst k sezení {{ table.chairs }}, {{ table.features
+                    }}
+                </option> -->
+            </select>
 
+            <div>
+            </div>
+
+            <UtilsHorizontalLine />
+            <div>
+                <div class="flex gap-4">
+                    <button type="submit"
+                        class="inline-flex w-full items-center justify-center rounded-lg px-5 py-3c sm:w-auto border-2">
+                        <span class="font-medium">
+                            zpět
+                        </span>
+                    </button>
+                    <button type="submit"
+                        class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
+                        @click.prevent="performStage">
+                        <span class="font-medium">
+                            Přejít ke založení rezervace
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <section v-else>
+            <div>
+                <div>
+                    rezervace od: {{ reservationForm.fromDate }}
+                    rezervace do: {{ reservationForm.toDate }}
+
+                    <ul>
+                        <li v-for="table in selectedFullTables" :key="table._id">
+                            {{ table.name }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <UtilsHorizontalLine />
+
+            <div>
+                <div class="flex gap-4">
+
+                    <button type="submit"
+                        class="inline-flex w-full items-center justify-center rounded-lg px-5 py-3c sm:w-auto border-2">
+                        <span class="font-medium">
+                            Zpět
+                        </span>
+                    </button>
+                    <button type="submit"
+                        class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
+                        @click.prevent="completedReservation">
+                        <span class="font-medium">
+                            Dokončit rezervaci
+                        </span>
+                    </button>
+                </div>
+            </div>
         </section>
     </div>
 </template>

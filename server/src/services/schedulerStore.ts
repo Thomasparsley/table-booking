@@ -1,4 +1,4 @@
-import { IRoom, ITable } from "../interfaces";
+import { IRoom, ITable, IUser } from "../interfaces";
 import { Types } from "mongoose";
 import { ISchedulerStore } from "../interfaces";
 
@@ -6,6 +6,7 @@ export type PartialSchedulerStore = {
     from: Date;
     to: Date;
     storedId: Types.ObjectId;
+    user: Types.ObjectId;
     isRoom: boolean;
 }
 

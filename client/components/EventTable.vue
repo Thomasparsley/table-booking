@@ -10,22 +10,16 @@ export default {
     },
 
     async mounted() {
-        console.log("Fetch self: ")
         this.loggedUser = await fetchSelf();
-        console.log(JSON.stringify(this.loggedUser));
-
         this.events = await fetchEvents();
-        console.log(this.events);
 
         this.loaded = true
     },
 
     methods: {
         async onEditFollow(event) {
-            console.log("Ediit")
         },
         async onDeleteFollow(event) {
-            console.log("Deletiing")
         },
     },
 

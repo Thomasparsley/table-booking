@@ -4,18 +4,7 @@ export default {
         definePageMeta({
             middleware: ["auth"]
         })
-    },
-
-    data() {
-        return {
-            user: {
-                firstName: 'Franta',
-                lastName: 'Zdepa',
-                email: 'emaiiil',
-                password: 'sss'
-            }
-        }
-    },
+    }
 }
 </script>
 
@@ -35,6 +24,10 @@ export default {
                 <NuxtLink to="/users?onlyFollow=true" class="text-base font-medium text-blue-600">
                     13 sledujících
                 </NuxtLink>
+
+                <UtilsHorizontalLine />
+
+                <ProfileFriendList />
             </div>
         </div>
     </div>

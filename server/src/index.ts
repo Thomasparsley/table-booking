@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
@@ -73,7 +73,7 @@ const schedulerServices = new SchedulerService(
     tableRepository,
 );
 
-const schedulerController = new SchedulerController(schedulerServices);
+const schedulerController = new SchedulerController(schedulerServices, roomRepository, userRepository);
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, roomRepository);
@@ -87,6 +87,7 @@ tableController.installRoutes(app, "/api/tables");
 userController.installRoutes(app, "/api/users");
 featureController.installRoutes(app, "/api/features");
 eventController.installRoutes(app, "/api/events");
+schedulerController.installRoutes(app, "/api/scheduler");
 
 app.get("/ping", function (_, res) {
     res.status(200).write("Pong!");
@@ -164,20 +165,26 @@ app.listen(port, () => console.log("Listening"));
 }
 
 featureFill();*/
-/*
-async function testScheduler() {
+
+/*async function testScheduler() {
     const id = new Types.ObjectId("abcdefghijkl");
     const today = new Date();
     const targetDate = new Date(today);
     targetDate.setDate(targetDate.getDate() + 6);
-    console.log(await scheduler.canSchedule(id, today, targetDate));
-    await scheduler.schedule(id, today, targetDate);
+    console.log(await schedulerServices.canSchedule(id, today, targetDate));
+    await schedulerServices.schedule(id, false, today, targetDate);
 
     const nextDate = new Date(today);
     nextDate.setDate(nextDate.getDate() + 1);
     const prevDate = new Date(targetDate);
     prevDate.setDate(prevDate.getDate() - 1);
-    console.log(await scheduler.canSchedule(id, nextDate, prevDate));
+    console.log(await schedulerServices.canSchedule(id, nextDate, prevDate));
+
+    const validDate = new Date(targetDate);
+    validDate.setDate(validDate.getDate() + 2);
+    const validTargetDate = new Date(validDate);
+    validTargetDate.setDate(validTargetDate.getDate() + 5);
+    console.log(await schedulerServices.canSchedule(id, validDate, validTargetDate));
 }
 
 testScheduler();*/

@@ -1,53 +1,33 @@
+<script setup lang="ts">
+
+const { friend } = defineProps(["friend"])
+
+const avatars = [
+    "https://images.unsplash.com/photo-1614644147724-2d4785d69962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
+    "https://images.unsplash.com/photo-1668661628231-d630edd8ad95?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1018&q=80",
+    "https://images.unsplash.com/photo-1668634038912-1735064107e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+    "https://images.unsplash.com/photo-1668634038912-1735064107e6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+    "https://unsplash.com/photos/wYOuuAqbs5s",
+    "https://images.unsplash.com/photo-1662988836971-aefba0a7907a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+    "https://images.unsplash.com/photo-1657292171722-80d8bd5cbf51?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+    "https://images.unsplash.com/photo-1658177909265-fa8231c54f38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+]
+
+// function thet returns random avatar
+const getRandomAvatar = () => {
+    return avatars[Math.floor(Math.random() / avatars.length)]
+}
+</script>
+
+
 <template>
-    <article class="rounded-xl border border-gray-700 bg-gray-800 p-4">
+    <div class="border-gray-700 rounded-lg p-4 bg-white shadow-sm shadow-indigo-100">
         <div class="flex items-center">
-            <img alt="Developer"
-                src="https://images.unsplash.com/photo-1614644147724-2d4785d69962?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80"
-                class="h-16 w-16 rounded-full object-cover" />
+            <img alt="Developer" :src="getRandomAvatar()" class="h-16 w-16 rounded-full object-cover" />
 
             <div class="ml-3">
-                <h3 class="text-lg font-medium text-white">Claire Mac</h3>
-
-                <div class="flow-root">
-                    <ul class="-m-1 flex flex-wrap">
-                        <li class="p-1 leading-none">
-                            <a href="#" class="text-xs font-medium text-gray-300"> Twitter </a>
-                        </li>
-
-                        <li class="p-1 leading-none">
-                            <a href="#" class="text-xs font-medium text-gray-300"> GitHub </a>
-                        </li>
-
-                        <li class="p-1 leading-none">
-                            <a href="#" class="text-xs font-medium text-gray-300">Website</a>
-                        </li>
-                    </ul>
-                </div>
+                <h3 class="text-lg font-medium" v-if="friend">{{ friend.firstName }}</h3>
             </div>
         </div>
-
-        <ul class="mt-4 space-y-2">
-            <li>
-                <a href="#" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
-                    <strong class="font-medium text-white">Project A</strong>
-
-                    <p class="mt-1 text-xs font-medium text-gray-300">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-                        consequuntur deleniti, unde ab ut in!
-                    </p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#" class="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
-                    <strong class="font-medium text-white">Project B</strong>
-
-                    <p class="mt-1 text-xs font-medium text-gray-300">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-                        cumque saepe sit.
-                    </p>
-                </a>
-            </li>
-        </ul>
-    </article>
+    </div>
 </template>

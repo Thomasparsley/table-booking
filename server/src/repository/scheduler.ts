@@ -1,6 +1,6 @@
-import { ISchedulerService, ISchedulerStoreService, ITableService, IRoomService } from "../services"
+import { ISchedulerService, ISchedulerStoreService, ITableService, IRoomService, PartialSchedulerStore } from "../services"
 import { Types } from "mongoose";
-import { ITable, IRoom } from "../interfaces";
+import { ITable, IRoom, ISchedulerStore } from "../interfaces";
 
 export class SchedulerService implements ISchedulerService {
     constructor(
@@ -21,28 +21,28 @@ export class SchedulerService implements ISchedulerService {
         return true;
     }
 
-    async updateSchedule(id: Types.ObjectId, storedId: Types.ObjectId, isRoom: boolean, from: Date, to: Date) {
-        return this.schedulerStoreService.update(id, {
-            isRoom: isRoom,
-            from: from,
-            to: to,
-            storedId: storedId
-        });
+    async deleteSchedule(id: Types.ObjectId): Promise<ISchedulerStore | null> {
+        return await this.schedulerStoreService.delete(id);
     }
 
-    async schedule(id: Types.ObjectId, isRoom: boolean, from: Date, to: Date): Promise<boolean> {
+    async updateSchedule(id: Types.ObjectId, store: PartialSchedulerStore): Promise<ISchedulerStore | null> {
+        return this.schedulerStoreService.update(id, store);
+    }
+
+    async schedule(id: Types.ObjectId, isRoom: boolean, from: Date, to: Date, user: Types.ObjectId): Promise<ISchedulerStore | null> {
         if (!(await this.canSchedule(id, from, to))) {
-            return false;
+            return null;
         }
 
-        await this.schedulerStoreService.create({
+        const store = await this.schedulerStoreService.create({
             from: from,
             storedId: id,
             to: to,
-            isRoom: isRoom
+            isRoom: isRoom,
+            user: user
         });
 
-        return true;
+        return store;
     }
 
     async getSchedules(id: Types.ObjectId): Promise<{ from: Date; to: Date; }[]> {

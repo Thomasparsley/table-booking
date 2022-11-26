@@ -15,17 +15,20 @@ onUnmounted(() => {
     clearInterval(authTokenRenew);
 });
 
+const route = useRoute();
+const currentPath = computed(() => route.path);
+
 </script>
 
 
 <template>
-    <div class="relative min-h-screen">
+    <div class="relative min-h-screen grid grid-rows-[64px_1fr]" :class="{ 'bg-gray-50': currentPath === '/' }">
         <NavNavbar />
 
-        <main class="mx-auto max-w-7xl mb-20">
+        <main class="mx-auto max-w-7xl">
             <slot />
         </main>
-
-        <NavMobile />
     </div>
+
+    <NavMobile />
 </template>

@@ -16,12 +16,8 @@ export default {
     },
 
     async mounted() {
-        console.log("Fetch self: ")
         this.loggedUser = await fetchSelf();
-        console.log(JSON.stringify(this.loggedUser));
-
         this.users = await fetchUsers();
-        console.log(this.users);
     },
 
     methods: {
@@ -35,7 +31,6 @@ export default {
             this.loggedUser = await fetchSelf()
         },
         followed(user) {
-            console.log("following:" + JSON.stringify(this.loggedUser.following))
             return this.loggedUser.following.includes(user._id)
         },
     },
