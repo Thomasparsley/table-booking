@@ -153,10 +153,6 @@ const filteredTables = computed(() => {
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="items-center px-5 py-4 border-b border-gray-100 flex justify-between">
                 <h2 class="text-2xl font-semibold text-gray-800">Akce</h2>
-                <NuxtLink to="/sprava/mistnosti/pridat"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-full">
-                    <IconAdd />
-                </NuxtLink>
             </header>
 
             <label for="filter"

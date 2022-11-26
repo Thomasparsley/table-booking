@@ -13,6 +13,8 @@ export class EventController extends Controller {
 
     constructor(
         private readonly eventService: IEventService,
+        private readonly roomService: IRoomService,
+        private readonly tableService: ITableService
     ) {
         super();
     }
@@ -23,7 +25,9 @@ export class EventController extends Controller {
         router: Router = Router(),
     ) {
         router.get("/", authorized, (req, res) => this.all(req, res));
+        router.get("/next", authorized, (req, res) => this.next(req, res));
         router.get("/:id", authorized, (req, res) => this.one(req, res));
+
 
         router.post("/", authorized, (req, res) => this.create(req, res));
         router.put("/:id", authorized, (req, res) => this.update(req, res));
@@ -34,6 +38,28 @@ export class EventController extends Controller {
 
     private async all(req: Request, res: Response) {
         const events = await this.eventService.getAll()
+        res.status(200).json(events);
+    }
+
+    private async next(req: Request, res: Response) {
+        const fromRaw = req.query.from;
+        const from = fromRaw ? new Date(fromRaw as string) : new Date();
+
+        const events = await this.eventService.getAllFromDate(from);
+        let expandedEvents = [];
+        for (const event of events) {
+            let rooms = [];
+            for (const room of event.occupiedRooms) {
+
+            }
+
+
+            expandedEvents.push({
+                name: event.name,
+                rooms: 
+            })
+        }
+
         res.status(200).json(events);
     }
 

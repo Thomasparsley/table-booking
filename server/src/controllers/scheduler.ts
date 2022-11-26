@@ -1,6 +1,6 @@
 import { Express, Router, Request, Response } from "express";
 import { ISchedulerStore } from "../interfaces";
-import { ISchedulerService, ITableService, IRoomService, IUserService } from "../services";
+import { ISchedulerService, ITableService, IRoomService, IEventService, IUserService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
 import { authorizedMaker } from "../middleware/auth";
@@ -19,6 +19,7 @@ export class SchedulerController extends Controller {
         private readonly roomService: IRoomService,
         private readonly userService: IUserService,
         private readonly schedulerStoreModel: typeof SchedulerStoreModel,
+        private readonly eventService: IEventService
     ) {
         super();
     }
@@ -28,9 +29,10 @@ export class SchedulerController extends Controller {
         prefix: string | null = null,
         router: Router = Router(),
     ) {
+        router.post("/", authorized, (req, res) => this.createSchedules(req, res));
+
         router.get("/tables", authorized, (req, res) => this.allTableSchedules(req, res));
         router.get("/tables/:id", authorized, (req, res) => this.tableSchedules(req, res));
-        router.post("/", authorized, (req, res) => this.createSchedules(req, res));
         router.put("/tables/:id", authorized, (req, res) => this.updateSchedule(req, res, false));
         router.delete("/tables/:id", authorized, (req, res) => this.deleteSchedule(req, res));
 
@@ -50,7 +52,10 @@ export class SchedulerController extends Controller {
         // free tables
         const allFreeTables = await this.tableService.getAll();
 
-        const allReservedTables = await this.schedulerStoreModel.find();
+        const allReservedTables = await this.schedulerStoreModel.find({
+            from: { $gte: from, $lte: to },
+            isRoom: false
+        });
 
         const allReservedTablesIds = allReservedTables.map((table) => table.storedId.toString());
 
@@ -131,6 +136,14 @@ export class SchedulerController extends Controller {
             return;
         }
 
+        // Create new event
+        const event = await this.eventService.create({
+            fromDate: from,
+            toDate: to
+        });
+
+        // link all stores ids into event
+
         let roomsStore: ISchedulerStore[] = [];
         let tablesStore: ISchedulerStore[] = [];
 
@@ -139,16 +152,20 @@ export class SchedulerController extends Controller {
             if (result != null) {
                 roomsStore.push(result);
                 this.userService.addSchedule(user._id, result._id);
+                event.occupiedRooms.push(roomId);
             }
         }
 
-        for (const table of tables) {
-            const result = await this.schedulerService.schedule(table, false, from, to, user._id);
+        for (const tableId of tables) {
+            const result = await this.schedulerService.schedule(tableId, false, from, to, user._id);
             if (result != null) {
                 tablesStore.push(result);
                 this.userService.addSchedule(user._id, result._id);
+                event.occupiedTables.push(tableId);
             }
         }
+
+        await this.eventService.updateEvent(event._id, event);
 
         res.status(200).json({
             rooms: roomsStore,
@@ -212,35 +229,32 @@ export class SchedulerController extends Controller {
         const from = new Date(req.query.from as string) || new Date();
         const to = new Date(req.query.to as string);
 
-        // free tables
-        const allFreeTables = await this.tableService.getAll();
+        const allRooms = await this.roomService.getAll();
 
-        const allReservedTables = await this.schedulerStoreModel.find();
+        const allReservedRooms = await this.schedulerStoreModel.find({
+            from: { $gte: from, $lte: to },
+            isRoom: true
+        });
 
-        const allReservedTablesIds = allReservedTables.map((table) => table.storedId.toString());
+        const allReservedRoomsIds = allReservedRooms.map((room) => room.storedId.toString());
 
         // from allFreeTables remove allReservedTables
-        const freeTables = allFreeTables.filter((table) => {
-            return !allReservedTablesIds.includes(table._id.toString());
+        const freeRoom = allRooms.filter((room) => {
+            return !allReservedRoomsIds.includes(room._id.toString());
         });
 
         // add room to free tables
-        const tables = [];
-        for (const table of freeTables) {
-            const roomId = table.roomId;
-            const room = await this.roomService.getById(roomId);
-            tables.push({
-                _id: table._id,
-                name: table.name,
-                seatCount: table.seatCount,
-                features: table.features,
-                roomId: table.roomId,
-                room: room
+        const rooms = [];
+        for (const room of freeRoom) {
+            const roomId = room._id;
+            const tables = await this.tableService.getAllForRoom(roomId);
+            rooms.push({
+                room: room,
+                tables: tables
             });
         };
 
-
-        return res.status(200).json(tables);
+        return res.status(200).json(rooms);
     }
 
     private async roomSchedules(req: Request, res: Response) {

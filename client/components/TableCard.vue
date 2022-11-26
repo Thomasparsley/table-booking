@@ -46,7 +46,7 @@ const { name, place } = defineProps({
                 </div>
             </div>
 
-            <div class="flex flex-row gap-1">
+            <div class="flex flex-row gap-1" v-if="features.length > 1">
                 <IconTool />
                 <p class="text-sm text-gray-600">
                     {{ features }}

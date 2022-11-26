@@ -28,38 +28,32 @@ async function sendNewRoom() {
                                 class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                                 <span class="text-xs font-medium text-gray-700"> Název </span>
 
-                                <input type="text" id="name" placeholder="Název"
+                                <input type="text" id="name" placeholder=""
                                     class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                                     v-model="newRoom.name" />
                             </label>
                         </div>
 
                         <div>
-                            <label for="name"
+                            <label for="place"
                                 class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                                 <span class="text-xs font-medium text-gray-700"> Místo </span>
 
-                                <input type="text" id="place" placeholder="Místo"
+                                <input type="text" id="place" placeholder=""
                                     class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
                                     v-model="newRoom.place" />
                             </label>
                         </div>
 
                         <div>
-                            <label for="name"
+                            <label for="description"
                                 class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-                                <span class="text-xs font-medium text-gray-700"> Místo </span>
+                                <span class="text-xs font-medium text-gray-700"> Popisek </span>
 
-                                <textarea type="text" id="place" placeholder="Místo"
+                                <textarea type="text" id="description" placeholder=""
                                     class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                                    v-model="newRoom.description" />
+                                    v-model="newRoom.description"></textarea>
                             </label>
-                        </div>
-
-                        <div>
-                            <label class="sr-only" for="description">Popisek</label>
-                            <textarea class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Popisek"
-                                rows="8" id="description" v-model="newRoom.description"></textarea>
                         </div>
 
                         <div class="mt-4">

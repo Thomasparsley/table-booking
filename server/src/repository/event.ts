@@ -27,7 +27,15 @@ export class EventRepository implements IEventService {
         return await this.eventModel.findByIdAndUpdate(id, event, { new: false });
     }
 
+    async updateEvent(id: Types.ObjectId, event: IEvent): Promise<IEvent | null> {
+        return await this.eventModel.findByIdAndUpdate(id, event, { new: false });
+    }
+
     async delete(id: Types.ObjectId): Promise<IEvent | null> {
         return await this.eventModel.findByIdAndDelete(id);
+    }
+
+    async getAllFromDate(from: Date): Promise<IEvent[]> {
+        return await this.eventModel.find({ date: { $gte: from } });
     }
 }

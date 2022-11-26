@@ -200,3 +200,10 @@ export async function deleteFollow(id: string) {
     });
 }
 //#endregion
+
+export async function fetchReservations(from: string) {
+    const { data } = await useApiFetch(`/events/next?from=${from}`, {
+        credentials: "include",
+    });
+    return data.value;
+}

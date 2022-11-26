@@ -6,15 +6,8 @@
                 <div class="">
                     <h3 class="pl-4 pt-4 text-lg font-medium leading-6 text-gray-900">Změnit heslo</h3>
                     <p class="pl-4 pt-2 text-sm text-gray-600">Zabezpečení hesla začíná vytvořením silného hesla. Silné
-                        heslo je:
-
-                        Alespoň 12 znaků, lépe však 14 a více.
-                        Kombinace velkých a malých písmen, číslic a symbolů.
-                        Nejedná se o slovo, které lze najít ve slovníku, ani o název osoby, postavy, produktu nebo
-                        organizace.
-                        Výrazně se liší od vašich předchozích hesel.
-                        Snadno zapamatovatelné pro vás, ale obtížně uhodnutelné pro ostatní. Zvažte použití
-                        zapamatovatelné fráze, například "6MonkeysRLooking^".
+                        heslo je: Alespoň 12 znaků, lépe však 14 a více. Kombinace velkých a malých písmen, číslic a
+                        symbolů.
                     </p>
                 </div>
             </div>

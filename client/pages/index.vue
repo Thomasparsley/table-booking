@@ -3,9 +3,13 @@ definePageMeta({
     middleware: ["auth"]
 })
 
-// const reservations = await fetchReservations()
+function currentDate() {
+    const date = new Date();
+    date.setHours(date.getHours() + 1);
+    return date.toISOString().substr(0, 16);
+}
 
-const reservations: any[] = [];
+const reservations = await fetchReservations(currentDate()) as any[];
 </script>
 
 <template>

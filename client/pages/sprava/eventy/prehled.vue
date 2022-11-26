@@ -44,12 +44,12 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                 </div>
 
                 <div class="flex gap-4">
-                    <NuxtLink :to="editPath"
+                    <NuxtLink
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
                         Upravit event
                     </NuxtLink>
 
-                    <NuxtLink :to="tablesPath"
+                    <NuxtLink
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
                         Správa stolů
                     </NuxtLink>

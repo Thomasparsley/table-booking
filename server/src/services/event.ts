@@ -7,5 +7,7 @@ export interface IEventService {
     getAll(): Promise<IEvent[]>;
     create(event: DtoNewEvent): Promise<IEvent>;
     update(id: Types.ObjectId, event: DtoUpdateEvent): Promise<IEvent | null>;
+    updateEvent(id: Types.ObjectId, event: IEvent): Promise<IEvent | null>;
     delete(id: Types.ObjectId): Promise<IEvent | null>;
+    getAllFromDate(date: Date): Promise<IEvent[]>;
 }
