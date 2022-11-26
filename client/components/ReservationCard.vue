@@ -37,6 +37,8 @@ function calcRoomChairs(tables: any[] = []) {
                 <dl class="flex flex-row flex-wrap gap-1 justify-between items-center">
                     <div>
                         <dd class="text-medium flex flex-col font-bold">
+                            <span>19.2.2019</span>
+                            <span>10:00</span>
                             <!-- <span>
                             {{ fromDate.getDay() }}. {{ fromDate.getMonth() }} {{ fromDate.getFullYear() }},
                         </span>
@@ -48,6 +50,8 @@ function calcRoomChairs(tables: any[] = []) {
                     <IconArrorRight class="w-10 h-10" />
                     <div>
                         <dd class="text-medium flex flex-col font-bold">
+                            <span>22.2.2019</span>
+                            <span>11:00</span>
                             <!-- <span>
                             {{ toDate.getDay() }}. {{ toDate.getMonth() }} {{ toDate.getFullYear() }},
                         </span>

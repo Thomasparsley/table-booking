@@ -33,6 +33,8 @@ import {
     EventRepository,
 } from "./repository";
 
+
+
 mongoose.connect("mongodb://127.0.0.1:27016/tablebooking");
 
 const app: Express = express();
@@ -56,16 +58,6 @@ app.use(cookieParser());
 // app.use(helmet());
 
 const superSecretKey = "sdadsa";
-
-
-/*
-async function asda() {
-    const a = await SchedulerStoreModel.find();
-    console.log(a);
-}
-
-asda()
-*/
 
 const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
 
@@ -127,78 +119,3 @@ if (process.env.IS_PRODUCTION) {
 }
 
 app.listen(port, () => console.log("Listening"));
-
-
-/*async function main() {
-    const user = new UserModel({
-        _id: new Types.ObjectId("125556789999"),
-        email: "test@test.com",
-        firstName: "Test3",
-        lastName: "Test4",
-        following: [],
-        password: await generatePasswordHash("12345"),
-        permissions: 0,
-        tokens: []
-    });
-    await user.save();
-    const user2 = new UserModel({
-        _id: new Types.ObjectId("123996789998"),
-        email: "test2@test.com",
-        firstName: "Tester5",
-        lastName: "Tester6",
-        following: [],
-        password: await generatePasswordHash("12345"),
-        permission: 0,
-        tokens: []
-    });
-    await user2.save();
-}*/
-/*main()*/
-/*async function featureFill() {
-    const feature = new FeatureModel({
-        isRoomFeature: false,
-        name: "Dokovaci stanice"
-    });
-    feature.save();
-    const feature2 = new FeatureModel({
-        isRoomFeature: false,
-        name: "Zasuvka"
-    });
-    feature2.save();
-    const feature3 = new FeatureModel({
-        isRoomFeature: true,
-        name: "Projektor"
-    });
-    feature3.save();
-}
-
-featureFill();*/
-
-/*async function testScheduler() {
-    const id = new Types.ObjectId("abcdefghijkl");
-    const today = new Date();
-    const targetDate = new Date(today);
-    targetDate.setDate(targetDate.getDate() + 6);
-    console.log(await schedulerServices.canSchedule(id, today, targetDate));
-    await schedulerServices.schedule(id, false, today, targetDate);
-
-    const nextDate = new Date(today);
-    nextDate.setDate(nextDate.getDate() + 1);
-    const prevDate = new Date(targetDate);
-    prevDate.setDate(prevDate.getDate() - 1);
-    console.log(await schedulerServices.canSchedule(id, nextDate, prevDate));
-
-    const validDate = new Date(targetDate);
-    validDate.setDate(validDate.getDate() + 2);
-    const validTargetDate = new Date(validDate);
-    validTargetDate.setDate(validTargetDate.getDate() + 5);
-    console.log(await schedulerServices.canSchedule(id, validDate, validTargetDate));
-}
-
-testScheduler();*/
-
-/*
-
-
-
-*/

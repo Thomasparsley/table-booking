@@ -96,8 +96,6 @@ export class SchedulerController extends Controller {
         const from = new Date(fromDate);
         const to = new Date(toDate);
 
-        console.log(data);
-
         const token = req.cookies["token"];
         const payload = decodeToken(token);
         if (!payload) {
@@ -125,7 +123,6 @@ export class SchedulerController extends Controller {
         valid = true
         for (const tableId of tables) {
             const canSchedule = await this.schedulerService.canSchedule(tableId, from, to);
-            console.log(canSchedule);
             if (!canSchedule) {
                 valid = false;
                 break;
@@ -143,6 +140,14 @@ export class SchedulerController extends Controller {
             name: name,
             description: description
         });
+
+        //schedule for event
+        const schedule = await this.schedulerService.schedule(event._id, false, from, to, user._id);
+
+
+        if (schedule && schedule._id) {
+            event.schedule = schedule._id;
+        }
 
         // link all stores ids into event
 
@@ -171,7 +176,8 @@ export class SchedulerController extends Controller {
 
         res.status(200).json({
             rooms: roomsStore,
-            tables: tablesStore
+            tables: tablesStore,
+            schedule: schedule
         });
         return;
 

@@ -7,9 +7,7 @@ export default {
         }
     },
     async mounted() {
-        console.log("Fečuju")
         this.allUserNotification = await fetchNotifications()
-        console.log(JSON.stringify(this.allUserNotification))
     }
 }
 

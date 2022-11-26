@@ -18,7 +18,6 @@ export default {
                 await this.sendUpdate({ password: this.password })
             }
             else {
-                console.log("Passwords Dissmatch")
             }
         },
         async onUpdateEmail() {
@@ -28,10 +27,7 @@ export default {
             await sendUpdate({ phone: this.phone })
         },
         async sendUpdate(data) {
-            //const result = await useFetch("/user", { method: 'PUT', body: data })
-            //console.log(JSON.stringify(result))
-            //return result
-            console.log(JSON.stringify(data))
+
         }
     }
 }

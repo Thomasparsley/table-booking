@@ -10,8 +10,6 @@ function currentDate() {
 }
 
 const reservations = await fetchReservations(currentDate()) as any[];
-
-const isAdmin = await isUserAdmin();
 </script>
 
 <template>

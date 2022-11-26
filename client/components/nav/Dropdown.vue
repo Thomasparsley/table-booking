@@ -45,9 +45,10 @@ export default {
                     </MenuItem>
                 </div>
                 <div class="py-1">
-                    <MenuItem @click="logout" v-slot="{ active }">
-                    <div :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                        Odhlásit</div>
+                    <MenuItem v-slot="{ active }">
+                    <NuxtLink to="/login" @click="logout"
+                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                        Odhlásit</NuxtLink>
                     </MenuItem>
                 </div>
             </MenuItems>

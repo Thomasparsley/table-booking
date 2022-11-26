@@ -153,7 +153,7 @@ function calcRoomChairs(tables: any[] = []) {
                             class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
                             @click.prevent="performStage()">
                             <span class="font-medium">
-                                Vybrat stole
+                                Vybrat stoly
                             </span>
                         </button>
                     </div>

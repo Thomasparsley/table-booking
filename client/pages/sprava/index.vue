@@ -24,12 +24,6 @@ const filteredTables = computed(() => {
 });
 
 const allEvents = await fetchReservations(currentDate()) as any[];
-const filterEvents = ref("");
-
-const filteredEvents = computed(() => {
-    return allEvents.filter((event) => event.name.toLowerCase().includes(filteredEvents.value.toLowerCase()));
-});
-
 </script>
 
 <template>
@@ -169,17 +163,6 @@ const filteredEvents = computed(() => {
                 <h2 class="text-2xl font-semibold text-gray-800">Akce</h2>
             </header>
 
-            <label for="filter"
-                class="bg-gray-50 relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
-
-                <input v-model="filterEvents" type="text" id="filter" placeholder="Filtr"
-                    class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
-                <span
-                    class="absolute left-5 top-2 -translate-y-1/4 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
-                    <IconViewer />
-                </span>
-            </label>
-
             <div class="p-3">
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full">
@@ -194,7 +177,7 @@ const filteredEvents = computed(() => {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="event in filteredEvents" :key="event._id">
+                            <tr v-for="event in allEvents" :key="event._id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="font-medium text-gray-800">{{ event.name }}
