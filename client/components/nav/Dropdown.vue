@@ -1,7 +1,8 @@
 <template>
     <Menu as="div" class="relative text-left flex">
         <div class="h-10 w-10 flex">
-            <MenuButton class="rounded-full bg-gray-100 p-2 text-gray-600 flex w-full justify-center">
+            <MenuButton
+                class="rounded-full bg-gray-100 p-2 text-gray-600 flex w-full justify-center relative after:w-3 after:h-3 after:bg-red-500 after:rounded-full after:absolute after:right-0 after:top-0">
                 <IconPerson />
             </MenuButton>
         </div>
@@ -20,8 +21,10 @@
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
                     <NuxtLink to="/notifikace"
+                        class="relative after:w-3 after:h-3 after:bg-red-500 after:rounded-full after:absolute after:right-4 after:top-3"
                         :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                        Notifikace</NuxtLink>
+                        Notifikace
+                    </NuxtLink>
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
                     <NuxtLink to="/userEdit"

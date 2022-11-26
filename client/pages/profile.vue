@@ -34,15 +34,6 @@ export default {
                 <div class="text-base font-medium text-gray-600">+420 738 283 282</div>
                 <div class="text-base font-medium text-blue-600">13 sledujících</div>
             </div>
-
-            <div class="my-8">
-                <h3 class="text-3xl py-2 font-medium">Rezervace</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <ReservationCard />
-                    <ReservationCard />
-                    <ReservationCard />
-                </div>
-            </div>
         </div>
     </div>
 </template>
