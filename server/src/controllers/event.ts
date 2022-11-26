@@ -1,8 +1,9 @@
 import { Express, Router, Request, Response } from "express";
-import { IEventService } from "../services";
+import { IEventService, IRoomService, ITableService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
 import { authorizedMaker } from "../middleware/auth";
+import { IRoom, ITable } from "../interfaces";
 
 
 const authorized = authorizedMaker();
@@ -37,8 +38,38 @@ export class EventController extends Controller {
     }
 
     private async all(req: Request, res: Response) {
-        const events = await this.eventService.getAll()
-        res.status(200).json(events);
+        const events = await this.eventService.getAll();
+
+        const expandedEvents = [];
+        for (const event of events) {
+            const rooms: IRoom[] = [];
+            const tables: ITable[] = [];
+            for (const roomId of event.occupiedRooms) {
+                const room = await this.roomService.getById(roomId);
+                if (room != null) {
+                    rooms.push(room);
+                }
+            }
+            for (const tableId of event.occupiedTables) {
+                const table = await this.tableService.getById(tableId);
+                if (table != null) {
+
+                    tables.push(table);
+                }
+            }
+
+            expandedEvents.push({
+                _id: event._id,
+                name: event.name,
+                occupiedRooms: event.occupiedRooms,
+                occupiedTables: event.occupiedTables,
+                rooms: rooms,
+                tables: tables
+            });
+        }
+
+
+        res.status(200).json(expandedEvents);
     }
 
     private async next(req: Request, res: Response) {
@@ -46,33 +77,68 @@ export class EventController extends Controller {
         const from = fromRaw ? new Date(fromRaw as string) : new Date();
 
         const events = await this.eventService.getAllFromDate(from);
-        let expandedEvents = [];
+        const expandedEvents = [];
         for (const event of events) {
-            let rooms = [];
-            for (const room of event.occupiedRooms) {
-
+            const rooms: IRoom[] = [];
+            const tables: ITable[] = [];
+            for (const roomId of event.occupiedRooms) {
+                const room = await this.roomService.getById(roomId);
+                if (room != null) {
+                    rooms.push(room);
+                }
+            }
+            for (const tableId of event.occupiedTables) {
+                const table = await this.tableService.getById(tableId);
+                if (table != null) {
+                    tables.push(table);
+                }
             }
 
-
             expandedEvents.push({
+                _id: event._id,
                 name: event.name,
-                rooms: 
-            })
+                occupiedRooms: event.occupiedRooms,
+                occupiedTables: event.occupiedTables,
+                rooms: rooms,
+                tables: tables
+            });
         }
 
-        res.status(200).json(events);
+        res.status(200).json(expandedEvents);
     }
 
     private async one(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
         const event = await this.eventService.getById(id);
-
-        if (!event) {
-            res.status(404).json({ message: "Event not found" });
+        if (event == null) {
+            res.status(404).json({ message: "The event could not be found" });
             return;
         }
+        const rooms: IRoom[] = [];
+        const tables: ITable[] = [];
+        for (const roomId of event.occupiedRooms) {
+            const room = await this.roomService.getById(roomId);
+            if (room != null) {
+                rooms.push(room);
+            }
+        }
+        for (const tableId of event.occupiedTables) {
+            const table = await this.tableService.getById(tableId);
+            if (table != null) {
+                tables.push(table);
+            }
+        }
 
-        res.status(200).json(event);
+        const expandedEvent = {
+            _id: event._id,
+            name: event.name,
+            occupiedRooms: event.occupiedRooms,
+            occupiedTables: event.occupiedTables,
+            rooms: rooms,
+            tables: tables
+        };
+
+        res.status(200).json(expandedEvent);
     }
 
     private async create(req: Request, res: Response) {

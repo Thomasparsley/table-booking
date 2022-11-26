@@ -16,6 +16,14 @@ const filterTables = ref("");
 const filteredTables = computed(() => {
     return allTables.filter((table) => table.name.toLowerCase().includes(filterTables.value.toLowerCase()));
 });
+
+const allEvents = await fetchEvents() as any[];
+const filterEvents = ref("");
+
+const filteredEvents = computed(() => {
+    return allEvents.filter((event) => event.name.toLowerCase().includes(filteredEvents.value.toLowerCase()));
+});
+
 </script>
 
 <template>
@@ -158,7 +166,7 @@ const filteredTables = computed(() => {
             <label for="filter"
                 class="bg-gray-50 relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
 
-                <input type="text" id="filter" placeholder="Filtr"
+                <input v-model="filterEvents" type="text" id="filter" placeholder="Filtr"
                     class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm" />
                 <span
                     class="absolute left-5 top-2 -translate-y-1/4 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:text-xs">
@@ -172,7 +180,7 @@ const filteredTables = computed(() => {
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Název místnosti</div>
+                                    <div class="font-semibold text-left">Název akce</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Akce</div>
@@ -180,19 +188,19 @@ const filteredTables = computed(() => {
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
-                            <tr v-for="room in filteredRooms" :key="room._id">
+                            <tr v-for="event in filteredEvents" :key="event._id">
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="font-medium text-gray-800">{{ room.name }}
+                                        <div class="font-medium text-gray-800">{{ event.name }}
                                         </div>
                                     </div>
                                 </td>
 
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <NuxtLink :to="`/sprava/mistnosti/${room._id}/prehled`"
+                                        <NuxtLink :to="`/sprava/mistnosti/${event._id}/prehled`"
                                             class="font-medium text-gray-800">
-                                            Detail
+                                            Zobrazit
                                         </NuxtLink>
                                     </div>
                                 </td>

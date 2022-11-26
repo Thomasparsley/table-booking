@@ -1,3 +1,9 @@
+<script setup lang="ts">
+
+const { notification } = defineProps(["notification"])
+
+</script>
+
 <template>
     <div class="border border-gray-200">
         <div class="flex items-center p-4">

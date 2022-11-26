@@ -207,3 +207,10 @@ export async function fetchReservations(from: string) {
     });
     return data.value;
 }
+
+export async function fetchNotifications() {
+    const { data } = await useApiFetch("/users/me", {
+        credentials: "include",
+    });
+    return (data.value! as any).notifications as any[];
+}

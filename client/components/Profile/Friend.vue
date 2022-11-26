@@ -19,7 +19,6 @@ const getRandomAvatar = () => {
 }
 </script>
 
-
 <template>
     <div class="border-gray-700 bg-gray-50 rounded-lg p-4 shadow-sm shadow-indigo-100">
         <div class="flex items-center">
@@ -27,9 +26,6 @@ const getRandomAvatar = () => {
 
             <div class="ml-3 flex">
                 <h3 class="text-lg font-medium" v-if="friend">{{ friend.firstName }}</h3>
-                <div>
-                    <IconUserDelete class="w-8 h-8" />
-                </div>
             </div>
         </div>
     </div>

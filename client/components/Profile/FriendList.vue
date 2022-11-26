@@ -60,7 +60,7 @@ export default {
     <h3 class="my-2 text-3xl font-medium">
         Přátelé
     </h3>
-    <div v-if="ready" class="grid md:grid-cols-2">
+    <div v-if="ready" class="grid gap-4 md:grid-cols-2">
         <div v-for="friend in friends" :key="friend.id">
             <ProfileFriend :friend="friend" />
         </div>

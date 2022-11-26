@@ -10,6 +10,7 @@ function currentDate() {
 }
 
 const reservations = await fetchReservations(currentDate()) as any[];
+console.log(reservations);
 </script>
 
 <template>

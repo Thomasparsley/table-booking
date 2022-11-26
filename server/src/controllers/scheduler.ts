@@ -92,7 +92,7 @@ export class SchedulerController extends Controller {
 
     private async createSchedules(req: Request, res: Response) {
         const data = req.body;
-        const { rooms, tables, fromDate, toDate } = data;
+        const { rooms, tables, fromDate, toDate, name, description } = data;
         const from = new Date(fromDate);
         const to = new Date(toDate);
 
@@ -139,7 +139,9 @@ export class SchedulerController extends Controller {
         // Create new event
         const event = await this.eventService.create({
             fromDate: from,
-            toDate: to
+            toDate: to,
+            name: name,
+            description: description
         });
 
         // link all stores ids into event

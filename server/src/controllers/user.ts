@@ -2,7 +2,7 @@ import { Express, Router, Request, Response } from "express";
 import { IUserService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
-import { decodeToken } from "../helpers";
+import { decodeToken, generatePasswordHash } from "../helpers";
 import { authorizedMaker } from "../middleware/auth";
 
 
@@ -115,7 +115,11 @@ export class UserController extends Controller {
 
     private async update(req: Request, res: Response) {
         const id = new Types.ObjectId(req.params.id);
-        const user = await this.userService.update(id, req.body);
+        const json = req.body;
+        if (json.password) {
+            json.password = generatePasswordHash(json.password);
+        }
+        const user = await this.userService.update(id, json);
 
         if (!user) {
             res.status(404).json({ message: "User not found" });

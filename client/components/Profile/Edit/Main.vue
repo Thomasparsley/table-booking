@@ -1,3 +1,40 @@
+<script>
+export default {
+    data() {
+        return {
+            loggedUser: {},
+            password: "",
+            email: ""
+        }
+    },
+
+    mounted() {
+        this.loggedUser = fetchSelf()
+    },
+
+    methods: {
+        async onUpdatePassword() {
+            if (this.loggedUser.password == this.password) {
+                await this.sendUpdate({ password: this.password })
+            }
+            else {
+                console.log("Passwords Dissmatch")
+            }
+        },
+        async onUpdateEmail() {
+            await sendUpdate({ email: this.email })
+        },
+        async onUpdatePhone() {
+            await sendUpdate({ phone: this.phone })
+        },
+        async sendUpdate(data) {
+            const result = await useFetch("/user", { method: 'PUT', body: data })
+            console.log(JSON.stringify(result))
+            return result
+        }
+    }
+}
+</script>
 
 <template>
     <div>
@@ -17,23 +54,23 @@
                         <div class="bg-white px-4 py-5 sm:p-6">
                             <div class="py-4">
                                 <label for="Password" class="block text-sm font-medium text-gray-700">
-                                    Heslo
+                                    Nové Heslo
                                 </label>
 
-                                <input type="password" id="Password" name="password"
+                                <input v-model="this.loggedUser.password" type="password" id="Password" name="password"
                                     class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                             </div>
                             <div class="py-4">
                                 <label for="confPassword" class="block text-sm font-medium text-gray-700">
-                                    Potvrzení hesla
+                                    Potvrzení Hesla
                                 </label>
 
-                                <input type="password" id="confPassword" name="confPassword"
+                                <input v-model="this.password" type="password" id="confPassword" name="confPassword"
                                     class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                            <button type="submit"
+                            <button @click="onUpdatePassword" type="submit"
                                 class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Změnit</button>
                         </div>
                     </div>
@@ -60,7 +97,7 @@
                                 Email
                             </label>
 
-                            <input type="email" id="email" name="email"
+                            <input v-model="this.loggedUser.email" type="email" id="email" name="email"
                                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         </div>
                         <div class="py-4">
@@ -68,12 +105,12 @@
                                 Potvrzení emailu
                             </label>
 
-                            <input type="email" id="confEmail" name="confEmail"
+                            <input v-model="this.email" type="email" id="confEmail" name="confEmail"
                                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                        <button type="submit"
+                        <button @click="onUpdateEmail" type="submit"
                             class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Změnit</button>
                     </div>
                 </div>
@@ -100,7 +137,8 @@
                                 Tel
                             </label>
 
-                            <input type="tel" id="phone" name="phone" placeholder="123 456 789"
+                            <input v-model="this.loggedUser?.phone" type="tel" id="phone" name="phone"
+                                placeholder="123 456 789"
                                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         </div>
                     </div>

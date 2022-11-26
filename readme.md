@@ -29,7 +29,7 @@ Tyto funkce by aplikace měla implementovat, takže se na jejich dodržení zam�
 *Specifikace místností / stolů*
 - [x] Správa stolů / místností
 - [x] Možnost nastavit vybavení pro jednotlivé stoly (typ dokovací stanice, speciální monitory, a další)
-- [x] Možnost zablokovat určité stoly pro rezervace v určité dny / období
+- [ ] Možnost zablokovat určité stoly pro rezervace v určité dny / období
 
 *Rezervace stolů*
 - [x] Vyhledávání / filtrování dostupných stolů podle data

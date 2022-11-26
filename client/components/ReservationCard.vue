@@ -1,11 +1,18 @@
 <script setup lang="ts">
 const { reservation } = defineProps(["reservation"])
 
-const fromDate = new Date(reservation.from)
-const toDate = new Date(reservation.to)
+
+/* let fromDate = null;
+let toDate = null;
+
+
 
 const isReservationMoreThanOneDay = () => {
     return fromDate.getDate() !== toDate.getDate()
+} */
+
+function calcRoomChairs(tables: any[] = []) {
+    return tables.reduce((acc, table) => acc + table.seatCount, 0);
 }
 
 // const users = await fetchUsersFromReservation(reservation._id)
@@ -15,14 +22,14 @@ const isReservationMoreThanOneDay = () => {
     <div class="rounded-lg p-4 bg-white shadow shadow-indigo-100">
         <div class="flex flex-col space-y-1 p-2 border-l-4 border-green-500">
             <h3 class="text-xl font-bold text-gray-900">
-                Název rezervace
+                {{ reservation.name }}
             </h3>
             <div class="flex gap-1">
                 <UtilsBadge>
                     <IconPerson class="w-4 h-4" />
-                    8
+                    {{ calcRoomChairs(reservation.tables) }}
                 </UtilsBadge>
-                <UtilsBadge v-if="isReservationMoreThanOneDay()">Více denní</UtilsBadge>
+                <UtilsBadge>Více denní</UtilsBadge>
                 <UtilsBadge>Akce</UtilsBadge>
             </div>
         </div>
@@ -31,23 +38,23 @@ const isReservationMoreThanOneDay = () => {
             <dl class="flex flex-row flex-wrap gap-1 justify-between items-center">
                 <div>
                     <dd class="text-medium flex flex-col font-bold">
-                        <span>
+                        <!-- <span>
                             {{ fromDate.getDay() }}. {{ fromDate.getMonth() }} {{ fromDate.getFullYear() }},
                         </span>
                         <span>
                             {{ fromDate.getHours() }}:{{ fromDate.getMinutes() }}
-                        </span>
+                        </span> -->
                     </dd>
                 </div>
                 <IconArrorRight class="w-10 h-10" />
                 <div>
                     <dd class="text-medium flex flex-col font-bold">
-                        <span>
+                        <!-- <span>
                             {{ toDate.getDay() }}. {{ toDate.getMonth() }} {{ toDate.getFullYear() }},
                         </span>
                         <span>
                             {{ toDate.getHours() }}:{{ toDate.getMinutes() }}
-                        </span>
+                        </span> -->
                     </dd>
                 </div>
             </dl>

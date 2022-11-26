@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref } from 'vue';
+import { Ref } from "vue";
 
 definePageMeta({
     middleware: ["auth"]
@@ -16,6 +16,10 @@ function currentDate() {
     const date = new Date();
     date.setHours(date.getHours() + 1);
     return date.toISOString().substr(0, 16);
+}
+
+function stringToDate(dateString: string) {
+    return new Date(dateString);
 }
 
 const allStages = [{
@@ -42,7 +46,7 @@ const selectedFullTables = computed(() => {
 
 const selectedRooms: Ref<any[]> = ref([]);
 const selectedFullRooms = computed(() => {
-    return availableRooms.value.filter((room: any) => selectedRooms.value.includes(room._id));
+    return availableRooms.value.filter((room: any) => selectedRooms.value.includes(room.room._id));
 });
 
 async function performStage() {
@@ -52,8 +56,8 @@ async function performStage() {
 
     if (stage.value.id === 1) {
         availableTables.value = [];
-    }
-    if (stage.value.id === 2) {
+        availableRooms.value = [];
+    } else if (stage.value.id === 2) {
         availableTables.value = await fetchAvailableTablesInDataRage(
             reservationForm.value.fromDate,
             reservationForm.value.toDate
@@ -63,14 +67,14 @@ async function performStage() {
             reservationForm.value.fromDate,
             reservationForm.value.toDate
         ) as any[];
-
-        console.log(availableRooms.value);
     }
 }
 
 async function completedReservation() {
     const payload = {
-        rooms: [],
+        name: reservationForm.value.name,
+        description: reservationForm.value.description,
+        rooms: selectedRooms.value,
         tables: selectedTables.value,
         fromDate: reservationForm.value.fromDate,
         toDate: reservationForm.value.toDate
@@ -153,7 +157,7 @@ function calcRoomChairs(tables: any[] = []) {
                         </button>
                         <button type="submit"
                             class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
-                            @click.prevent="performStage">
+                            @click.prevent="performStage()">
                             <span class="font-medium">
                                 Vybrat stole
                             </span>
@@ -201,7 +205,7 @@ function calcRoomChairs(tables: any[] = []) {
                     </button>
                     <button type="submit"
                         class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
-                        @click.prevent="performStage">
+                        @click.prevent="performStage()">
                         <span class="font-medium">
                             Přejít ke založení rezervace
                         </span>
@@ -213,26 +217,55 @@ function calcRoomChairs(tables: any[] = []) {
         <section v-else>
             <div class="relative mx-auto max-w-screen-xl px-4 py-8">
                 <div class="mt-8 justify-between">
-                    <div class="max-w-[35ch]">
-                        <h1 class="text-2xl font-bold">
-                            <!-- {{ event.name }} -->
-                        </h1>
-                    </div>
-
 
                     <div>
                         <label for="name"
                             class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                             <span class="text-xs font-medium text-gray-700"> Název </span>
 
-                            <input type="text" id="name" placeholder=""
+                            <input type="text" id="name" placeholder="Název rezervace"
                                 class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                                v-model="newRoom.name" />
+                                v-model="reservationForm.name" />
                         </label>
                     </div>
 
-                    rezervace od: {{ reservationForm.fromDate }}
-                    rezervace do: {{ reservationForm.toDate }}
+                    <div class="mt-2 p-4">
+                        <dl class="flex flex-row flex-wrap gap-1 justify-between items-center">
+                            <div>
+                                <dd class="text-medium flex flex-col font-bold">
+                                    <span>
+                                        {{ stringToDate(reservationForm.fromDate).getDay() }}. {{
+                                                stringToDate(reservationForm.fromDate).getMonth()
+                                        }} {{
+        stringToDate(reservationForm.fromDate).getFullYear()
+}},
+                                    </span>
+                                    <span>
+                                        {{ stringToDate(reservationForm.fromDate).getHours() }}:{{
+                                                stringToDate(reservationForm.fromDate).getMinutes()
+                                        }}
+                                    </span>
+                                </dd>
+                            </div>
+                            <IconArrorRight class="w-10 h-10" />
+                            <div>
+                                <dd class="text-medium flex flex-col font-bold">
+                                    <span>
+                                        {{ stringToDate(reservationForm.toDate).getDay() }}. {{
+                                                stringToDate(reservationForm.toDate).getMonth()
+                                        }} {{
+        stringToDate(reservationForm.toDate).getFullYear()
+}},
+                                    </span>
+                                    <span>
+                                        {{ stringToDate(reservationForm.toDate).getHours() }}:{{
+                                                stringToDate(reservationForm.toDate).getMinutes()
+                                        }}
+                                    </span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
 
                     <div>
                         <label for="description"
@@ -241,7 +274,7 @@ function calcRoomChairs(tables: any[] = []) {
 
                             <textarea type="text" id="description" placeholder=""
                                 class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-                                v-model="newRoom.description"></textarea>
+                                v-model="reservationForm.description"></textarea>
                         </label>
                     </div>
 

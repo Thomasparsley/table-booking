@@ -6,4 +6,5 @@ export interface ITable {
     seatCount: number;
     roomId: Types.ObjectId;
     features: string[];
+    blockedDays: string[];
 }
