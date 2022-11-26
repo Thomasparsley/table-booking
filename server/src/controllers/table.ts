@@ -1,14 +1,14 @@
 import { Express, Router, Request, Response } from "express";
 import { Types } from "mongoose";
 import { DtoNewTable } from "../dtos";
-import { ITableService, IFeatureService } from "../services";
+import { ITableService, IFeatureService, IRoomService } from "../services";
 import { Controller } from "./controller";
 
 export class TableController extends Controller {
 
     constructor(
         private readonly tableService: ITableService,
-        private readonly featureService: IFeatureService,
+        private readonly roomService: IRoomService,
     ) {
         super();
     }
@@ -29,7 +29,21 @@ export class TableController extends Controller {
     }
 
     private async all(req: Request, res: Response) {
-        const tables = await this.tableService.getAll()
+        const tablesFromDb = await this.tableService.getAll()
+        const tables: any[] = []
+
+        for (const table of tablesFromDb) {
+            const roomId = table.roomId;
+            const room = await this.roomService.getById(roomId);
+            tables.push({
+                _id: table._id,
+                name: table.name,
+                seatCount: table.seatCount,
+                features: table.features,
+                roomId: table.roomId,
+                room: room
+            });
+        }
 
         res.status(200).json(tables);
     }
@@ -42,6 +56,11 @@ export class TableController extends Controller {
             res.status(404).json({ message: "Table not found" });
             return;
         }
+
+        const roomId = table.roomId;
+        const room = this.roomService.getById(roomId);
+        // @ts-ignore
+        table["room"] = room;
 
         res.status(200).json(table);
     }

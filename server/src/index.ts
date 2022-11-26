@@ -65,7 +65,7 @@ const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
-const tableController = new TableController(tableRepository, featureRepository);
+const tableController = new TableController(tableRepository, roomRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
 const scheduler = new SchedulerService(schedulerRepository);

@@ -4,12 +4,12 @@ export default {
     data() {
         return {
             filter: "",
-            loaded: false,
         }
     },
 
     computed: {
         filteredItems() {
+
             return this.rooms.concat(this.tables).filter(item => item.name.includes(this.filter))
             // .concat(this.tables).filter(item => item.name.includes(this.filter))
         }
@@ -18,8 +18,6 @@ export default {
     mounted() {
         this.tables.forEach(table => table.type = "stůl")
         this.rooms.forEach(room => room.type = "místnost")
-
-        this.loaded = true
     },
 
     methods: {
@@ -37,7 +35,7 @@ export default {
 </script>
 
 <template>
-    <section v-if="loaded" class="md:mt-8">
+    <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
                 <h2 class="font-semibold text-gray-800">Místnosti a Stoly</h2>
@@ -46,10 +44,6 @@ export default {
                     +
                 </button>
             </header>
-            <div class="flex gap-x-10">
-                <UtilsCheckBox>Stoly</UtilsCheckBox>
-                <UtilsCheckBox>Místnosti</UtilsCheckBox>
-            </div>
             <label for="filter"
                 class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
                 <input v-model="filter" type="text" id="filter" placeholder="Filtr"

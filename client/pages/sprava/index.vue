@@ -116,7 +116,8 @@ const filteredTables = computed(() => {
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="font-medium text-gray-800">Zobrazit</div>
+                                        <NuxtLink :to="`/sprava/mistnosti/${table.room._id}/stoly/${table._id}/upravit`"
+                                            class="font-medium text-gray-800">Upravit</NuxtLink>
                                     </div>
                                 </td>
                             </tr>

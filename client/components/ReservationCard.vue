@@ -15,7 +15,7 @@
             <dl class="flex flex-col justify-between items-center">
                 <div class="flex flex-row">
                     <dt class="text-medium">Od:</dt>
-                    <dd class="text-medium">
+                    <dd class="text-medium flex flex-row">
                         <span>
                             11. Čer 2022,
                         </span>
@@ -30,8 +30,8 @@
                 </div>
 
                 <div>
-                    <dt class="">Do:</dt>
-                    <dd class="text-sm flex flex-row">
+                    <dt class="text-medium">Do:</dt>
+                    <dd class="text-medium flex flex-row">
                         <span>
                             11. Čer 2022,
                         </span>
