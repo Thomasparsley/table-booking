@@ -9,5 +9,7 @@ export interface IUser {
     password: string;
     permissions: number;
     tokens: string[];
+    phone: string;
+    avatar: string;
     following: Types.ObjectId[];
 }

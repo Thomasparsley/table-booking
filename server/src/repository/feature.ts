@@ -19,16 +19,19 @@ export class FeatureRepository implements IFeatureService {
         return await this.featureModel.find({ isRoomFeature: isRoomFeature });
     }
 
-    async create(feature: DtoNewFeature): Promise<IFeature> {
-        const newFeature = new this.featureModel(feature);
+    async create(feature: DtoNewFeature, isRoomFeature: boolean): Promise<IFeature> {
+        //TODO: fix!
+        const anyFeature = feature as any;
+        anyFeature["isRoomFeature"] = isRoomFeature
+        const newFeature = new this.featureModel(anyFeature);
         return await newFeature.save();
     }
 
-    async update(id: Types.ObjectId, feature: DtoUpdateFeature): Promise<IFeature | null> {
-        return await this.featureModel.findByIdAndUpdate(id, feature, { new: false });
+    async update(id: Types.ObjectId, feature: DtoUpdateFeature, isRoomFeature: boolean): Promise<IFeature | null> {
+        return await this.featureModel.findOneAndUpdate({ _id: id, isRoomFeature: isRoomFeature }, feature, { new: false });
     }
 
-    async delete(id: Types.ObjectId): Promise<IFeature | null> {
-        return await this.featureModel.findByIdAndDelete(id);
+    async delete(id: Types.ObjectId, isRoomFeature: boolean): Promise<IFeature | null> {
+        return await this.featureModel.findOneAndDelete({ _id: id, isRoomFeature: isRoomFeature });
     }
 }

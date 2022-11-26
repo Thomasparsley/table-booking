@@ -1,9 +1,6 @@
 <script>
 export default {
-    props: ['table'],
-    methods: {
-
-    }
+    props: ['table']
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <Menu as="div" class="relative inline-block text-left flex">
+    <Menu as="div" class="relative text-left flex">
         <div class="h-10 w-10 flex">
             <MenuButton class="rounded-full bg-gray-100 p-2 text-gray-600 flex w-full justify-center">
                 <svg fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

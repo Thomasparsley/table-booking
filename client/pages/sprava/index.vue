@@ -1,9 +1,5 @@
 <script setup lang="ts">
 const allRooms: any[] = await fetchRooms();
-
-const self: any = await fetchSelf();
-
-console.log(self);
 </script>
 
 <template>
@@ -28,7 +24,7 @@ console.log(self);
 
         <ul>
             <li v-for="room in allRooms" :key="room._id">
-                <NuxtLink :to="`/sprava/mistnosti/prehled/${room._id}`">
+                <NuxtLink :to="`/sprava/mistnosti/${room._id}/prehled`">
                     {{ room.name }}
                 </NuxtLink>
             </li>

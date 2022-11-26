@@ -3,6 +3,7 @@ const route = useRoute();
 const id = route.params.id as string;
 
 const room: any = await fetchRoomById(id);
+const editPath = `/sprava/mistnosti/${id}/upravit`;
 </script>
 
 <template>
@@ -22,10 +23,7 @@ const room: any = await fetchRoomById(id);
                         <div>
                             <div class="prose max-w-none group-open:hidden">
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-                                    veniam dicta beatae eos ex error culpa delectus rem tenetur,
-                                    architecto quam nesciunt, dolor veritatis nisi minus
-                                    inventore, rerum at recusandae?
+                                    {{ room.description }}
                                 </p>
                             </div>
                         </div>
@@ -34,17 +32,23 @@ const room: any = await fetchRoomById(id);
 
                 <legend class="mb-1 text-sm font-medium">Color</legend>
                 <div class="flow-root">
-                    <div class="-m-0.5 flex flex-wrap">
+                    <div class="-m-0.5 flex gap-1 flex-wrap">
                         <UtilsBadge />
                         <UtilsBadge />
                         <UtilsBadge />
                     </div>
                 </div>
 
-                <button
-                    class="ml-3 block rounded bg-green-600 px-5 py-3 text-xs font-medium text-white hover:bg-green-500">
-                    Add to Cart
-                </button>
+                <div class="flex gap-4">
+                    <NuxtLink :to="editPath"
+                        class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
+                        Upravit místnost
+                    </NuxtLink>
+                    <NuxtLink :to="editPath"
+                        class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
+                        Správa stolů
+                    </NuxtLink>
+                </div>
             </div>
         </div>
     </section>

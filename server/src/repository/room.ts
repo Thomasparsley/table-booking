@@ -22,8 +22,8 @@ export class RoomRepository implements IRoomService {
         return await newUser.save();
     }
 
-    async update(id: Types.ObjectId, user: DtoUpdateRoom): Promise<IRoom | null> {
-        return await this.roomModel.findByIdAndUpdate(id, user, { new: false });
+    async update(id: Types.ObjectId, room: DtoUpdateRoom): Promise<IRoom | null> {
+        return await this.roomModel.findByIdAndUpdate(id, room, { new: false });
     }
 
     async delete(id: Types.ObjectId): Promise<IRoom | null> {

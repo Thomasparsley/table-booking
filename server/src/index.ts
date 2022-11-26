@@ -13,18 +13,21 @@ import { verifyToken } from "./helpers";
 import {
     RoomModel,
     TableModel,
-    UserModel
+    UserModel,
+    FeatureModel
 } from "./models"
 import {
     AuthController,
     RoomController,
     TableController,
     UserController,
+    FeatureController
 } from "./controllers";
 import {
     RoomRepository,
     TableRepository,
     UserRepository,
+    FeatureRepository
 } from "./repository";
 
 mongoose.connect("mongodb://127.0.0.1:27016/tablebooking");
@@ -54,16 +57,19 @@ const superSecretKey = "sdadsa";
 const roomRepository = new RoomRepository(RoomModel);
 const tableRepository = new TableRepository(TableModel);
 const userRepository = new UserRepository(UserModel);
+const featureRepository = new FeatureRepository(FeatureModel);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository);
 const tableController = new TableController(tableRepository);
 const userController = new UserController(userRepository);
+const featureController = new FeatureController(featureRepository);
 
 authController.installRoutes(app, "/api/auth");
 roomController.installRoutes(app, "/api/rooms");
 tableController.installRoutes(app, "/api/tables");
 userController.installRoutes(app, "/api/users");
+featureController.installRoutes(app, "/api/features");
 
 app.get("/ping", function (_, res) {
     res.status(200).write("Pong!");
@@ -109,6 +115,22 @@ app.listen(port, () => console.log("Listening"));
         tokens: []
     });
     user.save();
+    const user2 = new UserModel({
+        _id: new Types.ObjectId("123456789998"),
+        email: "test2@test.com",
+        firstName: "Tester1",
+        lastName: "Tester2",
+        following: [],
+        password: await generatePasswordHash("12345"),
+        permission: 0,
+        tokens: []
+    });
+    user2.save();
+}*/
+async function featureFill() {
+    const feature = new FeatureModel({
+        isRoomFeature: false,
+        name: "Do"
+    })
 }
-
-main()*/
+/*main()*/

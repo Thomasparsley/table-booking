@@ -4,50 +4,52 @@ export default {
         return {
             filter: "",
             users: [],
-            selectedTable: {},
-            editing: false,
-            loggedUser: {}
+            loggedUser: {},
+            loaded: false
         }
     },
 
-    async created() {
+    async mounted() {
+        console.log("Fetch self: ")
+        this.loggedUser = await fetchSelf();
+        console.log(JSON.stringify(this.loggedUser));
+
         console.log("created")
         this.users = await fetchUsers();
         console.log(this.users);
 
-        console.log("Fetch self: ")
-        this.loggedUser = await fetchSelf();
-        console.log(JSON.stringify(this.loggedUser));
+        this.loaded = true
     },
 
     methods: {
+        async onAddFollow(user) {
+            await addFollow(user._id)
+            this.loggedUser = await fetchSelf()
+        },
+        async onDeleteFollow(user) {
+            await deleteFollow(user._id)
+            this.loggedUser.following = this.loggedUser.following.filter(id => id != user._id)
+            this.loggedUser = await fetchSelf()
+        },
         followed(user) {
-            return true
-            //return this.loggedUser.following.includes(user._id)
+            console.log("following:" + JSON.stringify(this.loggedUser.following))
+            return this.loggedUser.following.includes(user._id)
         },
-        onAddFollow(user) {
-
-            // this.loggedUser = fetchSelf()
-        },
-        onDeleteFollow(user) {
-
-            // this.loggedUser = fetchSelf()
-        }
     },
 
     computed: {
         filteredUsers() {
             return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
-        }
+        },
     }
 }
 </script>
 
 <template>
-    <section class="md:mt-8">
+    <section v-if="loaded" class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
-                <h2 class="font-semibold text-gray-800">Uživatele</h2>
+                <h2 class="font-semibold text-gray-800">Uživatelé</h2>
             </header>
             <label for="UserEmail"
                 class="relative block overflow-hidden px-4 pt-4 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
@@ -88,7 +90,7 @@ export default {
                                     <div class="text-left">{{ user.email }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <button v-if="followed(user)" @click="onAddFollow(user)"
+                                    <button v-if="!followed(user)" @click="onAddFollow(user)"
                                         class="text-left">Follow</button>
                                     <button v-else @click="onDeleteFollow(user)" class="text-left">Unfollow</button>
                                 </td>
@@ -100,3 +102,7 @@ export default {
         </div>
     </section>
 </template>
+
+<style scoped>
+
+</style>

@@ -21,6 +21,8 @@ export class UserController extends Controller {
         router: Router = Router(),
     ) {
         router.get("/", (req, res) => this.all(req, res));
+        router.post("/follow/:id", (req, res) => this.addFollow(req, res));
+        router.delete("/follow/:id", (req, res) => this.deleteFollow(req, res));
         router.get("/me", (req, res) => this.me(req, res));
         router.get("/:id", (req, res) => this.one(req, res));
 
@@ -45,7 +47,60 @@ export class UserController extends Controller {
             return;
         }
 
-        res.status(200).json(user);
+        // omit tokens and password
+        const { tokens, password, ...safeUser } = user;
+        res.status(200).json(safeUser);
+    }
+
+    private async addFollow(req: Request, res: Response) {
+        const token = req.cookies[TokenCookieName];
+        const payload = decodeToken(token);
+        if (!payload) {
+            res.status(401).json({ message: "Invalid token" });
+            return;
+        }
+
+        const selfUser = await this.userService.getById(payload._id);
+        if (!selfUser) {
+            res.status(404).json({ message: "Source user not found" });
+            return;
+        }
+        const targetId = new Types.ObjectId(req.params.id);
+        const targetUser = await this.userService.getById(targetId);
+        if (!targetUser) {
+            res.status(404).json({ message: "Target user not found" });
+        }
+
+        selfUser.following.push(targetId);
+        this.userService.update(selfUser._id, selfUser);
+        res.status(200).json(selfUser);
+    }
+
+    private async deleteFollow(req: Request, res: Response) {
+        const token = req.cookies[TokenCookieName];
+        const payload = decodeToken(token);
+        if (!payload) {
+            res.status(401).json({ message: "Invalid token" });
+            return;
+        }
+
+        const selfUser = await this.userService.getById(payload._id);
+        if (!selfUser) {
+            res.status(404).json({ message: "Source user not found" });
+            return;
+        }
+
+        const targetId = new Types.ObjectId(req.params.id);
+
+        if (!selfUser.following.includes(targetId)) {
+            res.status(404).json({ message: "This user is not following the target user" });
+            return;
+        }
+
+        const index = selfUser.following.indexOf(targetId);
+        selfUser.following.splice(index, 1);
+        this.userService.update(selfUser._id, selfUser);
+        res.status(200).json(selfUser);
     }
 
     private async create(req: Request, res: Response) {
@@ -79,13 +134,23 @@ export class UserController extends Controller {
 
     private async me(req: Request, res: Response) {
         const token = req.cookies[TokenCookieName];
-        const payload = await decodeToken(token);
+        const payload = decodeToken(token);
         if (!payload) {
             res.status(401).json({ message: "Invalid token" });
             return;
         }
 
         const user = await this.userService.getById(payload._id);
-        res.status(200).json(user);
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+
+        // omit tokens and password
+
+
+        //@ts-ignore
+        const { tokens, password, ...safeUser } = user._doc;
+        res.status(200).json(safeUser);
     }
 }

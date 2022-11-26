@@ -1,80 +1,46 @@
+
 <template>
-    <!--
-  This component uses @tailwindcss/forms
-
-  yarn add @tailwindcss/forms
-  npm install @tailwindcss/forms
-
-  plugins: [require('@tailwindcss/forms')]
--->
-
-    <section class="bg-gray-100">
+    <section>
         <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
                 <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-                    <form action="" class="space-y-4">
+                    <h2 class="text-xl pt-2 font-medium">Přidání stůl</h2>
+                    <h3 class="text-l pb-2 bg-grey-300 font-medium">místnost ke které patří</h3>
+                    <form class="space-y-4">
                         <div>
-                            <label class="sr-only" for="name">Name</label>
+                            <label class="sr-only" for="name">Název</label>
                             <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Name" type="text"
                                 id="name" />
                         </div>
 
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div>
-                                <label class="sr-only" for="email">Email</label>
-                                <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Email address"
-                                    type="email" id="email" />
-                            </div>
-
-                            <div>
-                                <label class="sr-only" for="phone">Phone</label>
-                                <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Phone Number"
-                                    type="tel" id="phone" />
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                            <div>
-                                <input class="sr-only" id="option1" type="radio" tabindex="-1" />
-                                <label for="option1" class="block w-full rounded-lg border border-gray-200 p-3"
-                                    tabindex="0">
-                                    <span class="text-sm font-medium"> Option 1 </span>
-                                </label>
-                            </div>
-
-                            <div>
-                                <input class="sr-only" id="option2" type="radio" tabindex="-1" />
-                                <label for="option2" class="block w-full rounded-lg border border-gray-200 p-3"
-                                    tabindex="0">
-                                    <span class="text-sm font-medium"> Option 2 </span>
-                                </label>
-                            </div>
-
-                            <div>
-                                <input class="sr-only" id="option3" type="radio" tabindex="-1" />
-                                <label for="option3" class="block w-full rounded-lg border border-gray-200 p-3"
-                                    tabindex="0">
-                                    <span class="text-sm font-medium"> Option 3 </span>
-                                </label>
-                            </div>
+                        <div>
+                            <label for="feature-doc" class="block text-sm font-medium text-gray-700">Typ dokovací
+                                stanice</label>
+                            <select id="feature-doc" name="feature-doc"
+                                class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                <option>TX534</option>
+                                <option>AB 32 USB+</option>
+                                <option>ThunderFlame</option>
+                                <option>Electric S4</option>
+                            </select>
                         </div>
 
                         <div>
-                            <label class="sr-only" for="message">Message</label>
-                            <textarea class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Message"
-                                rows="8" id="message"></textarea>
+                            <label for="feature" class="block text-sm font-medium text-gray-700">speciální
+                                monitory</label>
+                            <select id="feature" name="feature"
+                                class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                <option>UltraWide BG35 8k</option>
+                                <option>SD wide 35 Logic</option>
+                                <option>MetalMonitor G43</option>
+                            </select>
                         </div>
 
                         <div class="mt-4">
                             <button type="submit"
-                                class="inline-flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto">
-                                <span class="font-medium"> Send Enquiry </span>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-3 h-5 w-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
+                                class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
+                                @click.prevent="">
+                                <span class="font-medium"> Přidat stůl</span>
                             </button>
                         </div>
                     </form>
