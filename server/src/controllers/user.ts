@@ -29,6 +29,7 @@ export class UserController extends Controller {
         router.post("/follow/:id", authorized, (req, res) => this.addFollow(req, res));
         router.delete("/follow/:id", authorized, (req, res) => this.deleteFollow(req, res));
         router.get("/me", authorized, (req, res) => this.me(req, res));
+        router.get("/me/is-admin", authorized, (req, res) => this.isAdmin(req, res));
         router.get("/:id", authorized, (req, res) => this.one(req, res));
 
         router.post("/", authorized, (req, res) => this.create(req, res));
@@ -36,6 +37,29 @@ export class UserController extends Controller {
         router.delete("/:id", authorized, (req, res) => this.delete(req, res));
 
         super.installRoutes(app, prefix, router);
+    }
+
+    private async isAdmin(req: Request, res: Response) {
+        const token = req.cookies[TokenCookieName];
+        const payload = decodeToken(token);
+        if (!payload) {
+            res.status(401).json({ message: "Invalid token" });
+            return;
+        }
+
+        const id = payload._id;
+        const user = await this.userService.getById(id)
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+
+        if (user.email === "test@test.com") {
+            res.status(200).json({ isAdmin: true });
+            return;
+        }
+
+        res.status(200).json({ isAdmin: false });
     }
 
     private async all(req: Request, res: Response) {

@@ -214,3 +214,19 @@ export async function fetchNotifications() {
     });
     return (data.value! as any).notifications as any[];
 }
+
+export async function isUserAdmin(): Promise<boolean> {
+    const { data } = await useApiFetch("/users/me/is-admin", {
+        credentials: "include",
+    });
+
+    return (data.value as any).isAdmin;
+}
+
+export async function useLogout() {
+    await useApiFetch("/auth/logout", {
+        method: "POST",
+        credentials: "include",
+    });
+    await navigateTo("/login");
+}

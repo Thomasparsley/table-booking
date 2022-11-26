@@ -28,9 +28,10 @@ export default {
             await sendUpdate({ phone: this.phone })
         },
         async sendUpdate(data) {
-            const result = await useFetch("/user", { method: 'PUT', body: data })
-            console.log(JSON.stringify(result))
-            return result
+            //const result = await useFetch("/user", { method: 'PUT', body: data })
+            //console.log(JSON.stringify(result))
+            //return result
+            console.log(JSON.stringify(data))
         }
     }
 }
@@ -137,8 +138,7 @@ export default {
                                 Tel
                             </label>
 
-                            <input v-model="this.loggedUser?.phone" type="tel" id="phone" name="phone"
-                                placeholder="123 456 789"
+                            <input type="tel" id="phone" name="phone" placeholder="123 456 789"
                                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         </div>
                     </div>

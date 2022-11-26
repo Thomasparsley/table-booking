@@ -147,14 +147,7 @@ function calcRoomChairs(tables: any[] = []) {
                 <UtilsHorizontalLine />
 
                 <div>
-                    <div class="flex gap-4">
-
-                        <button type="submit"
-                            class="inline-flex w-full items-center justify-center rounded-lg px-5 py-3c sm:w-auto border-2">
-                            <span class="font-medium">
-                                Zrušit rezervování
-                            </span>
-                        </button>
+                    <div class="flex justify-end gap-4">
                         <button type="submit"
                             class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
                             @click.prevent="performStage()">
@@ -196,13 +189,7 @@ function calcRoomChairs(tables: any[] = []) {
             <UtilsHorizontalLine />
 
             <div>
-                <div class="flex gap-4">
-                    <button type="submit"
-                        class="inline-flex w-full items-center justify-center rounded-lg px-5 py-3c sm:w-auto border-2">
-                        <span class="font-medium">
-                            zpět
-                        </span>
-                    </button>
+                <div class="flex justify-end gap-4">
                     <button type="submit"
                         class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
                         @click.prevent="performStage()">
@@ -302,14 +289,7 @@ function calcRoomChairs(tables: any[] = []) {
                     <UtilsHorizontalLine />
 
                     <div>
-                        <div class="flex gap-4">
-                            <button type="submit"
-                                class="inline-flex w-full items-center justify-center rounded-lg px-5 py-3c sm:w-auto border-2">
-                                <span class="font-medium">
-                                    Zpět
-                                </span>
-                            </button>
-
+                        <div class="flex justify-end gap-4">
                             <button type="submit"
                                 class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
                                 @click.prevent="completedReservation">
@@ -319,7 +299,6 @@ function calcRoomChairs(tables: any[] = []) {
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>

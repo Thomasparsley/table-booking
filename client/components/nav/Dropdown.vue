@@ -1,4 +1,15 @@
+<script>
+export default {
+    methods: {
+        async logout() {
+            await useLogout();
+        }
+    }
+}
+</script>
+
 <template>
+
     <Menu as="div" class="relative text-left flex">
         <div class="h-10 w-10 flex">
             <MenuButton
@@ -33,9 +44,9 @@
                     </MenuItem>
                 </div>
                 <div class="py-1">
-                    <MenuItem v-slot="{ active }">
-                    <a href="#"
-                        :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">Odhlásit</a>
+                    <MenuItem @click="logout" v-slot="{ active }">
+                    <div :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                        Odhlásit</div>
                     </MenuItem>
                 </div>
             </MenuItems>

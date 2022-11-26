@@ -43,7 +43,7 @@ export class EventController extends Controller {
         const expandedEvents = [];
         for (const event of events) {
             const rooms: IRoom[] = [];
-            const tables: ITable[] = [];
+            const tables: any[] = [];
             for (const roomId of event.occupiedRooms) {
                 const room = await this.roomService.getById(roomId);
                 if (room != null) {
@@ -53,8 +53,16 @@ export class EventController extends Controller {
             for (const tableId of event.occupiedTables) {
                 const table = await this.tableService.getById(tableId);
                 if (table != null) {
-
-                    tables.push(table);
+                    const room = await this.roomService.getById(table.roomId);
+                    tables.push({
+                        _id: table._id,
+                        blockedDays: table.blockedDays,
+                        features: table.features,
+                        name: table.name,
+                        roomId: table.roomId,
+                        seatCount: table.seatCount,
+                        room: room
+                    });
                 }
             }
 

@@ -58,13 +58,14 @@ app.use(cookieParser());
 const superSecretKey = "sdadsa";
 
 
-
+/*
 async function asda() {
     const a = await SchedulerStoreModel.find();
     console.log(a);
 }
 
 asda()
+*/
 
 const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
 
@@ -195,3 +196,9 @@ featureFill();*/
 }
 
 testScheduler();*/
+
+/*
+
+
+
+*/
