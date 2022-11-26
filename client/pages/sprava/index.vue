@@ -21,11 +21,11 @@ const filteredTables = computed(() => {
 <template>
     <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
-            <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-                <h2 class="font-semibold text-gray-800">Místnosti</h2>
+            <header class="items-center px-5 py-4 border-b border-gray-100 flex justify-between">
+                <h2 class="text-2xl font-semibold text-gray-800">Místnosti</h2>
                 <NuxtLink to="/sprava/mistnosti/pridat"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                    +
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-full">
+                    <IconAdd />
                 </NuxtLink>
             </header>
 
@@ -80,7 +80,7 @@ const filteredTables = computed(() => {
     <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100 flex">
-                <h2 class="font-semibold text-gray-800">Stoly</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">Stoly</h2>
             </header>
 
             <label for="filter"
@@ -140,11 +140,11 @@ const filteredTables = computed(() => {
 
     <section class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
-            <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-                <h2 class="font-semibold text-gray-800">Místnosti</h2>
+            <header class="items-center px-5 py-4 border-b border-gray-100 flex justify-between">
+                <h2 class="text-2xl font-semibold text-gray-800">Akce</h2>
                 <NuxtLink to="/sprava/mistnosti/pridat"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                    +
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 rounded-full">
+                    <IconAdd />
                 </NuxtLink>
             </header>
 

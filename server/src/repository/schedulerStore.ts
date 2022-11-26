@@ -12,6 +12,10 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         return await this.schedulerStoreModel.findById(id);
     }
 
+    async update(id: Types.ObjectId, store: PartialSchedulerStore): Promise<ISchedulerStore | null> {
+        return await this.schedulerStoreModel.findByIdAndUpdate(id, store);
+    }
+
     async getByStoreId(id: Types.ObjectId): Promise<ISchedulerStore[]> {
         return await this.schedulerStoreModel.find({ storedId: id });
     }

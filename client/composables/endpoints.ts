@@ -66,6 +66,13 @@ export async function fetchTableById(id: string) {
     return data.value;
 }
 
+export async function fetchAvailableTablesInDataRage(from: string, to: string) {
+    const { data } = await useApiFetch(`/scheduler/tables?from=${from}&to=${to}`, {
+        credentials: "include",
+    });
+    return data.value;
+}
+
 
 interface newTable {
 }

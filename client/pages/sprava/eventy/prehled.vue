@@ -34,12 +34,11 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                 </details>
 
                 <div class="my-4">
-                    <legend class="mb-2 text-base font-medium">Color</legend>
+                    <legend class="mb-2 text-base font-medium">Tagy</legend>
                     <div class="flow-root">
                         <div class="-m-0.5 flex gap-1 flex-wrap">
-                            <UtilsBadge />
-                            <UtilsBadge />
-                            <UtilsBadge />
+                            <UtilsBadge>x
+                            </UtilsBadge>
                         </div>
                     </div>
                 </div>
@@ -49,13 +48,14 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
                         Upravit event
                     </NuxtLink>
-                    <NuxtLink
-                        class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
-                        Smazat
-                    </NuxtLink>
+
                     <NuxtLink :to="tablesPath"
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
                         Správa stolů
+                    </NuxtLink>
+
+                    <NuxtLink class="w-64 mt-4 block rounded bg-red-600 px-5 py-3 text-xs font-medium text-white">
+                        Smazat
                     </NuxtLink>
                 </div>
             </div>

@@ -21,6 +21,7 @@ import {
     UserController,
     FeatureController,
     EventController,
+    SchedulerController
 } from "./controllers";
 import {
     RoomRepository,
@@ -72,6 +73,7 @@ const schedulerServices = new SchedulerService(
     tableRepository,
 );
 
+const schedulerController = new SchedulerController(schedulerServices);
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, roomRepository);

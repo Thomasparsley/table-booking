@@ -21,6 +21,15 @@ export class SchedulerService implements ISchedulerService {
         return true;
     }
 
+    async updateSchedule(id: Types.ObjectId, storedId: Types.ObjectId, isRoom: boolean, from: Date, to: Date) {
+        return this.schedulerStoreService.update(id, {
+            isRoom: isRoom,
+            from: from,
+            to: to,
+            storedId: storedId
+        });
+    }
+
     async schedule(id: Types.ObjectId, isRoom: boolean, from: Date, to: Date): Promise<boolean> {
         if (!(await this.canSchedule(id, from, to))) {
             return false;

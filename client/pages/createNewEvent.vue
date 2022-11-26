@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Ref } from 'vue';
+
 definePageMeta({
     middleware: ["auth"]
 })
@@ -10,6 +12,7 @@ const reservationForm = ref({
 
 function currentDate() {
     const date = new Date();
+    date.setHours(date.getHours() + 1);
     return date.toISOString().substr(0, 16);
 }
 
@@ -24,16 +27,25 @@ const allStages = [{
     percentage: 100
 }];
 
+let availableTables: Ref<any[]> = ref([]);
 
 const stage = ref(allStages[0]);
 
-function performStage() {
+async function performStage() {
     if (stage.value.id < allStages.length) {
         stage.value = allStages[stage.value.id];
     }
+
+    if (stage.value.id === 1) {
+        availableTables.value = [];
+    }
+    if (stage.value.id === 2) {
+        availableTables.value = await fetchAvailableTablesInDataRage(
+            reservationForm.value.fromDate,
+            reservationForm.value.toDate
+        ) as any[];
+    }
 }
-
-
 </script>
 
 <template>
@@ -42,7 +54,7 @@ function performStage() {
             <Progress :percentage="stage.percentage" />
         </div>
 
-        <div v-if="stage.id == 1" class="mx-auto flex flex-col justify-center">
+        <section v-if="stage.id == 1" class="mx-auto flex flex-col justify-center">
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col gap-4">
                     <div>
@@ -87,6 +99,10 @@ function performStage() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section v-if="stage.id == 2">
+
+        </section>
     </div>
 </template>
