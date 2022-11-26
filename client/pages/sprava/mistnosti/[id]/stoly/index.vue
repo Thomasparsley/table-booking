@@ -7,5 +7,5 @@ const pathToNew = `/sprava/mistnosti/${id}/stoly/pridat`;
 </script>
 
 <template>
-    <TableList :tables="tables" :pathToNew="pathToNew" />
+    <TableList :tables="tables" :pathToNew="pathToNew" :tableId="id" />
 </template>

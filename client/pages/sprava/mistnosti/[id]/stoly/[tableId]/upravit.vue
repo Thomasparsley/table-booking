@@ -1,19 +1,18 @@
 <script setup lang="ts">
 const route = useRoute();
 const id = route.params.id as string;
+const tableId = route.params.tableId as string;
+const tables = await fetchTablesInRoom(id) as any[];
 
 const room: any = await fetchRoomById(id);
+const table = tables.find((table) => table.id === tableId);
 
-const newTableForm = ref({
-    roomId: id,
-    name: "",
-    seatCount: 0,
-    docks: [],
-    monitors: [],
-})
+console.log(room);
+console.log(tables);
+console.log(table);
 
-async function sendNewTable() {
-    const payload = {
+async function sendUpdateTable() {
+    /* const payload = {
         name: newTableForm.value.name,
         seatCount: newTableForm.value.seatCount,
         roomId: newTableForm.value.roomId,
@@ -22,7 +21,7 @@ async function sendNewTable() {
 
     console.log(payload);
 
-    await createNewTable(payload);
+    await createNewTable(payload); */
 }
 </script>
 
@@ -37,13 +36,13 @@ async function sendNewTable() {
                         <div>
                             <label class="sr-only" for="name">Název stolu</label>
                             <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Name" type="text"
-                                id="name" v-model="newTableForm.name" />
+                                id="name" v-model="table.name" />
                         </div>
 
                         <div>
                             <label class="sr-only" for="chairs">Počet židlí</label>
                             <input class="" placeholder="Počet židlí:" min="1" max="10" type="number" id="chairs"
-                                v-model="newTableForm.seatCount" />
+                                v-model="table.seatCount" />
                         </div>
 
                         <div>
@@ -52,7 +51,7 @@ async function sendNewTable() {
                             </label>
                             <select id="feature-doc" name="feature-doc"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                multiple v-model="newTableForm.docks">
+                                multiple>
                                 <option>TX534</option>
                                 <option>AB 32 USB+</option>
                                 <option>ThunderFlame</option>
@@ -65,7 +64,7 @@ async function sendNewTable() {
                                 monitory</label>
                             <select id="feature-monitor" name="feature-monitor"
                                 class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                multiple v-model="newTableForm.monitors">
+                                multiple>
                                 <option>UltraWide BG35 8k</option>
                                 <option>SD wide 35 Logic</option>
                                 <option>MetalMonitor G43</option>
@@ -76,7 +75,7 @@ async function sendNewTable() {
                         <div class="mt-4">
                             <button type="submit"
                                 class="inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto"
-                                @click.prevent="sendNewTable">
+                                @click.prevent="sendUpdateTable">
                                 <span class="font-medium"> Přidat stůl</span>
                             </button>
                         </div>

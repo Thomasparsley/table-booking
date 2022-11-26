@@ -11,13 +11,16 @@ export default {
     computed: {
         filteredItems() {
             // pak vyfiltrovat
-            return this.room.concat(this.tables).filter(item => item.name.includes(this.filter))
+            console.log(JSON.stringify(this.rooms))
+            console.log(JSON.stringify(this.tables))
+            return this.rooms
+            // .concat(this.tables).filter(item => item.name.includes(this.filter))
         }
     },
 
     mounted() {
-        this.rooms = this.rooms.map(room => room.type = "místnost")
-        this.tables = this.tables.map(table => table.type = "stůl")
+        //this.rooms = this.rooms.map(room => room.type = "místnost")
+        //this.tables = this.tables.map(table => table.type = "stůl")
 
         this.loaded = true
     },
@@ -37,7 +40,7 @@ export default {
 </script>
 
 <template>
-    <section class="md:mt-8">
+    <section v-if="loaded" class="md:mt-8">
         <div class="w-full max-w-3xl mx-auto bg-white shadow-lg md:rounded-md border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
                 <h2 class="font-semibold text-gray-800">Místnosti a Stoly</h2>

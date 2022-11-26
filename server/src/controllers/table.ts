@@ -48,6 +48,7 @@ export class TableController extends Controller {
 
     private async create(req: Request, res: Response) {
         const payload: DtoNewTable = req.body;
+        console.log(payload);
 
         const { features, ...tablePayload } = payload;
         const featuresIds: Types.ObjectId[] = [];

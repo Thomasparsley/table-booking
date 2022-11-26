@@ -28,13 +28,17 @@ export default {
 </script>
 
 <template>
+    <h1 class="mt-4 ml-4 text-3xl font-medium">Vítej na domovské stránce</h1>
+    <UtilsHorizontalLine />
     <div>
-        <h1>Welcome to the homepage</h1>
-        <span>Hele, sem muzem neco dat kdyztak</span>
+
     </div>
-    <ReservationCard />
-    <AnythingList :items="tables" />
-
-    <RoomTable :tables="tables" :rooms="tables" />
-
+    <div class="my-8 ml-4 ">
+        <h3 class="text-3xl py-2 font-medium">Rezervace</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <ReservationCard />
+            <ReservationCard />
+            <ReservationCard />
+        </div>
+    </div>
 </template>

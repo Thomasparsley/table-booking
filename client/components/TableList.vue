@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ["tables", "pathToNew"],
+    props: ["tables", "pathToNew", "tableId"],
     data() {
         return {
             filter: "",
@@ -15,9 +15,6 @@ export default {
     },
 
     methods: {
-        onEdit(table) {
-            console.log("Editing " + JSON.stringify(table))
-        },
         onDelete(table) {
             console.log("Deleting " + JSON.stringify(table))
         }
@@ -51,7 +48,7 @@ export default {
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr>
                                 <th class="p-2 whitespace-nowrap">
-                                    <div class="font-semibold text-left">Název</div>
+                                    <div class="font-semibold text-left">Název či číslo stolu</div>
                                 </th>
                                 <th class="p-2 whitespace-nowrap">
                                     <div class="font-semibold text-left">Židlí</div>
@@ -73,7 +70,8 @@ export default {
                                     <div class="text-left">{{ table.seatCount }}</div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap flex gap-2">
-                                    <button @click="onEdit(table)" class="text-right">Edit</button>
+                                    <NuxtLink :to="`/sprava/mistnosti/${tableId}/stoly/${table._id}/upravit`"
+                                        class="text-right">Edit</NuxtLink>
                                     <button @click="onDelete(table)" class="text-right">Delete</button>
                                 </td>
                             </tr>

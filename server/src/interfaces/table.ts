@@ -5,5 +5,5 @@ export interface ITable {
     name: string;
     seatCount: number;
     roomId: Types.ObjectId;
-    features: Types.ObjectId[];
+    features: string[];
 }

@@ -1,4 +1,4 @@
-import { ISchedulerStoreService } from "../services";
+import { ISchedulerStoreService, PartialSchedulerStore } from "../services";
 import { Types } from "mongoose";
 import { ISchedulerStore } from "../interfaces";
 import { SchedulerStoreModel } from "../models";
@@ -14,5 +14,32 @@ export class SchedulerRepository implements ISchedulerStoreService {
 
     async getByStoreId(id: Types.ObjectId): Promise<ISchedulerStore[]> {
         return await this.schedulerStoreModel.find({ storedId: id });
+    }
+
+    async create(store: PartialSchedulerStore): Promise<ISchedulerStore> {
+        return await this.schedulerStoreModel.create(store);
+    }
+
+    async delete(id: Types.ObjectId): Promise<ISchedulerStore | null> {
+        return await this.schedulerStoreModel.findByIdAndDelete(id);
+    }
+
+    async getAllPendingSchedules(id: Types.ObjectId, from: Date): Promise<ISchedulerStore[] | null> {
+        return await this.schedulerStoreModel.find({
+            storedId: id,
+            from: {
+                $lte: from
+            },
+            to: {
+                $gte: from
+            }
+        });
+    }
+
+    async getAllOngoingSchedules(id: Types.ObjectId, from: Date, to: Date): Promise<ISchedulerStore[] | null> {
+        return await this.schedulerStoreModel.find({
+            storedId: id,
+
+        })
     }
 }

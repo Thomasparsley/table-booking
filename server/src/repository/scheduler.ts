@@ -3,25 +3,40 @@ import { Types } from "mongoose";
 
 export class SchedulerService implements ISchedulerService {
     constructor(private schedulerStoreService: ISchedulerStoreService) { }
-    canSchedule(id: Types.ObjectId, from: Date, to: Date): boolean {
-
-        return false;
+    async canSchedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean> {
+        const pending = await this.schedulerStoreService.getAllPendingSchedules(id, from);
+        if (pending) {
+            return false;
+        }
+        const ongoing = await this.schedulerStoreService.getAllOngoingSchedules(id, from, to);
+        if (ongoing) {
+            return false;
+        }
+        return true;
     }
 
-    schedule(id: Types.ObjectId, from: Date, to: Date): boolean {
+    async schedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean> {
         if (!this.canSchedule(id, from, to)) {
             return false;
         }
-        this.schedulerStoreService.create({
+        await this.schedulerStoreService.create({
             from: from,
             to: to,
             storedId: id
         });
+
+        return true;
     }
 
-    getSchedules(id: Types.ObjectId): { from: Date, to: Date }[] {
-
-
-        return [];
+    async getSchedules(id: Types.ObjectId): Promise<{ from: Date, to: Date }[]> {
+        const schedules = await this.schedulerStoreService.getByStoreId(id);
+        let extracedStore: { from: Date, to: Date }[] = [];
+        for (const schedule of schedules) {
+            extracedStore.push({
+                from: schedule.from,
+                to: schedule.to
+            });
+        }
+        return extracedStore;
     }
 }
