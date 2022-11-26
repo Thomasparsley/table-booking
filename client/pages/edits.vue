@@ -21,6 +21,18 @@ export default {
                 descript: 'nejmensi',
                 chairs: 5,
                 room: 10
+            }],
+            rooms: [{
+                name: 'nana',
+                descript: 'nejvetsi',
+                chairs: 4,
+                room: 12
+            },
+            {
+                name: 'Haha',
+                descript: 'nejmensi',
+                chairs: 5,
+                room: 10
             }]
         }
     },
@@ -30,6 +42,6 @@ export default {
 
 <template>
 
-    <BothTable :tables="tables" :rooms="tables" />
+    <BothTable :tables="tables" :rooms="rooms" />
 
 </template>

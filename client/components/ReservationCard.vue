@@ -1,27 +1,21 @@
 <template>
     <div class="block rounded-lg p-4 bg-white shadow-sm shadow-indigo-100">
         <div class="flex flex-col space-y-1 p-2 border-l-4 border-green-500">
-            <h3 class="text-xl font-bold text-gray-900">
+            <h3 class="text-2xl font-bold text-gray-900">
                 Název rezervace
             </h3>
             <div class="flex gap-1">
-                <span class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-500">
-                    Tag
-                </span>
-                <span class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-500">
-                    Tag
-                </span>
-                <span class="whitespace-nowrap rounded-full bg-purple-100 px-2.5 py-0.5 text-sm text-purple-500">
-                    Tag
-                </span>
+                <UtilsBadge />
+                <UtilsBadge />
+                <UtilsBadge />
             </div>
         </div>
 
         <div class="mt-2 p-4">
-            <dl class="flex justify-between items-center">
-                <div>
-                    <dt class="">Od:</dt>
-                    <dd class="text-sm flex flex-col">
+            <dl class="flex flex-col justify-between items-center">
+                <div class="flex flex-row">
+                    <dt class="text-medium">Od:</dt>
+                    <dd class="text-medium">
                         <span>
                             11. Čer 2022,
                         </span>
@@ -37,7 +31,7 @@
 
                 <div>
                     <dt class="">Do:</dt>
-                    <dd class="text-sm flex flex-col">
+                    <dd class="text-sm flex flex-row">
                         <span>
                             11. Čer 2022,
                         </span>

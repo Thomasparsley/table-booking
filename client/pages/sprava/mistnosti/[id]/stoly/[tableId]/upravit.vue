@@ -14,6 +14,7 @@ const tableFeatures: string[] = table.features;
 const selectedDocks = ref(tableFeatures.filter((feature: string) => defaultDocks.includes(feature)));
 const selectedMonitors = ref(tableFeatures.filter((feature: string) => defaultMonitors.includes(feature)));
 
+const tablesPath = `/sprava/mistnosti/${id}/stoly`;
 async function sendUpdateTable() {
     const payload = {
         name: table.name,
@@ -25,6 +26,7 @@ async function sendUpdateTable() {
     console.log(payload);
 
     await updateTable(tableId, payload);
+    navigateTo(tablesPath);
 }
 </script>
 
@@ -44,7 +46,7 @@ async function sendUpdateTable() {
 
                         <div>
                             <label class="sr-only" for="chairs">Počet židlí</label>
-                            <input class="" placeholder="Počet židlí:" min="1" max="10" type="number" id="chairs"
+                            <input class="" placeholder="Počet židlí:" min="1" max="15" type="number" id="chairs"
                                 v-model="table.seatCount" />
                         </div>
 

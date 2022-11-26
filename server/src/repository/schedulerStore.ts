@@ -41,8 +41,8 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         return await this.schedulerStoreModel.find({
             storedId: id,
             from: {
-                $gt: from,
-                $lt: to
+                $gte: from,
+                $lte: to
             }
         });
     }

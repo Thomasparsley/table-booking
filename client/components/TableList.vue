@@ -81,7 +81,4 @@ export default {
             </div>
         </div>
     </section>
-
-
-
 </template>

@@ -10,18 +10,14 @@ export default {
 
     computed: {
         filteredItems() {
-            // pak vyfiltrovat
-            console.log("rooms: " + JSON.stringify(this.rooms))
-            console.log("tables: " + JSON.stringify(this.tables))
-
-            return this.tables
+            return this.rooms.concat(this.tables).filter(item => item.name.includes(this.filter))
             // .concat(this.tables).filter(item => item.name.includes(this.filter))
         }
     },
 
-    created() {
-        //this.rooms = this.rooms.map(room => room.type = "místnost")
-        //this.tables = this.tables.map(table => table.type = "stůl")
+    mounted() {
+        this.tables.forEach(table => table.type = "stůl")
+        this.rooms.forEach(room => room.type = "místnost")
 
         this.loaded = true
     },
@@ -50,7 +46,7 @@ export default {
                     +
                 </button>
             </header>
-            <div class="flex gap-x-5">
+            <div class="flex gap-x-10">
                 <UtilsCheckBox>Stoly</UtilsCheckBox>
                 <UtilsCheckBox>Místnosti</UtilsCheckBox>
             </div>

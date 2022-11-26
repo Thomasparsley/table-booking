@@ -159,7 +159,7 @@ async function testScheduler() {
     const targetDate = new Date(today);
     targetDate.setDate(targetDate.getDate() + 6);
     console.log(await scheduler.canSchedule(id, today, targetDate));
-    scheduler.schedule(id,)
+    await scheduler.schedule(id, today, targetDate);
 
     const nextDate = new Date(today);
     nextDate.setDate(nextDate.getDate() + 1);
