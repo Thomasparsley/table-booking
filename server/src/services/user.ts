@@ -14,5 +14,13 @@ export interface IUserService {
     update(id: Types.ObjectId, user: DtoUpdateUser): Promise<IUser | null>;
     delete(id: Types.ObjectId): Promise<IUser | null>;
     getUserFollowing(id: Types.ObjectId): Promise<IUser[]>;
+    addSchedule(id: Types.ObjectId, scheduleId: Types.ObjectId): Promise<IUser | null>;
+
+
     sendScheduleDeletionById(user: IUser, schedule: ISchedulerStore): Promise<void>;
+
+    // notfications
+    getNotifications(id: Types.ObjectId): Promise<string[]>;
+    addNotification(id: Types.ObjectId, notification: string): Promise<void>
+    removeNotification(id: Types.ObjectId, notification: string): Promise<boolean>;
 }

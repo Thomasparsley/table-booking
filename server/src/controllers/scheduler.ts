@@ -34,9 +34,9 @@ export class SchedulerController extends Controller {
         router.put("/tables/:id", authorized, (req, res) => this.updateSchedule(req, res, false));
         router.delete("/tables/:id", authorized, (req, res) => this.deleteSchedule(req, res));
 
-        /*router.get("/rooms", authorized, (req, res) => this.allRoomsSchedules(req, res));
+        router.get("/rooms", authorized, (req, res) => this.allRoomsSchedules(req, res));
         router.get("/rooms/:id", authorized, (req, res) => this.roomSchedules(req, res));
-        router.post("/rooms/:id", authorized, (req, res) => this.createRoomSchedule(req, res));*/
+        //router.post("/rooms/:id", authorized, (req, res) => this.createRoomSchedule(req, res));
         router.put("/rooms/:id", authorized, (req, res) => this.updateSchedule(req, res, true));
         router.delete("/rooms/:id", authorized, (req, res) => this.deleteSchedule(req, res));
 
@@ -49,6 +49,7 @@ export class SchedulerController extends Controller {
 
         // free tables
         const allFreeTables = await this.tableService.getAll();
+
         const allReservedTables = await this.schedulerStoreModel.find();
 
         const allReservedTablesIds = allReservedTables.map((table) => table.storedId.toString());
@@ -58,7 +59,7 @@ export class SchedulerController extends Controller {
             return !allReservedTablesIds.includes(table._id.toString());
         });
 
-        // add room to free tablesß
+        // add room to free tables
         const tables = [];
         for (const table of freeTables) {
             const roomId = table.roomId;
@@ -135,14 +136,18 @@ export class SchedulerController extends Controller {
 
         for (const roomId of rooms) {
             const result = await this.schedulerService.schedule(roomId, true, from, to, user._id);
-            if (result != null)
+            if (result != null) {
                 roomsStore.push(result);
+                this.userService.addSchedule(user._id, result._id);
+            }
         }
 
         for (const table of tables) {
             const result = await this.schedulerService.schedule(table, false, from, to, user._id);
-            if (result != null)
+            if (result != null) {
                 tablesStore.push(result);
+                this.userService.addSchedule(user._id, result._id);
+            }
         }
 
         res.status(200).json({
@@ -151,13 +156,13 @@ export class SchedulerController extends Controller {
         });
         return;
 
-        /*const schedule = await this.schedulerService.schedule(id, false, from, to);
+        /* const schedule = await this.schedulerService.schedule(id, false, from, to);
         if (schedule != null) {
             res.status(200).json(schedule);
         }
         else {
             res.status(400);
-        }*/
+        } */
     }
 
     private async updateSchedule(req: Request, res: Response, isRoom: boolean) {
@@ -206,7 +211,35 @@ export class SchedulerController extends Controller {
     private async allRoomsSchedules(req: Request, res: Response) {
         const from = new Date(req.query.from as string) || new Date();
         const to = new Date(req.query.to as string);
-        const tables = await this.schedulerService.getAllAvailableRooms(from, to);
+
+        // free tables
+        const allFreeTables = await this.tableService.getAll();
+
+        const allReservedTables = await this.schedulerStoreModel.find();
+
+        const allReservedTablesIds = allReservedTables.map((table) => table.storedId.toString());
+
+        // from allFreeTables remove allReservedTables
+        const freeTables = allFreeTables.filter((table) => {
+            return !allReservedTablesIds.includes(table._id.toString());
+        });
+
+        // add room to free tables
+        const tables = [];
+        for (const table of freeTables) {
+            const roomId = table.roomId;
+            const room = await this.roomService.getById(roomId);
+            tables.push({
+                _id: table._id,
+                name: table.name,
+                seatCount: table.seatCount,
+                features: table.features,
+                roomId: table.roomId,
+                room: room
+            });
+        };
+
+
         return res.status(200).json(tables);
     }
 

@@ -70,7 +70,46 @@ export class UserRepository implements IUserService {
         return await this.userModel.find({ following: id });
     }
 
+    async addSchedule(id: Types.ObjectId, scheduleId: Types.ObjectId): Promise<IUser | null> {
+        return await this.userModel.findByIdAndUpdate(id, {
+            $push: {
+                upcomingMeetings: scheduleId
+            }
+        });
+    }
+
+
     async sendScheduleDeletionById(user: IUser, schedule: ISchedulerStore): Promise<void> {
         user.notifications.push(`An administrator has deleted your meeting from ${schedule.from} to ${schedule.to}`);
+    }
+
+    async getNotifications(id: Types.ObjectId): Promise<string[]> {
+        const user = await this.getById(id);
+        if (!user) return [];
+        return user.notifications;
+    }
+
+    async addNotification(id: Types.ObjectId, notification: string): Promise<void> {
+        const user = await this.getById(id);
+        if (!user) return;
+        user.notifications.push(notification);
+
+        this.userModel.findByIdAndUpdate(id, {
+            notifications: user.notifications
+        });
+    }
+
+    async removeNotification(id: Types.ObjectId, notification: string): Promise<boolean> {
+        const user = await this.getById(id);
+        if (!user) return false;
+
+        const index = user.notifications.indexOf(notification);
+        if (index < 0) return false;
+
+        user.notifications.splice(index, 1);
+        this.userModel.findByIdAndUpdate(id, {
+            notifications: user.notifications
+        });
+        return true;
     }
 }

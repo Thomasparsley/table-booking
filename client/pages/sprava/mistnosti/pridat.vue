@@ -24,15 +24,36 @@ async function sendNewRoom() {
 
                     <form class="space-y-4">
                         <div>
-                            <label class="sr-only" for="name">Název</label>
-                            <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Název" type="text"
-                                id="name" v-model="newRoom.name" />
+                            <label for="name"
+                                class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                                <span class="text-xs font-medium text-gray-700"> Název </span>
+
+                                <input type="text" id="name" placeholder="Název"
+                                    class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                                    v-model="newRoom.name" />
+                            </label>
                         </div>
 
                         <div>
-                            <label class="sr-only" for="place">Místo</label>
-                            <input class="w-full rounded-lg border-gray-200 p-3 text-sm" placeholder="Místo" type="text"
-                                id="place" v-model="newRoom.place" />
+                            <label for="name"
+                                class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                                <span class="text-xs font-medium text-gray-700"> Místo </span>
+
+                                <input type="text" id="place" placeholder="Místo"
+                                    class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                                    v-model="newRoom.place" />
+                            </label>
+                        </div>
+
+                        <div>
+                            <label for="name"
+                                class="block overflow-hidden rounded-md border border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600">
+                                <span class="text-xs font-medium text-gray-700"> Místo </span>
+
+                                <textarea type="text" id="place" placeholder="Místo"
+                                    class="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                                    v-model="newRoom.description" />
+                            </label>
                         </div>
 
                         <div>
