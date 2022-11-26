@@ -47,8 +47,8 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
         });
     }
 
-    async getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]> {
-        this.schedulerStoreModel.find({
+    async getAllUnavailableRooms(from: Date, to: Date): Promise<IRoom[]> {
+        return await this.schedulerStoreModel.find({
             $and: [
                 {
                     from: {
@@ -63,15 +63,34 @@ export class SchedulerStoreRepository implements ISchedulerStoreService {
                     to: {
                         $gte: from
                     }
+                },
+                {
+                    isRoom: true
                 }
             ]
         });
-        return [];
     }
-    async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
-        return [];
-    }
-    async getAllAvailable(from: Date, to: Date): Promise<ITable[]> {
-        return [];
+    async getAllUnavailableTables(from: Date, to: Date): Promise<ITable[]> {
+        return await this.schedulerStoreModel.find({
+            $and: [
+                {
+                    from: {
+                        $gte: from,
+                        $lte: to
+                    }
+                },
+                {
+                    from: {
+                        $lte: from
+                    },
+                    to: {
+                        $gte: from
+                    }
+                },
+                {
+                    isRoom: false
+                }
+            ]
+        });
     }
 }

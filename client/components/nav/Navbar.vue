@@ -8,14 +8,14 @@
                 <NuxtLink class="text-gray-900" to="/">
                     Domů
                 </NuxtLink>
+                <NuxtLink class="text-gray-900" to="/createNewEvent">
+                    Rezervace
+                </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/sprava">
-                    Správa
+                    Úpravy
                 </NuxtLink>
                 <NuxtLink class="text-gray-900" to="/users">
                     Uživatelé
-                </NuxtLink>
-                <NuxtLink class="text-gray-900" to="/edits">
-                    Úpravy
                 </NuxtLink>
             </nav>
 

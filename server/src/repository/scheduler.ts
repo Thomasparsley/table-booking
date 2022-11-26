@@ -1,9 +1,13 @@
-import { ISchedulerService, ISchedulerStoreService } from "../services"
+import { ISchedulerService, ISchedulerStoreService, ITableService, IRoomService } from "../services"
 import { Types } from "mongoose";
 import { ITable, IRoom } from "../interfaces";
 
 export class SchedulerService implements ISchedulerService {
-    constructor(private schedulerStoreService: ISchedulerStoreService) { }
+    constructor(
+        private schedulerStoreService: ISchedulerStoreService,
+        private roomService: IRoomService,
+        private tableService: ITableService
+    ) { }
     async canSchedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean> {
         const pending = await this.schedulerStoreService.getAllPendingSchedules(id, from);
         if (pending && pending.length > 0) {
@@ -14,52 +18,39 @@ export class SchedulerService implements ISchedulerService {
         if (ongoing && ongoing.length > 0) {
             return false;
         }
+        return true;
+    }
+
+    async schedule(id: Types.ObjectId, isRoom: boolean, from: Date, to: Date): Promise<boolean> {
+        if (!(await this.canSchedule(id, from, to))) {
+            return false;
+        }
+
+        await this.schedulerStoreService.create({
+            from: from,
+            storedId: id,
+            to: to,
+            isRoom: isRoom
+        });
 
         return true;
     }
 
-    async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
-        return [];
-        /*const tables = await this.schedulerStoreService.getAllAvailableTables(from, to) as ITable[];
-        const rooms = await this.schedulerStoreService.getAllAvailableRooms(from, to);
-        tables.filter(table => {
-            rooms.includes(table.roomId);
-        });*/
+    async getSchedules(id: Types.ObjectId): Promise<{ from: Date; to: Date; }[]> {
+        return this.schedulerStoreService.getByStoreId(id);
     }
 
     async getAllAvailableRooms(from: Date, to: Date): Promise<IRoom[]> {
-        return [];
+        const unavailableRooms = await this.schedulerStoreService.getAllUnavailableRooms(from, to);
+        const rooms = await this.roomService.getAll();
+        const result = rooms.filter(room => !unavailableRooms.includes(room));
+        return result;
     }
 
-    async schedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean> {
-        if (!this.canSchedule(id, from, to)) {
-            return false;
-        }
-        const schedule = await this.schedulerStoreService.create({
-            from: from,
-            to: to,
-            storedId: id
-        });
-
-        console.log(schedule);
-
-        return true;
-    }
-
-    async getAllAvailableTableReservations(from: Date, to: Date, isTable: boolean): Promise<ITable[]> {
-
-        return [];
-    }
-
-    async getSchedules(id: Types.ObjectId): Promise<{ from: Date, to: Date }[]> {
-        const schedules = await this.schedulerStoreService.getByStoreId(id);
-        let extracedStore: { from: Date, to: Date }[] = [];
-        for (const schedule of schedules) {
-            extracedStore.push({
-                from: schedule.from,
-                to: schedule.to
-            });
-        }
-        return extracedStore;
+    async getAllAvailableTables(from: Date, to: Date): Promise<ITable[]> {
+        const unavailableTables = await this.schedulerStoreService.getAllUnavailableTables(from, to);
+        const tables = await this.tableService.getAll();
+        const result = tables.filter(table => !unavailableTables.includes(table));
+        return result;
     }
 }

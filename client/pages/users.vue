@@ -11,9 +11,25 @@ export default {
 
         }
     },
+    methods: {
+        generateUsers() {
+            var i = 0;
+            const users = [];
+            while (i < 100) {
+                users.push({
+                    _id: "" + i,
+                    firstName: "Ahoj" + i,
+                    lastName: "Cus" + i,
+                    email: "nazdar@" + i,
+                    following: ["99"]
+                })
+            }
+            return users;
+        }
+    }
 }
 </script>
 
 <template>
-    <UsersTable />
+    <UsersTable :sampleUsers="generateUsers()" />
 </template>

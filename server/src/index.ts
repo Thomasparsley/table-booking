@@ -15,7 +15,8 @@ import {
     TableModel,
     UserModel,
     FeatureModel,
-    SchedulerStoreModel
+    SchedulerStoreModel,
+
 } from "./models"
 import {
     AuthController,
@@ -60,12 +61,12 @@ const superSecretKey = "sdadsa";
 
 
 const schedulerRepository = new SchedulerStoreRepository(SchedulerStoreModel);
-const scheduler = new SchedulerService(schedulerRepository);
 
 const roomRepository = new RoomRepository(RoomModel);
-const tableRepository = new TableRepository(TableModel, scheduler);
+const tableRepository = new TableRepository(TableModel);
 const userRepository = new UserRepository(UserModel);
 const featureRepository = new FeatureRepository(FeatureModel);
+const scheduler = new SchedulerService(schedulerRepository, roomRepository, tableRepository);
 
 const authController = new AuthController(userRepository, superSecretKey);
 const roomController = new RoomController(roomRepository, tableRepository);
@@ -113,28 +114,29 @@ app.listen(port, () => console.log("Listening"));
 
 /*async function main() {
     const user = new UserModel({
-        _id: new Types.ObjectId("123456789999"),
+        _id: new Types.ObjectId("125556789999"),
         email: "test@test.com",
-        firstName: "Test1",
-        lastName: "Test2",
+        firstName: "Test3",
+        lastName: "Test4",
         following: [],
         password: await generatePasswordHash("12345"),
         permissions: 0,
         tokens: []
     });
-    user.save();
+    await user.save();
     const user2 = new UserModel({
-        _id: new Types.ObjectId("123456789998"),
+        _id: new Types.ObjectId("123996789998"),
         email: "test2@test.com",
-        firstName: "Tester1",
-        lastName: "Tester2",
+        firstName: "Tester5",
+        lastName: "Tester6",
         following: [],
         password: await generatePasswordHash("12345"),
         permission: 0,
         tokens: []
     });
-    user2.save();
+    await user2.save();
 }*/
+/*main()*/
 /*async function featureFill() {
     const feature = new FeatureModel({
         isRoomFeature: false,
@@ -154,8 +156,7 @@ app.listen(port, () => console.log("Listening"));
 }
 
 featureFill();*/
-/*main()*/
-
+/*
 async function testScheduler() {
     const id = new Types.ObjectId("abcdefghijkl");
     const today = new Date();
@@ -171,4 +172,4 @@ async function testScheduler() {
     console.log(await scheduler.canSchedule(id, nextDate, prevDate));
 }
 
-testScheduler();
+testScheduler();*/

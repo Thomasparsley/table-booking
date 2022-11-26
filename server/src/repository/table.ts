@@ -7,8 +7,7 @@ import { Types } from "mongoose";
 
 export class TableRepository implements ITableService {
     constructor(
-        private readonly tableModel: typeof TableModel,
-        private readonly scheduler: ISchedulerService
+        private readonly tableModel: typeof TableModel
     ) { }
 
     async getById(id: Types.ObjectId): Promise<ITable | null> {

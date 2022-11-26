@@ -6,6 +6,7 @@ export type PartialSchedulerStore = {
     from: Date;
     to: Date;
     storedId: Types.ObjectId;
+    isRoom: boolean;
 }
 
 export interface ISchedulerStoreService {
@@ -15,5 +16,6 @@ export interface ISchedulerStoreService {
     delete(id: Types.ObjectId): Promise<ISchedulerStore | null>;
     getAllPendingSchedules(id: Types.ObjectId, from: Date): Promise<ISchedulerStore[] | null>;
     getAllOngoingSchedules(id: Types.ObjectId, from: Date, to: Date): Promise<ISchedulerStore[] | null>;
-    getAllAvailable(from: Date, to: Date): Promise<ITable[]>;
+    getAllUnavailableTables(from: Date, to: Date): Promise<ITable[]>;
+    getAllUnavailableRooms(from: Date, to: Date): Promise<IRoom[]>;
 }

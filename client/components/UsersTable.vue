@@ -1,5 +1,6 @@
 <script>
 export default {
+    props: ['sampleUsers'],
     data() {
         return {
             filter: "",
@@ -10,13 +11,14 @@ export default {
     },
 
     async mounted() {
+        console.log(JSON.stringify(sampleUsers))
         console.log("Fetch self: ")
-        this.loggedUser = await fetchSelf();
-        console.log(JSON.stringify(this.loggedUser));
+        //this.loggedUser = await fetchSelf();
+        //console.log(JSON.stringify(this.loggedUser));
 
         console.log("created")
-        this.users = await fetchUsers();
-        console.log(this.users);
+        //this.users = await fetchUsers();
+        //console.log(this.users);
     },
 
     methods: {
@@ -37,7 +39,7 @@ export default {
 
     computed: {
         filteredUsers() {
-            return this.users.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
+            return this.sampleUsers.filter(user => user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter))
         },
     }
 }
