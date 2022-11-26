@@ -8,9 +8,10 @@ export default {
 
     data() {
         return {
-
+            onlyFoll: false
         }
     },
+
     methods: {
         generateUsers() {
             var i = 0;
@@ -32,5 +33,5 @@ export default {
 </script>
 
 <template>
-    <UsersTable :sampleUsers="generateUsers()" />
+    <UsersTable :onlyFoll="onlyFoll" />
 </template>

@@ -1,5 +1,5 @@
 module.exports = {
-    theme: {
+    /* theme: {
         colors: {
             'blue': '#0024D3',
             'red': '#F06473',
@@ -11,5 +11,5 @@ module.exports = {
             sans: ['Open Sans', 'sans-serif'],
             serif: ['Arial', 'serif'],
         }
-    }
+    } */
 }

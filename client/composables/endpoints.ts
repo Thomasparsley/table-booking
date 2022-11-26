@@ -4,12 +4,16 @@ const tokenName = "token";
 
 //#region Rooms
 export async function fetchRooms() {
-    const { data } = await useApiFetch("/rooms");
+    const { data } = await useApiFetch("/rooms", {
+        credentials: "include",
+    });
     return data.value as any[];
 }
 
 export async function fetchRoomById(id: string) {
-    const { data } = await useApiFetch(`/rooms/${id}`);
+    const { data } = await useApiFetch(`/rooms/${id}`, {
+        credentials: "include",
+    });
     return data.value;
 }
 
@@ -24,7 +28,8 @@ interface updateRoom extends newRoom { }
 export async function createRoom(newRoom: newRoom) {
     const { data } = await useApiFetch("/rooms", {
         method: "POST",
-        body: JSON.stringify(newRoom)
+        body: JSON.stringify(newRoom),
+        credentials: "include",
     });
     return data.value;
 }
@@ -32,25 +37,32 @@ export async function createRoom(newRoom: newRoom) {
 export async function updateRoom(id: string, room: newRoom) {
     const { data } = await useApiFetch(`/rooms/${id}`, {
         method: "PUT",
-        body: JSON.stringify(room)
+        body: JSON.stringify(room),
+        credentials: "include",
     });
     return data.value;
 }
 
 export async function fetchTablesInRoom(id: string) {
-    const { data } = await useApiFetch(`/rooms/tables/${id}`);
+    const { data } = await useApiFetch(`/rooms/tables/${id}`, {
+        credentials: "include",
+    });
     return data.value;
 }
 //#endregion
 
 //#region Tables
 export async function fetchTables() {
-    const { data } = await useApiFetch("/tables");
+    const { data } = await useApiFetch("/tables", {
+        credentials: "include",
+    });
     return data.value;
 }
 
 export async function fetchTableById(id: string) {
-    const { data } = await useApiFetch(`/tables/${id}`);
+    const { data } = await useApiFetch(`/tables/${id}`, {
+        credentials: "include",
+    });
     return data.value;
 }
 
@@ -70,7 +82,8 @@ export async function createNewTable(table: newTable) {
 export async function updateTable(id: string, table: newTable) {
     const { data } = await useApiFetch(`/tables/${id}`, {
         method: "PUT",
-        body: JSON.stringify(table)
+        body: JSON.stringify(table),
+        credentials: "include",
     });
     return data.value;
 }
@@ -80,7 +93,8 @@ export async function updateTable(id: string, table: newTable) {
 
 export async function createTableFeature(name: string) {
     const { data } = await useApiFetch("/features/tables", {
-        method: "POST"
+        method: "POST",
+        credentials: "include",
     });
 }
 
@@ -101,14 +115,17 @@ export interface DtoUpdateUser extends DtoNewUser {
 }
 
 export async function fetchUsers() {
-    const { data } = await useApiFetch("/users");
+    const { data } = await useApiFetch("/users", {
+        credentials: "include",
+    });
     return data.value;
 }
 
 export async function updateUser(id: string, newUser: DtoUpdateUser) {
     const { data } = await useApiFetch(`/users/${id}`, {
         method: "PUT",
-        body: newUser
+        body: JSON.stringify(newUser),
+        credentials: "include",
     });
 }
 
@@ -117,7 +134,9 @@ export async function deleteUser(id: string) {
 }
 
 export async function fetchUserById(id: string) {
-    const { data } = await useApiFetch(`/users/${id}`);
+    const { data } = await useApiFetch(`/users/${id}`, {
+        credentials: "include",
+    });
     return data.value;
 }
 

@@ -11,7 +11,8 @@ const authorized = authorizedMaker();
 export class SchedulerController extends Controller {
 
     constructor(
-        private readonly roomService: ISchedulerService
+        private readonly roomService: IRoomService,
+        private readonly tableService: ITableService
     ) {
         super();
     }
@@ -30,10 +31,8 @@ export class SchedulerController extends Controller {
         super.installRoutes(app, prefix, router);
     }
 
-    private async allTableSchedules(req: Request, res: Response) {
-        const from = new Date(req.query.from as string) || new Date();
-        const to = new Date(req.query.to as string);
-        const schedules = scheduler.
+    private async all(_: Request, res: Response) {
+        const rooms = await this.roomService.getAll()
         return res.status(200).json(rooms);
     }
 

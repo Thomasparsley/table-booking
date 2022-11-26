@@ -20,7 +20,9 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                         {{ room.name }}
                     </h1>
 
-                    <p class="mt-0.5 text-sm">Ikona {{ room.place }}</p>
+                    <p class="mt-0.5 text-sm">
+                        <IconPlace /> {{ room.place }}
+                    </p>
                 </div>
 
                 <details class="group relative mt-4">

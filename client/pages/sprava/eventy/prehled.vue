@@ -26,7 +26,7 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                         <div>
                             <div class="max-w-none">
                                 <p>
-                                    {{ room.description }}
+                                    <!-- {{ event.description }} -->
                                 </p>
                             </div>
                         </div>
@@ -47,7 +47,11 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                 <div class="flex gap-4">
                     <NuxtLink :to="editPath"
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
-                        Upravit místnost
+                        Upravit event
+                    </NuxtLink>
+                    <NuxtLink
+                        class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">
+                        Smazat
                     </NuxtLink>
                     <NuxtLink :to="tablesPath"
                         class="w-64 mt-4 block rounded bg-blue-600 px-5 py-3 text-xs font-medium text-white hover:bg-blue-500">

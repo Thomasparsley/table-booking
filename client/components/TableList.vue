@@ -16,7 +16,6 @@ export default {
 
     methods: {
         onDelete(table) {
-            console.log("Deleting " + JSON.stringify(table))
         }
     }
 }

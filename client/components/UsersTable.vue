@@ -1,51 +1,47 @@
 <script>
 export default {
-    props: ['sampleUsers'],
     data() {
+        const route = useRoute();
+        const onlyFollow = route.query.onlyFollow === "true";
+
         return {
             filter: "",
             users: [],
             loggedUser: {
-                fallowing: ["50"]
+                following: ["50"]
             },
             loaded: false,
-            includeFallowing: true,
+            onlyFollowing: onlyFollow
         }
     },
 
     async mounted() {
-        console.log("Fetch self: ")
-        //this.loggedUser = await fetchSelf();
-        //console.log(JSON.stringify(this.loggedUser));
-
-        //this.users = await fetchUsers();
-        //console.log(this.users);
+        this.loggedUser = await fetchSelf();
+        this.users = await fetchUsers();
     },
 
     methods: {
         async onAddFollow(user) {
-            return true
             await addFollow(user._id)
             this.loggedUser = await fetchSelf()
         },
         async onDeleteFollow(user) {
-            return true
             await deleteFollow(user._id)
             this.loggedUser.following = this.loggedUser.following.filter(id => id != user._id)
             this.loggedUser = await fetchSelf()
         },
         followed(user) {
-            return true
-            console.log("following:" + JSON.stringify(this.loggedUser.following))
             return this.loggedUser.following.includes(user._id)
         },
     },
 
     computed: {
         filteredUsers() {
-            const result = this.sampleUsers.filter(user.firstName.includes(this.filter) || user.lastName.includes(this.filter) || user.email.includes(this.filter)))
-            if (this.includeFallowing) {
-                return result.filter(user => this.loggedUser.fallowing.includes(user._id));
+            const result = this.users.filter(user => user.firstName.includes(this.filter) ||
+                user.lastName.includes(this.filter) || user.email.includes(this.filter))
+
+            if (this.onlyFollowing) {
+                return result.filter(user => this.loggedUser.following.includes(user._id));
             }
             return result;
         }
@@ -71,7 +67,7 @@ export default {
                 </span>
             </label>
             <div class="form-check ml-5 mt-5">
-                <input v-model="includeFallowing"
+                <input v-model="onlyFollowing"
                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                     type="checkbox" value="" id="flexCheckChecked" checked>
                 <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">

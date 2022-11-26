@@ -3,7 +3,6 @@ export default {
     props: ['tables'],
     methods: {
         async submitEvent() {
-            console.log(tables);
         }
     }
 }

@@ -27,8 +27,6 @@ async function sendUpdateTable() {
         features: [...selectedDocks.value, ...selectedMonitors.value]
     }
 
-    console.log(payload);
-
     await updateTable(tableId, payload);
     navigateTo(tablesPath);
 }

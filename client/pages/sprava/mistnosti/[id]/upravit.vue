@@ -8,8 +8,6 @@ const id = route.params.id as string;
 
 const room: any = await fetchRoomById(id);
 
-console.log(room);
-
 async function sendUpdateRoom() {
     await updateRoom(id, room);
     navigateTo(`/sprava/mistnosti/${id}/prehled`);

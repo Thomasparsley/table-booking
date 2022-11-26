@@ -11,9 +11,6 @@ export default {
 
     computed: {
         filteredItems() {
-            console.log("rooms: " + this.includeRooms)
-            console.log("tables: " + this.includeTables)
-
             if (this.includeRooms && this.includeTables) {
                 return this.rooms.concat(this.tables).filter(item => item.name.includes(this.filter))
             }
@@ -35,13 +32,10 @@ export default {
 
     methods: {
         onEdit(item) {
-            console.log("Editing " + JSON.stringify(item))
         },
         onDelete(item) {
-            console.log("Deleting " + JSON.stringify(item))
         },
         onAdd() {
-            console.log("Creating new item")
         }
     }
 }

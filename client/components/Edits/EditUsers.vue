@@ -3,8 +3,6 @@ export default {
     props: ['users'],
     methods: {
         async submitEvent() {
-            console.log(users
-            );
         }
     }
 }
