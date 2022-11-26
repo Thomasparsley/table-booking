@@ -1,5 +1,5 @@
 import { Express, Router, Request, Response } from "express";
-import { IEventService, IRoomService, ITableService } from "../services";
+import { IEventService, ISchedulerService, IRoomService, ITableService } from "../services";
 import { Types } from "mongoose";
 import { Controller } from "./controller";
 import { authorizedMaker } from "../middleware/auth";
@@ -15,7 +15,8 @@ export class EventController extends Controller {
     constructor(
         private readonly eventService: IEventService,
         private readonly roomService: IRoomService,
-        private readonly tableService: ITableService
+        private readonly tableService: ITableService,
+        private readonly schedulerService: ISchedulerService
     ) {
         super();
     }
@@ -25,14 +26,50 @@ export class EventController extends Controller {
         prefix: string | null = null,
         router: Router = Router(),
     ) {
-        router.get("/", authorized, (req, res) => this.all(req, res));
-        router.get("/next", authorized, (req, res) => this.next(req, res));
-        router.get("/:id", authorized, (req, res) => this.one(req, res));
+        router.get("/", authorized, (req, res) => {
+            try {
+                this.all(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.get("/next", authorized, (req, res) => {
+            try {
+                this.next(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.get("/:id", authorized, (req, res) => {
+            try {
+                this.one(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
 
-        router.post("/", authorized, (req, res) => this.create(req, res));
-        router.put("/:id", authorized, (req, res) => this.update(req, res));
-        router.delete("/:id", authorized, (req, res) => this.delete(req, res));
+        router.post("/", authorized, (req, res) => {
+            try {
+                this.create(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.put("/:id", authorized, (req, res) => {
+            try {
+                this.update(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.delete("/:id", authorized, (req, res) => {
+            try {
+                this.delete(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
         super.installRoutes(app, prefix, router);
     }
@@ -66,9 +103,12 @@ export class EventController extends Controller {
                 }
             }
 
+            const schedule = await this.schedulerService.getById(event.schedule);
+
             expandedEvents.push({
                 _id: event._id,
                 name: event.name,
+                schedule: event.schedule,
                 occupiedRooms: event.occupiedRooms,
                 occupiedTables: event.occupiedTables,
                 rooms: rooms,

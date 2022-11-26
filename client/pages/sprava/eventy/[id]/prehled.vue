@@ -6,13 +6,13 @@ definePageMeta({
 const route = useRoute();
 const id = route.params.id as string;
 
-const room: any = await fetchRoomById(id);
-const editPath = `/sprava/mistnosti/${id}/upravit`;
-const tablesPath = `/sprava/mistnosti/${id}/stoly`;
+const event: any = await fetchEventById(id);
+
+console.log(event);
 </script>
 
 <template>
-    <section>
+    <!--     <section>
         <div class="relative mx-auto max-w-screen-xl px-4 py-8">
             <div class="mt-8 justify-between">
 
@@ -111,5 +111,5 @@ const tablesPath = `/sprava/mistnosti/${id}/stoly`;
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 </template>

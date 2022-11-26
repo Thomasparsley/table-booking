@@ -219,8 +219,15 @@ export class SchedulerController extends Controller {
         if (schedule) {
             res.status(200).json(schedule);
             const user = await this.userService.getById(schedule.user);
-            if (user != null)
-                this.userService.sendScheduleDeletionById(user, schedule);
+            if (user != null) {
+                const room = await this.roomService.getById(schedule._id);
+                let message = `Your meeting at ${schedule.from} till ${schedule.to}`
+                if (room) {
+                    message += ` in room ${room.name}`;
+                }
+                message += " has been cancelled.";
+                this.userService.addNotification(user._id, message);
+            }
         }
         else {
             res.status(400);

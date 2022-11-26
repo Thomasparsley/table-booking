@@ -230,3 +230,10 @@ export async function useLogout() {
     });
     await navigateTo("/login");
 }
+
+export async function fetchEventById(id: string) {
+    const { data } = await useApiFetch(`/events/${id}`, {
+        credentials: "include",
+    });
+    return data.value;
+}

@@ -15,19 +15,79 @@ export class FeatureController extends Controller {
         prefix: string | null = null,
         router: Router = Router(),
     ) {
-        router.get("/table", (req, res) => this.all(req, res, false));
-        router.get("/table/:id", (req, res) => this.one(req, res, false));
+        router.get("/table", (req, res) => {
+            try {
+                this.all(req, res, false)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.get("/table/:id", (req, res) => {
+            try {
+                this.one(req, res, false)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
-        router.post("/table", (req, res) => this.create(req, res, false));
-        router.put("/table/:id", (req, res) => this.update(req, res, false));
-        router.delete("/table/:id", (req, res) => this.delete(req, res, false));
+        router.post("/table", (req, res) => {
+            try {
+                this.create(req, res, false)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.put("/table/:id", (req, res) => {
+            try {
+                this.update(req, res, false)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.delete("/table/:id", (req, res) => {
+            try {
+                this.delete(req, res, false)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
-        router.get("/room", (req, res) => this.all(req, res, true));
-        router.get("/room/:id", (req, res) => this.one(req, res, true));
+        router.get("/room", (req, res) => {
+            try {
+                this.all(req, res, true)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.get("/room/:id", (req, res) => {
+            try {
+                this.one(req, res, true)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
-        router.post("/room", (req, res) => this.create(req, res, true));
-        router.put("/room/:id", (req, res) => this.update(req, res, true));
-        router.delete("/room/:id", (req, res) => this.delete(req, res, true));
+        router.post("/room", (req, res) => {
+            try {
+                this.create(req, res, true)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.put("/room/:id", (req, res) => {
+            try {
+                this.update(req, res, true)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.delete("/room/:id", (req, res) => {
+            try {
+                this.delete(req, res, true)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
         super.installRoutes(app, prefix, router);
     }

@@ -81,6 +81,7 @@ async function completedReservation() {
     };
 
     await pushReservation(payload);
+    await navigateTo('/')
 }
 
 function switchSelectedTable(tableId: string) {

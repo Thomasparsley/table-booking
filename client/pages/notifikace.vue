@@ -1,5 +1,18 @@
-<script setup lang="ts">
-const allUserNotification = await fetchNotifications() as any[];
+<script>
+
+export default {
+    data() {
+        return {
+            allUserNotification: []
+        }
+    },
+    async mounted() {
+        console.log("Fečuju")
+        this.allUserNotification = await fetchNotifications()
+        console.log(JSON.stringify(this.allUserNotification))
+    }
+}
+
 </script>
 
 <template>

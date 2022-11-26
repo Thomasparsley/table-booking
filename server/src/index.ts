@@ -87,7 +87,7 @@ const roomController = new RoomController(roomRepository, tableRepository);
 const tableController = new TableController(tableRepository, roomRepository);
 const userController = new UserController(userRepository);
 const featureController = new FeatureController(featureRepository);
-const eventController = new EventController(eventRepository, roomRepository, tableRepository);
+const eventController = new EventController(eventRepository, roomRepository, tableRepository, schedulerServices);
 
 authController.installRoutes(app, "/api/auth");
 roomController.installRoutes(app, "/api/rooms");

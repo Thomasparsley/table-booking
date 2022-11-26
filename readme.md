@@ -40,13 +40,13 @@ Tyto funkce by aplikace měla implementovat, takže se na jejich dodržení zam�
 
 *Uživatelé*
 - [x] Přihlašování uživatele na základě přihlašovacího jména, hesla (případně emailu)
-- [ ] Možnost spravovat základní informace o vlastním účtu (změna emailu, telefonu, avatara, atd.)
+- [x] Možnost spravovat základní informace o vlastním účtu (změna emailu, telefonu, avatara, atd.)
 - [x] Nastavení sledování konkrétních uživatelů (nutno potvrdit daným uživatelem) - u sledovaného uživatele dostanete notifikaci při provedené rezervaci na konkrétní den daným uživatelem.
 - [ ] Nastavení pro preferované stoly na základě určitého druhu vybavení (zohledněno při filtrování stolů)
   
 *Uživatelské role*
-- [ ] Vhodně zvolené uživatelské role s různými právy přístupu a správy systému
-- [ ] Rozlišení alespoň dvou rolí: uživatel a administrátor
+- [x] Vhodně zvolené uživatelské role s různými právy přístupu a správy systému
+- [x] Rozlišení alespoň dvou rolí: uživatel a administrátor
 
 *Notifikace*
 - [ ] Upozornění v případě zrušení vytvořené rezervace administrátorem
@@ -64,7 +64,7 @@ Tyto funkce by aplikace měla implementovat, takže se na jejich dodržení zam�
 - [ ] Přehled o tom, kteří uživatelé si stoly rezervují nejčastěji
 
 *Uživatelské rozhraní aplikace*
-- [ ] použití barev, loga a typografických prvků podle grafického manuálu Forvia/Hella
+- [x] použití barev, loga a typografických prvků podle grafického manuálu Forvia/Hella
 - manuál najdeš v tomto repozitáři
 
 ### A další doplňkové funkce.. :)

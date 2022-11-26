@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const currentPath = computed(() => route.path);
+const isAdmin = await isUserAdmin();
 </script>
 
 <template>
@@ -18,6 +19,7 @@ const currentPath = computed(() => route.path);
             </NuxtLink>
             <NuxtLink class="flex-shrink-0 pl-4 text-gray-900 hover:text-blue-500" to="/sprava" :class="{
                 'text-blue-500': currentPath === `/sprava`,
+                'hidden': !isAdmin,
             }">
                 <IconConfig />
             </NuxtLink>

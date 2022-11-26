@@ -3,6 +3,7 @@ export default {
     methods: {
         async logout() {
             await useLogout();
+            await navigateTo("/login")
         }
     }
 }

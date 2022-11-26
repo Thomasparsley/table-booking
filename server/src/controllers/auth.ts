@@ -30,10 +30,34 @@ export class AuthController extends Controller {
         prefix: string | null = null,
         router: Router = Router(),
     ) {
-        router.post("/login", (req, res) => this.login(req, res));
-        router.post("/renew", (req, res) => this.renew(req, res));
-        router.post("/validate", (req, res) => this.validate(req, res));
-        router.post("/logout", (req, res) => this.logout(req, res));
+        router.post("/login", (req, res) => {
+            try {
+                this.login(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.post("/renew", (req, res) => {
+            try {
+                this.renew(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.post("/validate", (req, res) => {
+            try {
+                this.validate(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        router.post("/logout", (req, res) => {
+            try {
+                this.logout(req, res)
+            } catch (error) {
+                console.error(error);
+            }
+        });
 
         super.installRoutes(app, prefix, router);
     }

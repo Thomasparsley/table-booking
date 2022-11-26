@@ -21,6 +21,10 @@ export class SchedulerService implements ISchedulerService {
         return true;
     }
 
+    async getById(id: Types.ObjectId): Promise<ISchedulerStore | null> {
+        return await this.schedulerStoreService.getById(id);
+    }
+
     async deleteSchedule(id: Types.ObjectId): Promise<ISchedulerStore | null> {
         return await this.schedulerStoreService.delete(id);
     }

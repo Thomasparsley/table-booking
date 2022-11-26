@@ -4,6 +4,7 @@ import { ISchedulerStore } from "../interfaces";
 import { PartialSchedulerStore } from "./schedulerStore";
 
 export interface ISchedulerService {
+    getById(id: Types.ObjectId): Promise<ISchedulerStore | null>;
     canSchedule(id: Types.ObjectId, from: Date, to: Date): Promise<boolean>;
     schedule(id: Types.ObjectId, isRoom: boolean, from: Date, to: Date, user: Types.ObjectId): Promise<ISchedulerStore | null>;
     updateSchedule(id: Types.ObjectId, store: PartialSchedulerStore): Promise<ISchedulerStore | null>;

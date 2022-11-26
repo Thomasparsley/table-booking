@@ -3,6 +3,12 @@ definePageMeta({
     middleware: ["auth"]
 })
 
+function currentDate() {
+    const date = new Date();
+    date.setHours(date.getHours() + 1);
+    return date.toISOString().substr(0, 16);
+}
+
 const allRooms: any[] = await fetchRooms();
 const filterRooms = ref("");
 
@@ -17,7 +23,7 @@ const filteredTables = computed(() => {
     return allTables.filter((table) => table.name.toLowerCase().includes(filterTables.value.toLowerCase()));
 });
 
-const allEvents = await fetchEvents() as any[];
+const allEvents = await fetchReservations(currentDate()) as any[];
 const filterEvents = ref("");
 
 const filteredEvents = computed(() => {

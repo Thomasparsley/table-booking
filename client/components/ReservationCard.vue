@@ -17,7 +17,7 @@ function calcRoomChairs(tables: any[] = []) {
 </script>
 
 <template>
-    <NuxtLink class="text-gray-900 hover:text-blue-500" :to=`/sprava/eventy/${reservation._id}/prehled`>
+    <NuxtLink class="text-gray-900 hover:text-blue-500" :to="`/sprava/eventy/${reservation._id}/prehled`">
         <div class="rounded-lg p-4 bg-white shadow shadow-indigo-100">
             <div class="flex flex-col space-y-1 p-2 border-l-4 border-green-500">
                 <h3 class="text-xl font-bold text-gray-900">

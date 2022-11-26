@@ -48,9 +48,9 @@ const { name, place } = defineProps({
 
             <div class="flex flex-row gap-1" v-if="features.length > 1">
                 <IconTool />
-                <p class="text-sm text-gray-600">
-                    {{ features }}
-                </p>
+                <div v-for="feature in features" class="text-sm text-gray-600">
+                    {{ feature }}
+                </div>
             </div>
         </div>
     </article>
